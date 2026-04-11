@@ -1,0 +1,8 @@
+{
+  "extends": "@i-factory/config/typescript/nextjs",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "include": ["src/**/*"]
+}

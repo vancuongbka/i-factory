@@ -1,0 +1,89 @@
+{
+  "metadata": {
+    "appName": "i-factory",
+    "tagline": "Manufacturing Execution System"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "production": "Production",
+    "workOrders": "Work Orders",
+    "bom": "Bill of Materials",
+    "inventory": "Inventory",
+    "qualityControl": "Quality Control",
+    "reports": "Reports",
+    "notifications": "Notifications",
+    "factories": "Factories",
+    "users": "Users"
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signInSubtitle": "Sign in to continue",
+    "pageTitle": "Sign In — i-factory"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "KPI cards and realtime charts will be added here.",
+    "pageTitle": "Dashboard — i-factory"
+  },
+  "production": {
+    "title": "Production Orders",
+    "pageTitle": "Production — i-factory",
+    "detail": {
+      "title": "Production Order #{id}",
+      "pageTitle": "Production Order — i-factory"
+    }
+  },
+  "workOrders": {
+    "title": "Work Orders",
+    "pageTitle": "Work Orders — i-factory",
+    "new": {
+      "title": "Create New Work Order",
+      "pageTitle": "Create Work Order — i-factory"
+    },
+    "detail": {
+      "title": "Work Order #{id}",
+      "pageTitle": "Work Order — i-factory"
+    }
+  },
+  "bom": {
+    "title": "Bill of Materials (BOM)",
+    "pageTitle": "BOM — i-factory"
+  },
+  "inventory": {
+    "title": "Inventory Management",
+    "pageTitle": "Inventory — i-factory",
+    "materials": {
+      "title": "Materials List",
+      "pageTitle": "Materials — i-factory"
+    },
+    "movements": {
+      "title": "Stock Movements",
+      "pageTitle": "Stock Movements — i-factory"
+    }
+  },
+  "qualityControl": {
+    "title": "Quality Control (QC)",
+    "pageTitle": "Quality Control — i-factory",
+    "inspections": {
+      "title": "Quality Inspection Records",
+      "pageTitle": "Inspections — i-factory"
+    }
+  },
+  "reports": {
+    "title": "Production Reports",
+    "subtitle": "Generate async reports. You will be notified when results are ready.",
+    "pageTitle": "Reports — i-factory"
+  },
+  "factories": {
+    "title": "Factory Management",
+    "pageTitle": "Factories — i-factory"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "pageTitle": "Notifications — i-factory"
+  },
+  "users": {
+    "title": "User Management",
+    "pageTitle": "User Management — i-factory"
+  }
+}

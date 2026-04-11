@@ -1,0 +1,89 @@
+{
+  "metadata": {
+    "appName": "i-factory",
+    "tagline": "Hệ thống Quản lý Sản xuất"
+  },
+  "nav": {
+    "dashboard": "Tổng quan",
+    "production": "Sản xuất",
+    "workOrders": "Lệnh Công việc",
+    "bom": "Định mức NVL",
+    "inventory": "Kho hàng",
+    "qualityControl": "Kiểm soát CL",
+    "reports": "Báo cáo",
+    "notifications": "Thông báo",
+    "factories": "Nhà máy",
+    "users": "Người dùng"
+  },
+  "auth": {
+    "signIn": "Đăng nhập",
+    "signInSubtitle": "Đăng nhập để tiếp tục",
+    "pageTitle": "Đăng nhập — i-factory"
+  },
+  "dashboard": {
+    "title": "Tổng quan",
+    "subtitle": "KPI cards và realtime charts sẽ được thêm vào đây.",
+    "pageTitle": "Tổng quan — i-factory"
+  },
+  "production": {
+    "title": "Lệnh Sản xuất",
+    "pageTitle": "Sản xuất — i-factory",
+    "detail": {
+      "title": "Lệnh Sản xuất #{id}",
+      "pageTitle": "Chi tiết Lệnh Sản xuất — i-factory"
+    }
+  },
+  "workOrders": {
+    "title": "Lệnh Công việc",
+    "pageTitle": "Lệnh Công việc — i-factory",
+    "new": {
+      "title": "Tạo Lệnh Công việc mới",
+      "pageTitle": "Tạo Lệnh Công việc — i-factory"
+    },
+    "detail": {
+      "title": "Lệnh Công việc #{id}",
+      "pageTitle": "Chi tiết Lệnh Công việc — i-factory"
+    }
+  },
+  "bom": {
+    "title": "Định mức Nguyên vật liệu (BOM)",
+    "pageTitle": "Định mức NVL — i-factory"
+  },
+  "inventory": {
+    "title": "Quản lý Kho hàng",
+    "pageTitle": "Kho hàng — i-factory",
+    "materials": {
+      "title": "Danh sách Nguyên vật liệu",
+      "pageTitle": "Nguyên vật liệu — i-factory"
+    },
+    "movements": {
+      "title": "Phiếu Nhập / Xuất kho",
+      "pageTitle": "Nhập/Xuất kho — i-factory"
+    }
+  },
+  "qualityControl": {
+    "title": "Kiểm soát Chất lượng (QC)",
+    "pageTitle": "Kiểm soát Chất lượng — i-factory",
+    "inspections": {
+      "title": "Phiếu Kiểm tra Chất lượng",
+      "pageTitle": "Phiếu Kiểm tra — i-factory"
+    }
+  },
+  "reports": {
+    "title": "Báo cáo Sản xuất",
+    "subtitle": "Tạo báo cáo async. Kết quả sẽ được thông báo khi sẵn sàng.",
+    "pageTitle": "Báo cáo — i-factory"
+  },
+  "factories": {
+    "title": "Quản lý Nhà máy",
+    "pageTitle": "Nhà máy — i-factory"
+  },
+  "notifications": {
+    "title": "Thông báo",
+    "pageTitle": "Thông báo — i-factory"
+  },
+  "users": {
+    "title": "Quản lý Người dùng",
+    "pageTitle": "Quản lý Người dùng — i-factory"
+  }
+}

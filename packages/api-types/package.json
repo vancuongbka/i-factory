@@ -1,0 +1,20 @@
+{
+  "name": "@i-factory/api-types",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Shared Zod schemas, TypeScript types, and enums for i-factory",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/"
+  },
+  "dependencies": {
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@i-factory/config": "workspace:*",
+    "typescript": "^5.5.0"
+  }
+}

@@ -1,0 +1,6 @@
+export enum WorkCenterType {
+  MACHINE = 'MACHINE',
+  ASSEMBLY = 'ASSEMBLY',
+  INSPECTION = 'INSPECTION',
+  PACKING = 'PACKING',
+}

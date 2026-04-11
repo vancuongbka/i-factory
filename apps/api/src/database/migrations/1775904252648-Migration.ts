@@ -1,0 +1,60 @@
+import { MigrationInterface, QueryRunner } from "typeorm";
+
+export class Migration1775904252648 implements MigrationInterface {
+    name = 'Migration1775904252648'
+
+    public async up(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`CREATE TYPE "public"."production_orders_status_enum" AS ENUM('DRAFT', 'PLANNED', 'IN_PROGRESS', 'PAUSED', 'COMPLETED', 'CANCELLED')`);
+        await queryRunner.query(`CREATE TABLE "production_orders" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "factoryId" uuid NOT NULL, "code" character varying(50) NOT NULL, "productName" character varying(200) NOT NULL, "quantity" numeric(12,3) NOT NULL, "unit" character varying(20) NOT NULL, "status" "public"."production_orders_status_enum" NOT NULL DEFAULT 'DRAFT', "plannedStartDate" TIMESTAMP WITH TIME ZONE NOT NULL, "plannedEndDate" TIMESTAMP WITH TIME ZONE NOT NULL, "actualStartDate" TIMESTAMP WITH TIME ZONE, "actualEndDate" TIMESTAMP WITH TIME ZONE, "completedQuantity" numeric(12,3) NOT NULL DEFAULT '0', "bomId" uuid, "productionLineId" uuid, "customFields" jsonb, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP, CONSTRAINT "PK_44d72e026027e3448b5d655e16e" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "work_order_steps" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "workOrderId" uuid NOT NULL, "stepNumber" integer NOT NULL, "name" character varying(200) NOT NULL, "description" character varying(500), "estimatedMinutes" integer, "requiredSkills" text array NOT NULL DEFAULT '{}', "isCompleted" boolean NOT NULL DEFAULT false, "completedAt" TIMESTAMP WITH TIME ZONE, CONSTRAINT "PK_0ab1db514ea990b05bb3828ac61" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TYPE "public"."work_orders_status_enum" AS ENUM('PENDING', 'ASSIGNED', 'IN_PROGRESS', 'ON_HOLD', 'COMPLETED', 'REJECTED', 'CANCELLED')`);
+        await queryRunner.query(`CREATE TABLE "work_orders" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "factoryId" uuid NOT NULL, "productionOrderId" uuid NOT NULL, "code" character varying(50) NOT NULL, "description" character varying(500), "status" "public"."work_orders_status_enum" NOT NULL DEFAULT 'PENDING', "assignedTo" uuid, "plannedStartDate" TIMESTAMP WITH TIME ZONE NOT NULL, "plannedEndDate" TIMESTAMP WITH TIME ZONE NOT NULL, "actualStartDate" TIMESTAMP WITH TIME ZONE, "actualEndDate" TIMESTAMP WITH TIME ZONE, "customFields" jsonb, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP, CONSTRAINT "PK_29f6c1884082ee6f535aed93660" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TYPE "public"."users_role_enum" AS ENUM('SUPER_ADMIN', 'FACTORY_ADMIN', 'PRODUCTION_MANAGER', 'QC_INSPECTOR', 'WAREHOUSE_STAFF', 'OPERATOR', 'VIEWER')`);
+        await queryRunner.query(`CREATE TABLE "users" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "username" character varying(50) NOT NULL, "email" character varying(255) NOT NULL, "passwordHash" character varying(255) NOT NULL, "fullName" character varying(100) NOT NULL, "role" "public"."users_role_enum" NOT NULL DEFAULT 'OPERATOR', "allowedFactories" uuid array NOT NULL DEFAULT '{}', "isActive" boolean NOT NULL DEFAULT true, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP, CONSTRAINT "UQ_fe0bb3f6520ee0469504521e710" UNIQUE ("username"), CONSTRAINT "UQ_97672ac88f789774dd47f7c8be3" UNIQUE ("email"), CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TYPE "public"."qc_inspections_result_enum" AS ENUM('PASS', 'FAIL', 'CONDITIONAL', 'PENDING')`);
+        await queryRunner.query(`CREATE TABLE "qc_inspections" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "factoryId" uuid NOT NULL, "workOrderId" uuid, "productionOrderId" uuid, "inspectorId" uuid NOT NULL, "inspectedAt" TIMESTAMP WITH TIME ZONE NOT NULL, "sampleSize" integer NOT NULL, "passedCount" integer NOT NULL, "failedCount" integer NOT NULL, "result" "public"."qc_inspections_result_enum" NOT NULL DEFAULT 'PENDING', "notes" character varying(1000), "customFields" jsonb, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP, CONSTRAINT "PK_8544d9932dea3cfc78989aa1536" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TYPE "public"."qc_defects_severity_enum" AS ENUM('CRITICAL', 'MAJOR', 'MINOR')`);
+        await queryRunner.query(`CREATE TABLE "qc_defects" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "inspectionId" uuid NOT NULL, "code" character varying(50), "description" character varying(500) NOT NULL, "severity" "public"."qc_defects_severity_enum" NOT NULL, "quantity" integer NOT NULL, "rootCause" character varying(500), "correctiveAction" character varying(500), "createdAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_5ade9f5cd16753f3ab315ce85bd" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TYPE "public"."stock_movements_type_enum" AS ENUM('RECEIPT', 'ISSUE', 'TRANSFER', 'ADJUSTMENT', 'RETURN', 'SCRAP')`);
+        await queryRunner.query(`CREATE TABLE "stock_movements" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "factoryId" uuid NOT NULL, "materialId" uuid NOT NULL, "type" "public"."stock_movements_type_enum" NOT NULL, "quantity" numeric(12,3) NOT NULL, "unit" character varying(20) NOT NULL, "referenceType" character varying(50), "referenceId" uuid, "notes" character varying(500), "createdBy" uuid NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_57a26b190618550d8e65fb860e7" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "production_lines" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "factoryId" uuid NOT NULL, "name" character varying(100) NOT NULL, "code" character varying(50), "isActive" boolean NOT NULL DEFAULT true, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP, CONSTRAINT "PK_da8fe32997fb6cedd9c25a83f4c" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "notifications" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "factoryId" uuid NOT NULL, "userId" uuid, "type" character varying(100) NOT NULL, "title" character varying(200) NOT NULL, "message" character varying(1000) NOT NULL, "isRead" boolean NOT NULL DEFAULT false, "metadata" jsonb, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_6a72c3c0f683f6462415e653c3a" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "bom_items" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "bomId" uuid NOT NULL, "materialId" uuid NOT NULL, "quantity" numeric(12,4) NOT NULL, "unit" character varying(20) NOT NULL, "wastePercentage" numeric(5,2) NOT NULL DEFAULT '0', "notes" character varying(500), CONSTRAINT "PK_f88a851d4f3c46533a354229e15" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "boms" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "factoryId" uuid NOT NULL, "code" character varying(50) NOT NULL, "productName" character varying(200) NOT NULL, "version" character varying(20) NOT NULL DEFAULT '1.0', "outputQuantity" numeric(12,3) NOT NULL, "outputUnit" character varying(20) NOT NULL, "isActive" boolean NOT NULL DEFAULT true, "notes" character varying(1000), "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP, CONSTRAINT "PK_59659fde3f22d3869fee0f78822" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "materials" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "factoryId" uuid NOT NULL, "code" character varying(50) NOT NULL, "name" character varying(200) NOT NULL, "unit" character varying(20) NOT NULL, "currentStock" numeric(12,3) NOT NULL DEFAULT '0', "minStockLevel" numeric(12,3) NOT NULL DEFAULT '0', "maxStockLevel" numeric(12,3), "warehouseId" uuid, "customFields" jsonb, "isActive" boolean NOT NULL DEFAULT true, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP, CONSTRAINT "PK_2fd1a93ecb222a28bef28663fa0" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "warehouses" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "factoryId" uuid NOT NULL, "name" character varying(100) NOT NULL, "code" character varying(50), "location" character varying(255), "isActive" boolean NOT NULL DEFAULT true, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP, CONSTRAINT "PK_56ae21ee2432b2270b48867e4be" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "factories" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "code" character varying(20) NOT NULL, "name" character varying(100) NOT NULL, "address" character varying(255), "timezone" character varying(50) NOT NULL DEFAULT 'Asia/Ho_Chi_Minh', "customFieldsConfig" jsonb, "isActive" boolean NOT NULL DEFAULT true, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP, CONSTRAINT "UQ_c2945766d5fe1d4d258f0b2a24b" UNIQUE ("code"), CONSTRAINT "PK_177dc0be43525ae77a73639eb70" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`ALTER TABLE "work_order_steps" ADD CONSTRAINT "FK_99317a5225a9b03bf36d89f4bcd" FOREIGN KEY ("workOrderId") REFERENCES "work_orders"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "work_orders" ADD CONSTRAINT "FK_b3c6da5a81db1b91122a492c01f" FOREIGN KEY ("productionOrderId") REFERENCES "production_orders"("id") ON DELETE RESTRICT ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "qc_defects" ADD CONSTRAINT "FK_6272824bf5fe6cd8d80a9425ae7" FOREIGN KEY ("inspectionId") REFERENCES "qc_inspections"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "bom_items" ADD CONSTRAINT "FK_43b33894ec24ad195df83376d5f" FOREIGN KEY ("bomId") REFERENCES "boms"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
+    }
+
+    public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`ALTER TABLE "bom_items" DROP CONSTRAINT "FK_43b33894ec24ad195df83376d5f"`);
+        await queryRunner.query(`ALTER TABLE "qc_defects" DROP CONSTRAINT "FK_6272824bf5fe6cd8d80a9425ae7"`);
+        await queryRunner.query(`ALTER TABLE "work_orders" DROP CONSTRAINT "FK_b3c6da5a81db1b91122a492c01f"`);
+        await queryRunner.query(`ALTER TABLE "work_order_steps" DROP CONSTRAINT "FK_99317a5225a9b03bf36d89f4bcd"`);
+        await queryRunner.query(`DROP TABLE "factories"`);
+        await queryRunner.query(`DROP TABLE "warehouses"`);
+        await queryRunner.query(`DROP TABLE "materials"`);
+        await queryRunner.query(`DROP TABLE "boms"`);
+        await queryRunner.query(`DROP TABLE "bom_items"`);
+        await queryRunner.query(`DROP TABLE "notifications"`);
+        await queryRunner.query(`DROP TABLE "production_lines"`);
+        await queryRunner.query(`DROP TABLE "stock_movements"`);
+        await queryRunner.query(`DROP TYPE "public"."stock_movements_type_enum"`);
+        await queryRunner.query(`DROP TABLE "qc_defects"`);
+        await queryRunner.query(`DROP TYPE "public"."qc_defects_severity_enum"`);
+        await queryRunner.query(`DROP TABLE "qc_inspections"`);
+        await queryRunner.query(`DROP TYPE "public"."qc_inspections_result_enum"`);
+        await queryRunner.query(`DROP TABLE "users"`);
+        await queryRunner.query(`DROP TYPE "public"."users_role_enum"`);
+        await queryRunner.query(`DROP TABLE "work_orders"`);
+        await queryRunner.query(`DROP TYPE "public"."work_orders_status_enum"`);
+        await queryRunner.query(`DROP TABLE "work_order_steps"`);
+        await queryRunner.query(`DROP TABLE "production_orders"`);
+        await queryRunner.query(`DROP TYPE "public"."production_orders_status_enum"`);
+    }
+
+}
