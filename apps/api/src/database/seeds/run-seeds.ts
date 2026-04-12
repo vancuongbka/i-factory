@@ -720,6 +720,246 @@ async function seed() {
     WHERE id = '${ID.step.s8}'
   `);
 
+  // ── Report module: extended historical data ──────────────────────────────
+  // Provides enough data for all 4 report types (production, work-orders,
+  // inventory, qc) to return meaningful rows within a 90-day window.
+  console.log('Seeding report module data...');
+
+  // Fixed IDs for extended production orders
+  const RPO = {
+    po4: '70000000-0000-0000-0000-000000000004',
+    po5: '70000000-0000-0000-0000-000000000005',
+    po6: '70000000-0000-0000-0000-000000000006',
+    po7: '70000000-0000-0000-0000-000000000007',
+    po8: '70000000-0000-0000-0000-000000000008',
+  };
+  const RWO = {
+    wo5: '80000000-0000-0000-0000-000000000005',
+    wo6: '80000000-0000-0000-0000-000000000006',
+    wo7: '80000000-0000-0000-0000-000000000007',
+    wo8: '80000000-0000-0000-0000-000000000008',
+    wo9: '80000000-0000-0000-0000-000000000009',
+  };
+  const RQC = {
+    q3: '90000000-0000-0000-0000-000000000003',
+    q4: '90000000-0000-0000-0000-000000000004',
+    q5: '90000000-0000-0000-0000-000000000005',
+    q6: '90000000-0000-0000-0000-000000000006',
+  };
+  const RDEF = {
+    d3: '90000001-0000-0000-0000-000000000003',
+    d4: '90000001-0000-0000-0000-000000000004',
+    d5: '90000001-0000-0000-0000-000000000005',
+  };
+
+  // 5 more production orders spread over the last 90 days
+  await qr.query(`
+    INSERT INTO production_orders (
+      id, "factoryId", code, "productName", "productId", quantity, unit, status,
+      "plannedStartDate", "plannedEndDate", "actualStartDate", "actualEndDate",
+      "completedQuantity", "bomId", "productionLineId"
+    ) VALUES
+      (
+        '${RPO.po4}', '${ID.factory.hcm}', 'PO-2026-004', 'Electric Motor 3kW',
+        '${ID.product.motor3kw}',
+        75.000, 'unit', 'COMPLETED',
+        '${past(80).toISOString()}', '${past(50).toISOString()}',
+        '${past(79).toISOString()}', '${past(47).toISOString()}',
+        75.000,
+        '${ID.bom.motor}', '${ID.line.assembly}'
+      ),
+      (
+        '${RPO.po5}', '${ID.factory.hcm}', 'PO-2026-005', 'Control Circuit Board',
+        '${ID.product.circuitBoard}',
+        120.000, 'unit', 'COMPLETED',
+        '${past(45).toISOString()}', '${past(15).toISOString()}',
+        '${past(44).toISOString()}', '${past(12).toISOString()}',
+        120.000,
+        '${ID.bom.circuit}', '${ID.line.assembly}'
+      ),
+      (
+        '${RPO.po6}', '${ID.factory.hcm}', 'PO-2026-006', 'Electric Motor 3kW',
+        '${ID.product.motor3kw}',
+        60.000, 'unit', 'IN_PROGRESS',
+        '${past(12).toISOString()}', '${future(18).toISOString()}',
+        '${past(11).toISOString()}', NULL,
+        22.000,
+        '${ID.bom.motor}', '${ID.line.assembly}'
+      ),
+      (
+        '${RPO.po7}', '${ID.factory.hcm}', 'PO-2026-007', 'Control Circuit Board',
+        '${ID.product.circuitBoard}',
+        80.000, 'unit', 'COMPLETED',
+        '${past(35).toISOString()}', '${past(10).toISOString()}',
+        '${past(34).toISOString()}', '${past(8).toISOString()}',
+        80.000,
+        '${ID.bom.circuit}', '${ID.line.assembly}'
+      ),
+      (
+        '${RPO.po8}', '${ID.factory.hcm}', 'PO-2026-008', 'Electric Motor 3kW',
+        '${ID.product.motor3kw}',
+        200.000, 'unit', 'PLANNED',
+        '${future(10).toISOString()}', '${future(50).toISOString()}',
+        NULL, NULL,
+        0.000,
+        '${ID.bom.motor}', '${ID.line.assembly}'
+      )
+  `);
+
+  // Work orders for the extended production orders
+  await qr.query(`
+    INSERT INTO work_orders (
+      id, "factoryId", "productionOrderId", code, description, status,
+      "assignedTo", "plannedStartDate", "plannedEndDate", "actualStartDate", "actualEndDate"
+    ) VALUES
+      (
+        '${RWO.wo5}', '${ID.factory.hcm}', '${RPO.po4}',
+        'WO-2026-005', 'Motor assembly batch — 75 units',
+        'COMPLETED',
+        '${ID.user.operator1}',
+        '${past(79).toISOString()}', '${past(50).toISOString()}',
+        '${past(79).toISOString()}', '${past(50).toISOString()}'
+      ),
+      (
+        '${RWO.wo6}', '${ID.factory.hcm}', '${RPO.po4}',
+        'WO-2026-006', 'Functional test and final QC — batch 75 units',
+        'COMPLETED',
+        '${ID.user.operator2}',
+        '${past(51).toISOString()}', '${past(47).toISOString()}',
+        '${past(51).toISOString()}', '${past(47).toISOString()}'
+      ),
+      (
+        '${RWO.wo7}', '${ID.factory.hcm}', '${RPO.po5}',
+        'WO-2026-007', 'PCB assembly and reflow — 120 boards',
+        'COMPLETED',
+        '${ID.user.operator2}',
+        '${past(44).toISOString()}', '${past(12).toISOString()}',
+        '${past(43).toISOString()}', '${past(12).toISOString()}'
+      ),
+      (
+        '${RWO.wo8}', '${ID.factory.hcm}', '${RPO.po6}',
+        'WO-2026-008', 'Motor assembly batch — first 22 units',
+        'IN_PROGRESS',
+        '${ID.user.operator1}',
+        '${past(11).toISOString()}', '${future(5).toISOString()}',
+        '${past(11).toISOString()}', NULL
+      ),
+      (
+        '${RWO.wo9}', '${ID.factory.hcm}', '${RPO.po7}',
+        'WO-2026-009', 'PCB assembly — 80 boards',
+        'COMPLETED',
+        '${ID.user.operator2}',
+        '${past(34).toISOString()}', '${past(8).toISOString()}',
+        '${past(33).toISOString()}', '${past(8).toISOString()}'
+      )
+  `);
+
+  // Steps for extended work orders
+  await qr.query(`
+    INSERT INTO work_order_steps (
+      id, "workOrderId", "stepNumber", name, "estimatedMinutes",
+      "requiredSkills", "isCompleted", "completedAt"
+    ) VALUES
+      ('80000001-0000-0000-0000-000000000009', '${RWO.wo5}', 1, 'CNC shaft machining',         30,  '{"cnc-operator"}',  true,  '${past(78).toISOString()}'),
+      ('80000001-0000-0000-0000-00000000000a', '${RWO.wo5}', 2, 'Stator coil winding',         120, '{"winding"}',       true,  '${past(75).toISOString()}'),
+      ('80000001-0000-0000-0000-00000000000b', '${RWO.wo5}', 3, 'Rotor press and final assy',  60,  '{"assembly"}',      true,  '${past(72).toISOString()}'),
+      ('80000001-0000-0000-0000-00000000000c', '${RWO.wo7}', 1, 'SMD placement and reflow',    65,  '{"assembly"}',      true,  '${past(40).toISOString()}'),
+      ('80000001-0000-0000-0000-00000000000d', '${RWO.wo7}', 2, 'Functional test',             20,  '{"qc-basic"}',      true,  '${past(38).toISOString()}'),
+      ('80000001-0000-0000-0000-00000000000e', '${RWO.wo8}', 1, 'CNC shaft machining',         30,  '{"cnc-operator"}',  true,  '${past(10).toISOString()}'),
+      ('80000001-0000-0000-0000-00000000000f', '${RWO.wo8}', 2, 'Stator coil winding',         120, '{"winding"}',       false, NULL),
+      ('80000001-0000-0000-0000-000000000010', '${RWO.wo8}', 3, 'Rotor press and final assy',  60,  '{"assembly"}',      false, NULL),
+      ('80000001-0000-0000-0000-000000000011', '${RWO.wo9}', 1, 'SMD placement and reflow',    65,  '{"assembly"}',      true,  '${past(30).toISOString()}'),
+      ('80000001-0000-0000-0000-000000000012', '${RWO.wo9}', 2, 'Functional test',             20,  '{"qc-basic"}',      true,  '${past(28).toISOString()}')
+  `);
+
+  // QC inspections covering the extended date range
+  await qr.query(`
+    INSERT INTO qc_inspections (
+      id, "factoryId", "workOrderId", "productionOrderId", "inspectorId",
+      "inspectedAt", "sampleSize", "passedCount", "failedCount", result, notes
+    ) VALUES
+      (
+        '${RQC.q3}', '${ID.factory.hcm}', '${RWO.wo6}', '${RPO.po4}',
+        '${ID.user.qcInspector}',
+        '${past(49).toISOString()}',
+        75, 73, 2, 'CONDITIONAL',
+        'Batch-4 motor run test: 2 units had winding resistance outside ±2% tolerance. Reworked on-site.'
+      ),
+      (
+        '${RQC.q4}', '${ID.factory.hcm}', '${RWO.wo7}', '${RPO.po5}',
+        '${ID.user.qcInspector}',
+        '${past(13).toISOString()}',
+        120, 120, 0, 'PASS',
+        'Full batch of 120 PCBs passed functional test and firmware flash. Zero defects.'
+      ),
+      (
+        '${RQC.q5}', '${ID.factory.hcm}', '${RWO.wo8}', '${RPO.po6}',
+        '${ID.user.qcInspector}',
+        '${past(8).toISOString()}',
+        22, 19, 3, 'FAIL',
+        '3 of 22 motors failed HV withstand test. Insulation resistance below 1MΩ. Batch on hold pending root cause.'
+      ),
+      (
+        '${RQC.q6}', '${ID.factory.hcm}', '${RWO.wo9}', '${RPO.po7}',
+        '${ID.user.qcInspector}',
+        '${past(9).toISOString()}',
+        80, 78, 2, 'CONDITIONAL',
+        '2 boards failed RS485 comm check at first test. Re-flashed firmware and passed on second run.'
+      )
+  `);
+
+  await qr.query(`
+    INSERT INTO qc_defects (
+      id, "inspectionId", code, description, severity, quantity, "rootCause", "correctiveAction"
+    ) VALUES
+      (
+        '${RDEF.d3}', '${RQC.q3}',
+        'DEF-WIND-001', 'Winding resistance out of tolerance on phase B',
+        'MAJOR', 2,
+        'Copper wire diameter variation (1.47mm vs 1.50mm spec) in reel batch W-2026-03',
+        'Quarantine reel batch. Re-wind affected stators. Add incoming inspection for wire diameter.'
+      ),
+      (
+        '${RDEF.d4}', '${RQC.q5}',
+        'DEF-INSUL-001', 'Insulation resistance below 1MΩ — HV test failure',
+        'CRITICAL', 3,
+        'Nomex inter-layer insulation sheet improperly cut, leaving exposed copper on slot 12-14',
+        'Strip and re-wind affected stators. Update cutting jig for Nomex sheets. 100% insulation check before winding.'
+      ),
+      (
+        '${RDEF.d5}', '${RQC.q6}',
+        'DEF-FW-001', 'Firmware flash incomplete — RS485 comm failure',
+        'MINOR', 2,
+        'USB-JTAG cable intermittent connection on programming fixture pin 7',
+        'Replace programming fixture. Re-flash affected boards. Add post-flash comm verify to test script.'
+      )
+  `);
+
+  // Additional stock movements covering the last 90 days
+  await qr.query(`
+    INSERT INTO stock_movements (id, "factoryId", "materialId", type, quantity, unit, "referenceType", "referenceId", notes, "createdBy")
+    VALUES
+      -- Issues for extended WOs
+      (gen_random_uuid(), '${ID.factory.hcm}', '${ID.material.steelRod}',       'ISSUE',      187.500, 'kg',  'WORK_ORDER', '${RWO.wo5}', 'Issued for WO-2026-005 (75 units × 2.5kg)',       '${ID.user.warehouse}'),
+      (gen_random_uuid(), '${ID.factory.hcm}', '${ID.material.copperWire}',     'ISSUE',      225.000, 'm',   'WORK_ORDER', '${RWO.wo5}', 'Issued for WO-2026-005 (75 units × 3m)',           '${ID.user.warehouse}'),
+      (gen_random_uuid(), '${ID.factory.hcm}', '${ID.material.rubberGasket}',   'ISSUE',      300.000, 'pcs', 'WORK_ORDER', '${RWO.wo5}', 'Issued for WO-2026-005 (75 units × 4 gaskets)',   '${ID.user.warehouse}'),
+      (gen_random_uuid(), '${ID.factory.hcm}', '${ID.material.electronicComp}', 'ISSUE',     1200.000, 'pcs', 'WORK_ORDER', '${RWO.wo7}', 'Issued for WO-2026-007 (120 boards × 10 pcs)',    '${ID.user.warehouse}'),
+      (gen_random_uuid(), '${ID.factory.hcm}', '${ID.material.plasticCasing}',  'ISSUE',      120.000, 'pcs', 'WORK_ORDER', '${RWO.wo7}', 'Issued for WO-2026-007 (120 boards × 1 casing)',  '${ID.user.warehouse}'),
+      (gen_random_uuid(), '${ID.factory.hcm}', '${ID.material.steelRod}',       'ISSUE',       55.000, 'kg',  'WORK_ORDER', '${RWO.wo8}', 'Issued for WO-2026-008 (22 units × 2.5kg)',       '${ID.user.warehouse}'),
+      (gen_random_uuid(), '${ID.factory.hcm}', '${ID.material.electronicComp}', 'ISSUE',      800.000, 'pcs', 'WORK_ORDER', '${RWO.wo9}', 'Issued for WO-2026-009 (80 boards × 10 pcs)',    '${ID.user.warehouse}'),
+      -- Restocking receipts mid-period
+      (gen_random_uuid(), '${ID.factory.hcm}', '${ID.material.steelRod}',       'RECEIPT',    400.000, 'kg',  'PURCHASE_ORDER', NULL, 'Replenishment from Hoa Phat Steel — PO#2026-0042', '${ID.user.warehouse}'),
+      (gen_random_uuid(), '${ID.factory.hcm}', '${ID.material.electronicComp}', 'RECEIPT',   5000.000, 'pcs', 'PURCHASE_ORDER', NULL, 'Bulk reorder Arrow Electronics — PO#2026-0078',   '${ID.user.warehouse}'),
+      (gen_random_uuid(), '${ID.factory.hcm}', '${ID.material.copperWire}',     'RECEIPT',    500.000, 'm',   'PURCHASE_ORDER', NULL, 'Cadivi copper wire reorder',                       '${ID.user.warehouse}'),
+      -- Scrap from failed HV test batch
+      (gen_random_uuid(), '${ID.factory.hcm}', '${ID.material.copperWire}',     'SCRAP',        9.000, 'm',   'QC_REJECTION',  '${RQC.q5}', 'Scrap from re-wind of 3 failed stators (3×3m)', '${ID.user.warehouse}'),
+      (gen_random_uuid(), '${ID.factory.hcm}', '${ID.material.rubberGasket}',   'RETURN',      12.000, 'pcs', 'WORK_ORDER',    '${RWO.wo6}', 'Unused gaskets returned after WO-006 completion', '${ID.user.warehouse}'),
+      -- Stock adjustment for physical count discrepancy
+      (gen_random_uuid(), '${ID.factory.hcm}', '${ID.material.aluminumSheet}',  'ADJUSTMENT',   5.000, 'pcs', NULL,            NULL, 'Cycle count correction — physical=205 vs system=200', '${ID.user.warehouse}')
+  `);
+
+  console.log('✓ Report module seed data complete.');
+
   await qr.release();
   await AppDataSource.destroy();
   console.log('✓ Seed complete.');

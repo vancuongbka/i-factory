@@ -5,7 +5,7 @@ export const reportRequestSchema = z.object({
   type: z.enum(['production', 'inventory', 'qc', 'work-orders']),
   dateFrom: z.string().datetime(),
   dateTo: z.string().datetime(),
-  format: z.enum(['json', 'xlsx', 'pdf']).default('json'),
+  format: z.enum(['json', 'csv']).default('json'),
   filters: z.record(z.unknown()).optional(),
 });
 

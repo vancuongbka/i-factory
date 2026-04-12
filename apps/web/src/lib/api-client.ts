@@ -37,6 +37,7 @@ import type {
   ErpSyncPayload,
   ErpSyncJobResponse,
 } from '@i-factory/api-types';
+import type { ReportRequestDto, ReportJobResponse } from '@i-factory/api-types';
 import type {
   BomResponse,
   BomRevisionResponse,
@@ -237,10 +238,18 @@ export const apiClient = {
     },
   },
   reports: {
-    request: (body: unknown) =>
-      request<unknown>('/reports', { method: 'POST', body: JSON.stringify(body)}),
+    request: (body: ReportRequestDto) =>
+      request<ReportJobResponse>('/reports', { method: 'POST', body: JSON.stringify(body) }),
     status: (jobId: string) =>
-      request<unknown>(`/reports/${jobId}/status`, {}),
+      request<ReportJobResponse & { progress?: number }>(`/reports/${jobId}/status`, {}),
+    download: async (jobId: string): Promise<Blob> => {
+      const token = typeof window !== 'undefined' ? localStorage.getItem(TOKEN_KEY) : null;
+      const response = await fetch(`${BASE_URL}/reports/${jobId}/download`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+      if (!response.ok) throw new Error('Download failed');
+      return response.blob();
+    },
   },
   notifications: {
     list: (factoryId: string) =>

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
+import { useAuth } from '@/providers/auth-provider';
 
 // ---------------------------------------------------------------------------
 // Circular flag icons
@@ -67,6 +68,7 @@ export function Topbar() {
   const pathname = usePathname();
   const router = useRouter();
 
+  const { logout } = useAuth();
   const [langOpen, setLangOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
 
@@ -216,6 +218,7 @@ export function Topbar() {
                   </a>
                   <button
                     type="button"
+                    onClick={logout}
                     className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-muted"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-muted-foreground" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
