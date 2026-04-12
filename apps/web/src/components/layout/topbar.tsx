@@ -1,32 +1,42 @@
 'use client';
 
 import { useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
 
 // ---------------------------------------------------------------------------
-// Flag icons (inline SVG — no extra dependency)
+// Circular flag icons
 // ---------------------------------------------------------------------------
+function FlagCircle({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="inline-block h-5 w-5 flex-shrink-0 overflow-hidden rounded-full border border-border">
+      {children}
+    </span>
+  );
+}
+
 function FlagEN() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" className="block h-4 w-6 rounded-sm" aria-hidden="true">
-      <clipPath id="t"><path d="M30,15 h30 v15 z"/></clipPath>
-      <clipPath id="s"><path d="M0,0 v30 h60 v-30 z"/></clipPath>
-      <rect width="60" height="30" fill="#012169"/>
-      <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6"/>
-      <path d="M0,0 L60,30 M60,0 L0,30" clipPath="url(#t)" stroke="#C8102E" strokeWidth="4"/>
-      <path d="M30,0 v30 M0,15 h60" stroke="#fff" strokeWidth="10"/>
-      <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" strokeWidth="6"/>
-    </svg>
+    <FlagCircle>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" className="h-full w-full" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <rect width="60" height="30" fill="#012169"/>
+        <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6"/>
+        <path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" strokeWidth="4"/>
+        <path d="M30,0 v30 M0,15 h60" stroke="#fff" strokeWidth="10"/>
+        <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" strokeWidth="6"/>
+      </svg>
+    </FlagCircle>
   );
 }
 
 function FlagVI() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" className="block h-4 w-6 rounded-sm" aria-hidden="true">
-      <rect width="30" height="20" fill="#DA251D"/>
-      <polygon points="15,3 17.2,9.5 24,9.5 18.4,13.5 20.6,20 15,16 9.4,20 11.6,13.5 6,9.5 12.8,9.5" fill="#FFFF00"/>
-    </svg>
+    <FlagCircle>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" className="h-full w-full" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <rect width="30" height="30" fill="#DA251D"/>
+        <polygon points="15,5 17.5,12 25,12 19,16.5 21.5,23.5 15,19 8.5,23.5 11,16.5 5,12 12.5,12" fill="#FFFF00"/>
+      </svg>
+    </FlagCircle>
   );
 }
 
@@ -55,16 +65,26 @@ export function Topbar() {
   const tNav = useTranslations('nav');
   const locale = useLocale();
   const pathname = usePathname();
-
+  const router = useRouter();
 
   const [langOpen, setLangOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
 
-  const isEN = locale !== 'vi';
-  const localeLabel = isEN ? 'EN' : 'VI';
+  const isEN = locale === 'en';
 
   const match = ROUTE_TITLES.find((r) => pathname.startsWith(r.prefix));
   const pageTitle = match ? tNav(match.key as Parameters<typeof tNav>[0]) : 'iFactory';
+
+  function switchLocale(next: 'en' | 'vi') {
+    document.cookie = `NEXT_LOCALE=${next}; path=/; max-age=31536000; SameSite=Lax`;
+    setLangOpen(false);
+    router.refresh();
+  }
+
+  const LANG_OPTIONS: { locale: 'en' | 'vi'; label: string; flag: React.ReactNode }[] = [
+    { locale: 'en', label: 'English', flag: <FlagEN /> },
+    { locale: 'vi', label: 'Tiếng Việt', flag: <FlagVI /> },
+  ];
 
   return (
     <header className="flex h-16 flex-shrink-0 items-center justify-between border-b bg-card px-4">
@@ -110,7 +130,7 @@ export function Topbar() {
             aria-expanded={langOpen}
           >
             {isEN ? <FlagEN /> : <FlagVI />}
-            <span>{localeLabel}</span>
+            <span>{isEN ? 'EN' : 'VI'}</span>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 text-muted-foreground" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
               <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"/>
             </svg>
@@ -118,22 +138,27 @@ export function Topbar() {
           {langOpen && (
             <>
               <div className="fixed inset-0 z-10" onClick={() => setLangOpen(false)} aria-hidden="true" />
-              <div className="absolute right-0 z-20 mt-1 w-auto rounded-lg border bg-card shadow-lg">
+              <div className="absolute right-0 z-20 mt-1 min-w-[10rem] rounded-lg border bg-card shadow-lg">
                 <div className="p-1">
-                  <button
-                    type="button"
-                    onClick={() => setLangOpen(false)}
-                    className="flex w-full items-center whitespace-nowrap rounded-md px-3 py-2 text-sm hover:bg-muted"
-                  >
-                    English
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setLangOpen(false)}
-                    className="flex w-full items-center whitespace-nowrap rounded-md px-3 py-2 text-sm hover:bg-muted"
-                  >
-                    Tiếng Việt
-                  </button>
+                  {LANG_OPTIONS.map((opt) => (
+                    <button
+                      key={opt.locale}
+                      type="button"
+                      onClick={() => switchLocale(opt.locale)}
+                      className={
+                        'flex w-full items-center gap-2.5 whitespace-nowrap rounded-md px-3 py-2 text-sm hover:bg-muted ' +
+                        (locale === opt.locale ? 'font-semibold text-foreground' : 'text-muted-foreground')
+                      }
+                    >
+                      {opt.flag}
+                      {opt.label}
+                      {locale === opt.locale && (
+                        <svg xmlns="http://www.w3.org/2000/svg" className="ml-auto h-3.5 w-3.5 text-primary" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
+                        </svg>
+                      )}
+                    </button>
+                  ))}
                 </div>
               </div>
             </>
