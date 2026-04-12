@@ -319,11 +319,80 @@
     }
   },
   "qualityControl": {
-    "title": "Kiểm soát Chất lượng (QC)",
+    "title": "Kiểm soát Chất lượng",
     "pageTitle": "Kiểm soát Chất lượng — iFactory",
     "inspections": {
-      "title": "Phiếu Kiểm tra Chất lượng",
-      "pageTitle": "Phiếu Kiểm tra — iFactory"
+      "title": "Phiếu Kiểm tra",
+      "pageTitle": "Phiếu Kiểm tra — iFactory",
+      "noResults": "Chưa có phiếu kiểm tra nào.",
+      "new": {
+        "title": "Tạo Phiếu Kiểm tra",
+        "pageTitle": "Tạo Phiếu Kiểm tra — iFactory"
+      },
+      "detail": {
+        "title": "Phiếu Kiểm tra",
+        "pageTitle": "Chi tiết Phiếu Kiểm tra — iFactory"
+      },
+      "columns": {
+        "inspectedAt": "Ngày KT",
+        "result": "Kết quả",
+        "sample": "Mẫu",
+        "passed": "Đạt",
+        "failed": "Lỗi",
+        "order": "Lệnh liên kết",
+        "defects": "Lỗi",
+        "actions": "Thao tác"
+      },
+      "result": {
+        "PASS": "Đạt",
+        "FAIL": "Không đạt",
+        "CONDITIONAL": "Đạt có điều kiện",
+        "PENDING": "Chờ kiểm tra"
+      },
+      "defects": {
+        "title": "Danh sách Lỗi",
+        "noDefects": "Chưa ghi nhận lỗi nào.",
+        "add": "Thêm Lỗi",
+        "severity": {
+          "CRITICAL": "Nghiêm trọng",
+          "MAJOR": "Lớn",
+          "MINOR": "Nhỏ"
+        },
+        "columns": {
+          "code": "Mã",
+          "description": "Mô tả",
+          "severity": "Mức độ",
+          "quantity": "SL",
+          "rootCause": "Nguyên nhân",
+          "corrective": "Khắc phục"
+        },
+        "form": {
+          "code": "Mã lỗi (tùy chọn)",
+          "description": "Mô tả lỗi",
+          "severity": "Mức độ",
+          "quantity": "Số lượng",
+          "rootCause": "Nguyên nhân (tùy chọn)",
+          "correctiveAction": "Biện pháp khắc phục (tùy chọn)",
+          "submit": "Thêm Lỗi"
+        }
+      },
+      "form": {
+        "inspectorId": "ID Người kiểm tra",
+        "inspectedAt": "Ngày kiểm tra",
+        "workOrderId": "ID Lệnh công việc (tùy chọn)",
+        "productionOrderId": "ID Lệnh sản xuất (tùy chọn)",
+        "sampleSize": "Cỡ mẫu",
+        "passedCount": "Số lượng đạt",
+        "failedCount": "Số lượng lỗi",
+        "notes": "Ghi chú"
+      },
+      "actions": {
+        "create": "Tạo Phiếu Kiểm tra",
+        "view": "Xem",
+        "approve": "Duyệt (Đạt)",
+        "reject": "Từ chối (Lỗi)",
+        "createSubmit": "Tạo Phiếu Kiểm tra"
+      }
     }
   },
   "reports": {

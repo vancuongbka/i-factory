@@ -59,6 +59,11 @@ import type {
   UpdateMaterialDto,
   StockMovementResponse,
   CreateStockMovementDto,
+  QCInspectionResponse,
+  CreateQCInspectionDto,
+  UpdateQCInspectionDto,
+  CreateDefectDto,
+  QCDefectResponse,
 } from '@i-factory/api-types';
 
 export interface WorkOrderStep {
@@ -199,8 +204,45 @@ export const apiClient = {
     },
   },
   qc: {
-    inspections: (factoryId: string, token?: string) =>
-      request<unknown[]>(`/factories/${factoryId}/qc/inspections`, { token }),
+    inspections: {
+      list: (factoryId: string, token?: string) =>
+        request<QCInspectionResponse[]>(`/factories/${factoryId}/qc/inspections`, { token }),
+      get: (factoryId: string, id: string, token?: string) =>
+        request<QCInspectionResponse>(`/factories/${factoryId}/qc/inspections/${id}`, { token }),
+      create: (factoryId: string, body: CreateQCInspectionDto, token?: string) =>
+        request<QCInspectionResponse>(`/factories/${factoryId}/qc/inspections`, {
+          method: 'POST',
+          body: JSON.stringify(body),
+          token,
+        }),
+      update: (factoryId: string, id: string, body: UpdateQCInspectionDto, token?: string) =>
+        request<QCInspectionResponse>(`/factories/${factoryId}/qc/inspections/${id}`, {
+          method: 'PATCH',
+          body: JSON.stringify(body),
+          token,
+        }),
+      remove: (factoryId: string, id: string, token?: string) =>
+        request<void>(`/factories/${factoryId}/qc/inspections/${id}`, {
+          method: 'DELETE',
+          token,
+        }),
+      addDefect: (factoryId: string, id: string, body: CreateDefectDto, token?: string) =>
+        request<QCDefectResponse>(`/factories/${factoryId}/qc/inspections/${id}/defects`, {
+          method: 'POST',
+          body: JSON.stringify(body),
+          token,
+        }),
+      approve: (factoryId: string, id: string, token?: string) =>
+        request<QCInspectionResponse>(`/factories/${factoryId}/qc/inspections/${id}/approve`, {
+          method: 'PATCH',
+          token,
+        }),
+      reject: (factoryId: string, id: string, token?: string) =>
+        request<QCInspectionResponse>(`/factories/${factoryId}/qc/inspections/${id}/reject`, {
+          method: 'PATCH',
+          token,
+        }),
+    },
   },
   reports: {
     request: (body: unknown, token?: string) =>

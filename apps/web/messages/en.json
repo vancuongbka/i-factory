@@ -319,11 +319,80 @@
     }
   },
   "qualityControl": {
-    "title": "Quality Control (QC)",
+    "title": "Quality Control",
     "pageTitle": "Quality Control — iFactory",
     "inspections": {
-      "title": "Quality Inspection Records",
-      "pageTitle": "Inspections — iFactory"
+      "title": "Inspections",
+      "pageTitle": "Inspections — iFactory",
+      "noResults": "No inspections found.",
+      "new": {
+        "title": "New Inspection",
+        "pageTitle": "New Inspection — iFactory"
+      },
+      "detail": {
+        "title": "Inspection",
+        "pageTitle": "Inspection — iFactory"
+      },
+      "columns": {
+        "inspectedAt": "Date",
+        "result": "Result",
+        "sample": "Sample",
+        "passed": "Pass",
+        "failed": "Fail",
+        "order": "Linked Order",
+        "defects": "Defects",
+        "actions": "Actions"
+      },
+      "result": {
+        "PASS": "Pass",
+        "FAIL": "Fail",
+        "CONDITIONAL": "Conditional",
+        "PENDING": "Pending"
+      },
+      "defects": {
+        "title": "Defects",
+        "noDefects": "No defects recorded.",
+        "add": "Add Defect",
+        "severity": {
+          "CRITICAL": "Critical",
+          "MAJOR": "Major",
+          "MINOR": "Minor"
+        },
+        "columns": {
+          "code": "Code",
+          "description": "Description",
+          "severity": "Severity",
+          "quantity": "Qty",
+          "rootCause": "Root Cause",
+          "corrective": "Corrective Action"
+        },
+        "form": {
+          "code": "Defect Code (optional)",
+          "description": "Description",
+          "severity": "Severity",
+          "quantity": "Quantity",
+          "rootCause": "Root Cause (optional)",
+          "correctiveAction": "Corrective Action (optional)",
+          "submit": "Add Defect"
+        }
+      },
+      "form": {
+        "inspectorId": "Inspector ID",
+        "inspectedAt": "Inspection Date",
+        "workOrderId": "Work Order ID (optional)",
+        "productionOrderId": "Production Order ID (optional)",
+        "sampleSize": "Sample Size",
+        "passedCount": "Passed Count",
+        "failedCount": "Failed Count",
+        "notes": "Notes"
+      },
+      "actions": {
+        "create": "New Inspection",
+        "view": "View",
+        "approve": "Approve (Pass)",
+        "reject": "Reject (Fail)",
+        "createSubmit": "Create Inspection"
+      }
     }
   },
   "reports": {
