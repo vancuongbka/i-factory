@@ -1,6 +1,5 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
 import { useDashboard } from '@/hooks/use-dashboard';
 import { DashboardStatsRow } from './dashboard-stats-row';
 import { MaterialUsageChart } from './material-usage-chart';
@@ -8,18 +7,13 @@ import { AttendanceSummaryChart } from './attendance-summary-chart';
 import { ProductionMonitoringTable } from './production-monitoring-table';
 
 export function DashboardClient() {
-  const t = useTranslations('dashboard');
   const { data, isLoading, error } = useDashboard();
 
   return (
     <div className="space-y-6">
-      {/* Page header */}
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">{t('title')}</h1>
-        {error && (
-          <p className="mt-1 text-sm text-destructive">{String(error)}</p>
-        )}
-      </div>
+      {error && (
+        <p className="text-sm text-destructive">{String(error)}</p>
+      )}
 
       {/* Row 1 — KPI cards */}
       <DashboardStatsRow data={data} isLoading={isLoading} />

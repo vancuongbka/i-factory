@@ -671,5 +671,21 @@
         "failed": "Thất bại"
       }
     }
+  },
+  "commandPalette": {
+    "placeholder": "Tìm kiếm trang và thao tác...",
+    "noResults": "Không tìm thấy kết quả.",
+    "navigation": "Điều hướng",
+    "quickActions": "Thao tác nhanh",
+    "suggested": "Gợi ý",
+    "recent": "Gần đây",
+    "navigate": "để điều hướng",
+    "select": "để chọn",
+    "close": "để đóng",
+    "newWorkOrder": "Tạo Lệnh Công việc",
+    "newProductionOrder": "Tạo Lệnh Sản xuất",
+    "newInspection": "Tạo Phiếu Kiểm tra",
+    "generateReport": "Tạo Báo cáo",
+    "addMaterial": "Thêm Vật tư"
   }
 }

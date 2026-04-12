@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
 import { useAuth } from '@/providers/auth-provider';
+import { CommandPalette } from '@/components/command-palette';
 
 // ---------------------------------------------------------------------------
 // Role display names
@@ -54,6 +55,17 @@ function FlagVI() {
   );
 }
 
+function FlagJP() {
+  return (
+    <FlagCircle>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" className="h-full w-full" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <rect width="30" height="30" fill="#fff"/>
+        <circle cx="15" cy="15" r="7" fill="#BC002D"/>
+      </svg>
+    </FlagCircle>
+  );
+}
+
 // ---------------------------------------------------------------------------
 // Route → page title map
 // ---------------------------------------------------------------------------
@@ -82,26 +94,29 @@ export function Topbar() {
   const router = useRouter();
 
   const { logout, user } = useAuth();
+  const [commandOpen, setCommandOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
 
-  const isEN = locale === 'en';
+  const LANG_OPTIONS: { locale: 'en' | 'vi' | 'ja'; label: string; flag: React.ReactNode; short: string }[] = [
+    { locale: 'en', label: 'English', flag: <FlagEN />, short: 'EN' },
+    { locale: 'vi', label: 'Tiếng Việt', flag: <FlagVI />, short: 'VI' },
+    { locale: 'ja', label: '日本語', flag: <FlagJP />, short: 'JA' },
+  ];
+
+  const currentLang = LANG_OPTIONS.find((o) => o.locale === locale) ?? LANG_OPTIONS[0];
 
   const match = ROUTE_TITLES.find((r) => pathname.startsWith(r.prefix));
   const pageTitle = match ? tNav(match.key as Parameters<typeof tNav>[0]) : 'iFactory';
 
-  function switchLocale(next: 'en' | 'vi') {
+  function switchLocale(next: 'en' | 'vi' | 'ja') {
     document.cookie = `NEXT_LOCALE=${next}; path=/; max-age=31536000; SameSite=Lax`;
     setLangOpen(false);
     router.refresh();
   }
 
-  const LANG_OPTIONS: { locale: 'en' | 'vi'; label: string; flag: React.ReactNode }[] = [
-    { locale: 'en', label: 'English', flag: <FlagEN /> },
-    { locale: 'vi', label: 'Tiếng Việt', flag: <FlagVI /> },
-  ];
-
   return (
+    <>
     <header className="flex h-16 flex-shrink-0 items-center justify-between border-b bg-card px-4">
       {/* ── Left ── */}
       <div className="flex items-center gap-3">
@@ -112,25 +127,21 @@ export function Topbar() {
           </h2>
         </div>
 
-        {/* Search */}
-        <div className="relative hidden sm:block">
-          <span className="absolute inset-y-0 left-3 flex items-center text-muted-foreground">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"/>
-            </svg>
-          </span>
-          <input
-            type="search"
-            readOnly
-            placeholder={tTopbar('searchPlaceholder')}
-            className="h-9 w-[21rem] rounded-lg border bg-background pl-9 pr-10 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring lg:w-[27rem]"
-          />
-          <span className="absolute inset-y-0 right-3 flex items-center">
-            <kbd className="inline-flex h-5 items-center rounded border bg-muted px-1.5 text-[10px] font-medium text-muted-foreground">
-              ⌘K
-            </kbd>
-          </span>
-        </div>
+        {/* Search — triggers command palette */}
+        <button
+          type="button"
+          onClick={() => setCommandOpen(true)}
+          className="relative hidden h-9 w-[21rem] items-center rounded-lg border bg-background px-3 text-sm text-muted-foreground hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring sm:flex lg:w-[27rem]"
+          aria-label={tTopbar('searchPlaceholder')}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-4 w-4 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"/>
+          </svg>
+          <span className="flex-1 text-left">{tTopbar('searchPlaceholder')}</span>
+          <kbd className="inline-flex h-5 flex-shrink-0 items-center rounded border bg-muted px-1.5 text-[10px] font-medium">
+            ⌘K
+          </kbd>
+        </button>
       </div>
 
       {/* ── Right ── */}
@@ -144,8 +155,8 @@ export function Topbar() {
             aria-label="Switch language"
             aria-expanded={langOpen}
           >
-            {isEN ? <FlagEN /> : <FlagVI />}
-            <span>{isEN ? 'EN' : 'VI'}</span>
+            {currentLang.flag}
+            <span>{currentLang.short}</span>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 text-muted-foreground" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
               <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"/>
             </svg>
@@ -237,5 +248,8 @@ export function Topbar() {
         </div>
       </div>
     </header>
+
+    <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} />
+    </>
   );
 }

@@ -31,7 +31,7 @@ import { CurrentUser, CurrentUserPayload } from '../../common/decorators/current
 import { ZodValidationPipe } from '../../common/pipes/zod-validation.pipe';
 import { BomService } from './bom.service';
 
-const WRITE_ROLES = [UserRole.FACTORY_ADMIN, UserRole.PRODUCTION_MANAGER];
+const WRITE_ROLES = [UserRole.SUPER_ADMIN, UserRole.FACTORY_ADMIN, UserRole.PRODUCTION_MANAGER];
 
 @ApiTags('BOM')
 @ApiBearerAuth()
@@ -73,7 +73,7 @@ export class BomController {
   }
 
   @Delete(':id')
-  @Roles(UserRole.FACTORY_ADMIN)
+  @Roles(UserRole.SUPER_ADMIN, UserRole.FACTORY_ADMIN)
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Soft-delete BOM' })
   remove(@Param('factoryId') factoryId: string, @Param('id') id: string) {

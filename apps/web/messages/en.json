@@ -671,5 +671,21 @@
         "failed": "Failed"
       }
     }
+  },
+  "commandPalette": {
+    "placeholder": "Search pages and actions...",
+    "noResults": "No results found.",
+    "navigation": "Navigation",
+    "quickActions": "Quick Actions",
+    "suggested": "Suggested",
+    "recent": "Recent",
+    "navigate": "to navigate",
+    "select": "to select",
+    "close": "to close",
+    "newWorkOrder": "New Work Order",
+    "newProductionOrder": "New Production Order",
+    "newInspection": "New Inspection",
+    "generateReport": "Generate Report",
+    "addMaterial": "Add Material"
   }
 }

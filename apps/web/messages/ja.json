@@ -1,0 +1,691 @@
+{
+  "metadata": {
+    "appName": "iFactory",
+    "tagline": "製造実行システム"
+  },
+  "nav": {
+    "dashboard": "ダッシュボード",
+    "production": "生産",
+    "workOrders": "作業指示",
+    "bom": "部品表",
+    "inventory": "在庫",
+    "qualityControl": "品質管理",
+    "reports": "レポート",
+    "notifications": "通知",
+    "factories": "工場",
+    "users": "ユーザー",
+    "masterData": "マスターデータ",
+    "products": "製品",
+    "workCenters": "作業センター",
+    "routings": "工程ルーティング",
+    "categories": "カテゴリー",
+    "uoms": "単位",
+    "skills": "スキル",
+    "erpSync": "ERP同期",
+    "menuGroup": "メニュー",
+    "settingsGroup": "設定"
+  },
+  "topbar": {
+    "searchPlaceholder": "ここで検索...",
+    "settings": "設定",
+    "signOut": "サインアウト"
+  },
+  "auth": {
+    "signIn": "サインイン",
+    "signingIn": "サインイン中…",
+    "signInSubtitle": "続けるにはアカウントにサインインしてください",
+    "pageTitle": "サインイン — iFactory",
+    "username": "ユーザー名",
+    "password": "パスワード",
+    "defaultCredentialsHint": "デフォルト認証情報: admin / Test@123"
+  },
+  "dashboard": {
+    "title": "ダッシュボード",
+    "pageTitle": "ダッシュボード — iFactory",
+    "kpi": {
+      "viewReport": "レポートを見る",
+      "oee": {
+        "title": "OEE",
+        "description": "設備総合効率",
+        "good": "良好なパフォーマンス",
+        "average": "平均的なパフォーマンス",
+        "poor": "要改善"
+      },
+      "output": {
+        "title": "実績 vs 計画生産量",
+        "units": "個",
+        "label": "計画生産量の達成率"
+      },
+      "yieldRate": {
+        "title": "良品率（品質）",
+        "description": "不良品を除いた製品の割合",
+        "good": "優れた品質",
+        "needsAttention": "要改善"
+      },
+      "machines": {
+        "title": "稼働中の機械",
+        "description": "稼働中の設備",
+        "label": "稼働率"
+      }
+    },
+    "throughput": {
+      "title": "生産スループット",
+      "subtitle": "直近7日間の実績 vs 計画生産量",
+      "seriesCompleted": "実績",
+      "seriesPlanned": "計画",
+      "noData": "この期間の生産データがありません。"
+    },
+    "alerts": {
+      "title": "アラートとダウンタイム",
+      "allClear": "異常なし",
+      "allClearSub": "現在アクティブなアラートはありません。",
+      "machineDown": "機械停止",
+      "lowStock": "在庫不足",
+      "qcFailed": "品質アラート",
+      "failed": "失敗"
+    },
+    "workOrders": {
+      "title": "アクティブな作業指示",
+      "viewAll": "すべて見る",
+      "searchPlaceholder": "作業指示を検索...",
+      "noResults": "該当する作業指示がありません。",
+      "noActive": "アクティブな作業指示がありません。",
+      "columns": {
+        "code": "作業指示コード",
+        "product": "製品",
+        "progress": "進捗",
+        "eta": "完了予定",
+        "status": "ステータス"
+      }
+    }
+  },
+  "production": {
+    "title": "製造オーダー",
+    "pageTitle": "生産 — iFactory",
+    "noResults": "製造オーダーが見つかりません。新規作成してください。",
+    "new": {
+      "title": "製造オーダーを作成",
+      "pageTitle": "製造オーダー作成 — iFactory"
+    },
+    "detail": {
+      "title": "製造オーダー",
+      "pageTitle": "製造オーダー — iFactory"
+    },
+    "columns": {
+      "code": "POコード",
+      "productName": "製品",
+      "quantity": "数量",
+      "status": "ステータス",
+      "plannedStart": "計画開始",
+      "plannedEnd": "計画終了",
+      "actions": "操作"
+    },
+    "status": {
+      "DRAFT": "下書き",
+      "PLANNED": "計画中",
+      "IN_PROGRESS": "進行中",
+      "PAUSED": "一時停止",
+      "COMPLETED": "完了",
+      "CANCELLED": "キャンセル"
+    },
+    "form": {
+      "code": "POコード",
+      "productName": "製品名",
+      "quantity": "数量",
+      "unit": "単位",
+      "plannedStartDate": "計画開始日",
+      "plannedEndDate": "計画終了日",
+      "productionLineId": "生産ラインID（任意）",
+      "bomId": "部品表ID（任意）",
+      "notes": "備考"
+    },
+    "actions": {
+      "create": "新規製造オーダー",
+      "view": "表示",
+      "delete": "削除",
+      "createSubmit": "製造オーダーを作成"
+    }
+  },
+  "workOrders": {
+    "title": "作業指示",
+    "pageTitle": "作業指示 — iFactory",
+    "noResults": "作業指示が見つかりません。新規作成してください。",
+    "new": {
+      "title": "新規作業指示を作成",
+      "pageTitle": "作業指示作成 — iFactory"
+    },
+    "detail": {
+      "title": "作業指示",
+      "pageTitle": "作業指示 — iFactory"
+    },
+    "columns": {
+      "code": "WOコード",
+      "productionOrder": "製造オーダー",
+      "status": "ステータス",
+      "plannedStart": "計画開始",
+      "plannedEnd": "計画終了",
+      "steps": "工程",
+      "actions": "操作"
+    },
+    "status": {
+      "PENDING": "保留中",
+      "ASSIGNED": "割り当て済み",
+      "IN_PROGRESS": "進行中",
+      "ON_HOLD": "保留",
+      "COMPLETED": "完了",
+      "REJECTED": "却下",
+      "CANCELLED": "キャンセル"
+    },
+    "steps": {
+      "title": "作業工程",
+      "stepNumber": "工程",
+      "name": "工程名",
+      "workCenter": "作業センター",
+      "estimatedMinutes": "予定時間（分）",
+      "requiredSkills": "必要スキル",
+      "completed": "完了",
+      "pending": "未完了",
+      "noSteps": "この作業指示に工程が定義されていません。"
+    },
+    "form": {
+      "code": "WOコード",
+      "productionOrderId": "製造オーダーID",
+      "description": "説明",
+      "plannedStartDate": "計画開始",
+      "plannedEndDate": "計画終了",
+      "modeLabel": "工程モード",
+      "modeFromRouting": "工程ルーティングから自動生成",
+      "modeManual": "手動で工程を定義",
+      "stepNumber": "工程番号",
+      "stepName": "工程名",
+      "estimatedMinutes": "予定時間（分）",
+      "addStep": "工程を追加",
+      "removeStep": "削除"
+    },
+    "actions": {
+      "create": "新規作業指示",
+      "view": "表示",
+      "createSubmit": "作業指示を作成"
+    }
+  },
+  "bom": {
+    "title": "部品表（BOM）",
+    "pageTitle": "BOM — iFactory",
+    "new": {
+      "title": "BOMを作成",
+      "pageTitle": "BOM作成 — iFactory"
+    },
+    "detail": {
+      "title": "BOM {code} v{version}",
+      "pageTitle": "BOM詳細 — iFactory"
+    },
+    "revisions": {
+      "title": "改訂履歴",
+      "pageTitle": "BOM改訂 — iFactory"
+    },
+    "fields": {
+      "code": "コード",
+      "productName": "製品名",
+      "version": "バージョン",
+      "outputQuantity": "出力数量",
+      "outputUnit": "出力単位",
+      "isPhantom": "ファントムBOM",
+      "notes": "備考",
+      "isActive": "有効"
+    },
+    "items": {
+      "sequence": "順序",
+      "material": "材料",
+      "childBom": "子BOM",
+      "quantity": "数量",
+      "unit": "単位",
+      "waste": "廃棄率 %",
+      "notes": "備考"
+    },
+    "actions": {
+      "create": "BOMを作成",
+      "revise": "改訂を作成",
+      "addItem": "アイテムを追加",
+      "save": "保存",
+      "view": "表示",
+      "delete": "削除"
+    }
+  },
+  "inventory": {
+    "title": "在庫管理",
+    "pageTitle": "在庫 — iFactory",
+    "materials": {
+      "title": "材料",
+      "pageTitle": "材料 — iFactory",
+      "noResults": "材料が見つかりません。追加してください。",
+      "new": {
+        "title": "材料を追加",
+        "pageTitle": "材料追加 — iFactory"
+      },
+      "columns": {
+        "code": "コード",
+        "name": "名前",
+        "unit": "単位",
+        "currentStock": "在庫",
+        "minStock": "最小",
+        "maxStock": "最大",
+        "actions": "操作"
+      },
+      "lowStock": "在庫不足",
+      "form": {
+        "code": "材料コード",
+        "name": "材料名",
+        "unit": "単位",
+        "currentStock": "初期在庫",
+        "minStockLevel": "最小在庫レベル",
+        "maxStockLevel": "最大在庫レベル（任意）",
+        "warehouseId": "倉庫ID（任意）"
+      },
+      "actions": {
+        "create": "材料を追加",
+        "delete": "削除",
+        "createSubmit": "材料を保存"
+      }
+    },
+    "movements": {
+      "title": "在庫移動",
+      "pageTitle": "在庫移動 — iFactory",
+      "noResults": "移動記録がありません。",
+      "type": {
+        "RECEIPT": "入庫",
+        "ISSUE": "出庫",
+        "TRANSFER": "転送",
+        "ADJUSTMENT": "調整",
+        "RETURN": "返品",
+        "SCRAP": "廃棄"
+      },
+      "columns": {
+        "type": "種別",
+        "material": "材料ID",
+        "quantity": "数量",
+        "unit": "単位",
+        "reference": "参照",
+        "notes": "備考",
+        "date": "日付"
+      },
+      "record": {
+        "title": "移動を記録",
+        "materialId": "材料ID",
+        "type": "移動種別",
+        "quantity": "数量",
+        "unit": "単位",
+        "notes": "備考（任意）",
+        "submit": "記録"
+      },
+      "actions": {
+        "record": "移動を記録"
+      }
+    }
+  },
+  "qualityControl": {
+    "title": "品質管理",
+    "pageTitle": "品質管理 — iFactory",
+    "inspections": {
+      "title": "検査",
+      "pageTitle": "検査 — iFactory",
+      "noResults": "検査が見つかりません。",
+      "new": {
+        "title": "新規検査",
+        "pageTitle": "新規検査 — iFactory"
+      },
+      "detail": {
+        "title": "検査",
+        "pageTitle": "検査 — iFactory"
+      },
+      "columns": {
+        "inspectedAt": "日付",
+        "result": "結果",
+        "sample": "サンプル",
+        "passed": "合格",
+        "failed": "不合格",
+        "order": "関連オーダー",
+        "defects": "不具合",
+        "actions": "操作"
+      },
+      "result": {
+        "PASS": "合格",
+        "FAIL": "不合格",
+        "CONDITIONAL": "条件付き合格",
+        "PENDING": "保留中"
+      },
+      "defects": {
+        "title": "不具合",
+        "noDefects": "不具合は記録されていません。",
+        "add": "不具合を追加",
+        "severity": {
+          "CRITICAL": "重大",
+          "MAJOR": "主要",
+          "MINOR": "軽微"
+        },
+        "columns": {
+          "code": "コード",
+          "description": "説明",
+          "severity": "重大度",
+          "quantity": "数量",
+          "rootCause": "根本原因",
+          "corrective": "是正処置"
+        },
+        "form": {
+          "code": "不具合コード（任意）",
+          "description": "説明",
+          "severity": "重大度",
+          "quantity": "数量",
+          "rootCause": "根本原因（任意）",
+          "correctiveAction": "是正処置（任意）",
+          "submit": "不具合を追加"
+        }
+      },
+      "form": {
+        "inspectorId": "検査員ID",
+        "inspectedAt": "検査日",
+        "workOrderId": "作業指示ID（任意）",
+        "productionOrderId": "製造オーダーID（任意）",
+        "sampleSize": "サンプルサイズ",
+        "passedCount": "合格数",
+        "failedCount": "不合格数",
+        "notes": "備考"
+      },
+      "actions": {
+        "create": "新規検査",
+        "view": "表示",
+        "approve": "承認（合格）",
+        "reject": "却下（不合格）",
+        "createSubmit": "検査を作成"
+      }
+    }
+  },
+  "reports": {
+    "title": "レポート",
+    "subtitle": "レポートの種類を選択し、期間を設定して生成してください。数秒でダウンロード可能になります。",
+    "pageTitle": "レポート — iFactory",
+    "formTitle": "レポートを生成",
+    "typeProduction": "生産サマリー",
+    "typeProductionDesc": "ステータス別のオーダー、達成率、製品別の生産量。",
+    "typeWorkOrders": "作業指示スループット",
+    "typeWorkOrdersDesc": "WOの実行時間、工程完了率、作業センター稼働率。",
+    "typeInventory": "在庫レポート",
+    "typeInventoryDesc": "現在の在庫レベル、在庫不足アイテム、期間内の移動。",
+    "typeQc": "品質不良率",
+    "typeQcDesc": "検査結果、合格率、製造オーダー別の不具合数。",
+    "dateFrom": "開始日",
+    "dateTo": "終了日",
+    "format": "フォーマット",
+    "generate": "レポートを生成",
+    "generating": "生成中…",
+    "jobsTitle": "生成済みレポート",
+    "jobId": "ジョブID",
+    "download": "ダウンロード",
+    "processing": "処理中…",
+    "failed": "失敗",
+    "noFactory": "工場が選択されていません。",
+    "requestFailed": "レポートのリクエストに失敗しました。",
+    "downloadFailed": "ダウンロードに失敗しました。"
+  },
+  "factories": {
+    "title": "工場管理",
+    "pageTitle": "工場 — iFactory"
+  },
+  "notifications": {
+    "title": "通知",
+    "pageTitle": "通知 — iFactory"
+  },
+  "users": {
+    "title": "ユーザー管理",
+    "pageTitle": "ユーザー管理 — iFactory",
+    "noResults": "ユーザーが見つかりません。",
+    "new": {
+      "title": "ユーザーを作成",
+      "pageTitle": "ユーザー作成 — iFactory"
+    },
+    "columns": {
+      "fullName": "氏名",
+      "username": "ユーザー名",
+      "email": "メール",
+      "role": "役割",
+      "status": "ステータス",
+      "createdAt": "作成日",
+      "actions": "操作"
+    },
+    "role": {
+      "SUPER_ADMIN": "スーパー管理者",
+      "FACTORY_ADMIN": "工場管理者",
+      "PRODUCTION_MANAGER": "生産マネージャー",
+      "QC_INSPECTOR": "品質検査員",
+      "WAREHOUSE_STAFF": "倉庫スタッフ",
+      "OPERATOR": "オペレーター",
+      "VIEWER": "閲覧者"
+    },
+    "status": {
+      "active": "有効",
+      "inactive": "無効"
+    },
+    "form": {
+      "username": "ユーザー名",
+      "email": "メール",
+      "password": "パスワード",
+      "fullName": "氏名",
+      "role": "役割",
+      "allowedFactories": "許可工場（カンマ区切りUUID）"
+    },
+    "actions": {
+      "create": "新規ユーザー",
+      "delete": "削除",
+      "createSubmit": "ユーザーを作成"
+    }
+  },
+  "masterData": {
+    "products": {
+      "title": "製品",
+      "pageTitle": "製品 — iFactory",
+      "new": {
+        "title": "製品を作成",
+        "pageTitle": "製品作成 — iFactory"
+      },
+      "detail": {
+        "pageTitle": "製品詳細 — iFactory"
+      },
+      "fields": {
+        "sku": "SKU",
+        "name": "名前",
+        "type": "種別",
+        "category": "カテゴリー",
+        "uom": "単位",
+        "description": "説明",
+        "isActive": "有効"
+      },
+      "types": {
+        "FINISHED": "完成品",
+        "SEMI_FINISHED": "半製品",
+        "RAW_MATERIAL": "原材料",
+        "CONSUMABLE": "消耗品"
+      },
+      "actions": {
+        "create": "製品を作成",
+        "edit": "編集",
+        "delete": "削除"
+      }
+    },
+    "categories": {
+      "title": "製品カテゴリー",
+      "pageTitle": "カテゴリー — iFactory",
+      "fields": {
+        "code": "コード",
+        "name": "名前",
+        "parent": "親カテゴリー",
+        "description": "説明",
+        "sortOrder": "並び順"
+      },
+      "actions": {
+        "create": "カテゴリーを作成",
+        "edit": "編集",
+        "delete": "削除"
+      }
+    },
+    "uoms": {
+      "title": "単位",
+      "pageTitle": "単位 — iFactory",
+      "fields": {
+        "code": "コード",
+        "name": "名前",
+        "symbol": "記号",
+        "isBase": "基本単位",
+        "isActive": "有効"
+      },
+      "actions": {
+        "create": "単位を作成",
+        "edit": "編集",
+        "delete": "削除"
+      }
+    },
+    "workCenters": {
+      "title": "作業センター",
+      "pageTitle": "作業センター — iFactory",
+      "detail": {
+        "pageTitle": "作業センター詳細 — iFactory"
+      },
+      "fields": {
+        "code": "コード",
+        "name": "名前",
+        "type": "種別",
+        "capacity": "キャパシティ / 時間",
+        "description": "説明",
+        "isActive": "有効"
+      },
+      "types": {
+        "MACHINE": "機械加工",
+        "ASSEMBLY": "組立",
+        "INSPECTION": "検査",
+        "PACKING": "梱包"
+      },
+      "actions": {
+        "create": "作業センターを作成",
+        "edit": "編集",
+        "delete": "削除"
+      },
+      "machines": {
+        "title": "機械",
+        "fields": {
+          "code": "コード",
+          "name": "名前",
+          "model": "モデル",
+          "serialNumber": "シリアル番号",
+          "status": "ステータス",
+          "capacity": "キャパシティ / 時間"
+        },
+        "statuses": {
+          "ACTIVE": "稼働中",
+          "IDLE": "アイドル",
+          "MAINTENANCE": "メンテナンス中",
+          "BREAKDOWN": "故障"
+        },
+        "actions": {
+          "add": "機械を追加",
+          "edit": "編集",
+          "delete": "削除"
+        }
+      }
+    },
+    "skills": {
+      "title": "スキル",
+      "pageTitle": "スキル — iFactory",
+      "fields": {
+        "code": "コード",
+        "name": "名前",
+        "level": "レベル",
+        "description": "説明",
+        "isActive": "有効"
+      },
+      "levels": {
+        "BASIC": "初級",
+        "INTERMEDIATE": "中級",
+        "ADVANCED": "上級",
+        "EXPERT": "エキスパート"
+      },
+      "actions": {
+        "create": "スキルを作成",
+        "edit": "編集",
+        "delete": "削除"
+      }
+    },
+    "routings": {
+      "title": "工程ルーティング",
+      "pageTitle": "工程ルーティング — iFactory",
+      "new": {
+        "title": "工程ルーティングを作成",
+        "pageTitle": "工程ルーティング作成 — iFactory"
+      },
+      "detail": {
+        "pageTitle": "工程ルーティング詳細 — iFactory"
+      },
+      "fields": {
+        "code": "コード",
+        "name": "名前",
+        "version": "バージョン",
+        "product": "製品",
+        "isActive": "有効",
+        "notes": "備考"
+      },
+      "operations": {
+        "title": "工程",
+        "sequence": "順序",
+        "name": "名前",
+        "workCenter": "作業センター",
+        "cycleTime": "サイクルタイム（分）",
+        "setupTime": "段取り時間（分）",
+        "isOptional": "任意",
+        "instructions": "作業指示"
+      },
+      "actions": {
+        "create": "工程ルーティングを作成",
+        "addOperation": "工程を追加",
+        "edit": "編集",
+        "delete": "削除"
+      }
+    },
+    "erpSync": {
+      "title": "ERP同期",
+      "pageTitle": "ERP同期 — iFactory",
+      "fields": {
+        "entityType": "エンティティ種別",
+        "externalSystem": "外部システム",
+        "syncMode": "同期モード",
+        "dryRun": "ドライラン（検証のみ）",
+        "records": "レコード（JSON配列）"
+      },
+      "syncModes": {
+        "UPSERT": "アップサート（追加または更新）",
+        "REPLACE": "置換（全削除後に挿入）"
+      },
+      "actions": {
+        "trigger": "同期を実行"
+      },
+      "status": {
+        "queued": "キュー待ち",
+        "processing": "処理中",
+        "completed": "完了",
+        "failed": "失敗"
+      }
+    }
+  },
+  "commandPalette": {
+    "placeholder": "ページとアクションを検索...",
+    "noResults": "結果が見つかりませんでした。",
+    "navigation": "ナビゲーション",
+    "quickActions": "クイックアクション",
+    "suggested": "おすすめ",
+    "recent": "最近",
+    "navigate": "で移動",
+    "select": "で選択",
+    "close": "で閉じる",
+    "newWorkOrder": "新規作業指示",
+    "newProductionOrder": "新規製造オーダー",
+    "newInspection": "新規検査",
+    "generateReport": "レポート生成",
+    "addMaterial": "材料追加"
+  }
+}

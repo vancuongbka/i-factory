@@ -34,7 +34,7 @@ import { Roles } from '../../../common/decorators/roles.decorator';
 import { ZodValidationPipe } from '../../../common/pipes/zod-validation.pipe';
 import { ProductsService } from './products.service';
 
-const WRITE_ROLES = [UserRole.FACTORY_ADMIN, UserRole.PRODUCTION_MANAGER];
+const WRITE_ROLES = [UserRole.SUPER_ADMIN, UserRole.FACTORY_ADMIN, UserRole.PRODUCTION_MANAGER];
 
 @ApiTags('Master Data — Products')
 @ApiBearerAuth()
@@ -150,7 +150,7 @@ export class ProductsController {
   }
 
   @Delete('master-data/products/:id')
-  @Roles(UserRole.FACTORY_ADMIN)
+  @Roles(UserRole.SUPER_ADMIN, UserRole.FACTORY_ADMIN)
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Soft-delete product' })
   removeProduct(@Param('factoryId') factoryId: string, @Param('id') id: string) {

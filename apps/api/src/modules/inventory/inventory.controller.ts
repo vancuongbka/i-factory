@@ -31,6 +31,7 @@ import { ZodValidationPipe } from '../../common/pipes/zod-validation.pipe';
 import { InventoryService } from './inventory.service';
 
 const WRITE_ROLES = [
+  UserRole.SUPER_ADMIN,
   UserRole.FACTORY_ADMIN,
   UserRole.PRODUCTION_MANAGER,
   UserRole.WAREHOUSE_STAFF,
