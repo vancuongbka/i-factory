@@ -7,11 +7,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function WorkOrdersPage() {
-  const t = await getTranslations('workOrders');
 
   return (
     <div>
-      <h1 className="text-2xl font-bold">{t('title')}</h1>
     </div>
   );
 }

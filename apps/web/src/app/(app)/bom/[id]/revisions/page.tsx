@@ -4,7 +4,7 @@ import { Link } from '@/i18n/navigation';
 import { BomRevisionLog } from '../../_components/bom-revision-log';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations('bom.revisions');
+  const t = await getTranslations('bom');
   return { title: t('pageTitle') };
 }
 
@@ -14,7 +14,6 @@ interface BomRevisionsPageProps {
 
 export default async function BomRevisionsPage({ params }: BomRevisionsPageProps) {
   const { id } = await params;
-  const t = await getTranslations('bom.revisions');
 
   return (
     <div className="space-y-4">
@@ -22,7 +21,6 @@ export default async function BomRevisionsPage({ params }: BomRevisionsPageProps
         <Link href={`/bom/${id}`} className="text-sm text-muted-foreground hover:underline">
           ← Back to BOM
         </Link>
-        <h1 className="text-2xl font-bold">{t('title')}</h1>
       </div>
       <BomRevisionLog bomId={id} />
     </div>

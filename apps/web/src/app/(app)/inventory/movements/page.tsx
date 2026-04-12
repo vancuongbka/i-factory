@@ -7,11 +7,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function MovementsPage() {
-  const t = await getTranslations('inventory');
 
   return (
     <div>
-      <h1 className="text-2xl font-bold">{t('movements.title')}</h1>
     </div>
   );
 }

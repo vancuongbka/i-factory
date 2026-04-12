@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "appName": "i-factory",
+    "appName": "iFactory",
     "tagline": "Hệ thống Quản lý Sản xuất"
   },
   "nav": {
@@ -21,7 +21,14 @@
     "categories": "Danh mục",
     "uoms": "Đơn vị đo",
     "skills": "Kỹ năng",
-    "erpSync": "Đồng bộ ERP"
+    "erpSync": "Đồng bộ ERP",
+    "menuGroup": "Menu",
+    "settingsGroup": "Cài đặt"
+  },
+  "topbar": {
+    "searchPlaceholder": "Tìm kiếm...",
+    "settings": "Cài đặt",
+    "signOut": "Đăng xuất"
   },
   "auth": {
     "signIn": "Đăng nhập",
@@ -30,8 +37,65 @@
   },
   "dashboard": {
     "title": "Tổng quan",
-    "subtitle": "KPI cards và realtime charts sẽ được thêm vào đây.",
-    "pageTitle": "Tổng quan — i-factory"
+    "pageTitle": "Tổng quan — i-factory",
+    "periodSelector": {
+      "lastWeek": "1 tuần qua"
+    },
+    "kpi": {
+      "lowPerformanceMachines": {
+        "title": "Máy Hiệu Suất Thấp",
+        "description": "tăng trong tuần này",
+        "viewReport": "Xem Báo cáo"
+      },
+      "machineMalfunctions": {
+        "title": "Máy Hỏng Hóc",
+        "description": "giảm trong tuần này",
+        "viewReport": "Xem Báo cáo"
+      },
+      "employeeAbsenteeism": {
+        "title": "Vắng Mặt Nhân Viên",
+        "description": "nhân viên trong tuần này",
+        "viewReport": "Xem Báo cáo"
+      },
+      "materialShortage": {
+        "title": "Thiếu Nguyên Liệu",
+        "description": "tăng trong tuần này",
+        "viewReport": "Xem Báo cáo"
+      }
+    },
+    "materialUsage": {
+      "title": "Mức Sử Dụng Nguyên Liệu",
+      "categoryLabel": "Danh mục",
+      "seriesUsed": "Đã dùng",
+      "seriesAvailable": "Còn lại"
+    },
+    "attendanceSummary": {
+      "title": "Tổng Hợp Chuyên Cần",
+      "seriesOnTime": "Đúng giờ",
+      "seriesLate": "Muộn",
+      "seriesAbsent": "Vắng mặt"
+    },
+    "productionMonitoring": {
+      "title": "Giám Sát Sản Xuất",
+      "viewAll": "Xem Tất cả",
+      "searchPlaceholder": "Tìm mã lô...",
+      "noResults": "Không tìm thấy lô sản xuất.",
+      "machineStatus": {
+        "healthy": "Hoạt Động Tốt",
+        "lowPerformance": "Hiệu Suất Thấp"
+      },
+      "columns": {
+        "batchId": "Mã Lô",
+        "garmentType": "Loại May Mặc",
+        "targetOutput": "Sản Lượng Mục Tiêu",
+        "actualOutput": "Sản Lượng Thực Tế",
+        "efficiency": "Hiệu Suất (%)",
+        "machineStatus": "Trạng Thái Máy",
+        "materialAvailability": "Tình Trạng NVL",
+        "issuesAlerts": "Vấn Đề / Cảnh Báo",
+        "action": "Hành Động"
+      }
+    }
   },
   "production": {
     "title": "Lệnh Sản xuất",

@@ -12,7 +12,6 @@ export default async function ReportsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold">{t('title')}</h1>
       <p className="mt-2 text-muted-foreground">{t('subtitle')}</p>
     </div>
   );

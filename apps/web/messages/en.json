@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "appName": "i-factory",
+    "appName": "iFactory",
     "tagline": "Manufacturing Execution System"
   },
   "nav": {
@@ -21,7 +21,14 @@
     "categories": "Categories",
     "uoms": "Units of Measure",
     "skills": "Skills",
-    "erpSync": "ERP Sync"
+    "erpSync": "ERP Sync",
+    "menuGroup": "Menu",
+    "settingsGroup": "Settings"
+  },
+  "topbar": {
+    "searchPlaceholder": "Search anything here...",
+    "settings": "Settings",
+    "signOut": "Sign Out"
   },
   "auth": {
     "signIn": "Sign In",
@@ -30,8 +37,65 @@
   },
   "dashboard": {
     "title": "Dashboard",
-    "subtitle": "KPI cards and realtime charts will be added here.",
-    "pageTitle": "Dashboard — i-factory"
+    "pageTitle": "Dashboard — i-factory",
+    "periodSelector": {
+      "lastWeek": "Last 1 Week"
+    },
+    "kpi": {
+      "lowPerformanceMachines": {
+        "title": "Low-Performance Machines",
+        "description": "increased this week",
+        "viewReport": "View Report"
+      },
+      "machineMalfunctions": {
+        "title": "Machine Malfunctions",
+        "description": "decreased this week",
+        "viewReport": "View Report"
+      },
+      "employeeAbsenteeism": {
+        "title": "Employee Absenteeism",
+        "description": "employees this week",
+        "viewReport": "View Report"
+      },
+      "materialShortage": {
+        "title": "Material Shortage",
+        "description": "increased this week",
+        "viewReport": "View Report"
+      }
+    },
+    "materialUsage": {
+      "title": "Material Usage",
+      "categoryLabel": "Category",
+      "seriesUsed": "Used",
+      "seriesAvailable": "Available"
+    },
+    "attendanceSummary": {
+      "title": "Attendance Summary",
+      "seriesOnTime": "On Time",
+      "seriesLate": "Late",
+      "seriesAbsent": "Absent"
+    },
+    "productionMonitoring": {
+      "title": "Production Monitoring",
+      "viewAll": "View All",
+      "searchPlaceholder": "Search batch...",
+      "noResults": "No production batches found.",
+      "machineStatus": {
+        "healthy": "Healthy",
+        "lowPerformance": "Low Performance"
+      },
+      "columns": {
+        "batchId": "Batch ID",
+        "garmentType": "Garment Type",
+        "targetOutput": "Target Output",
+        "actualOutput": "Actual Output",
+        "efficiency": "Efficiency (%)",
+        "machineStatus": "Machine Status",
+        "materialAvailability": "Material Availability",
+        "issuesAlerts": "Issues / Alerts",
+        "action": "Action"
+      }
+    }
   },
   "production": {
     "title": "Production Orders",

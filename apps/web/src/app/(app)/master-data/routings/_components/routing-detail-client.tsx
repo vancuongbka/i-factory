@@ -21,7 +21,6 @@ export function RoutingDetailClient({ id }: RoutingDetailClientProps) {
     <div className="space-y-6">
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-bold">{routing.name}</h1>
           <p className="font-mono text-sm text-muted-foreground">
             {routing.code} · v{routing.version}
           </p>

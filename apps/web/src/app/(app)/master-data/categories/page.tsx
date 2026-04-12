@@ -8,11 +8,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function CategoriesPage() {
-  const t = await getTranslations('masterData.categories');
 
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-bold">{t('title')}</h1>
       <CategoryTree />
     </div>
   );
