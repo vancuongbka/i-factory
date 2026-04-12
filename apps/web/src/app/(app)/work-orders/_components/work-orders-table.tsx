@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
+import { Eye } from 'lucide-react';
 import { WorkOrderStatus } from '@i-factory/api-types';
 import { useWorkOrders } from '@/hooks/use-work-orders';
 import type { WorkOrderWithSteps } from '@/lib/api-client';
@@ -87,9 +88,10 @@ export function WorkOrdersTable() {
                 <button
                   type="button"
                   onClick={() => router.push(`/work-orders/${wo.id}`)}
-                  className="text-sm text-primary hover:underline"
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
+                  title={t('actions.view')}
                 >
-                  {t('actions.view')}
+                  <Eye className="h-4 w-4 text-blue-600" />
                 </button>
               </td>
             </tr>

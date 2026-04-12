@@ -1,51 +1,51 @@
 'use client';
 
-import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { GroupedBarChart } from '@i-factory/ui';
-import { MATERIAL_USAGE_DATA } from './dashboard-mock-data';
+import { LineChart } from '@i-factory/ui';
+import type { DashboardResponse } from '@i-factory/api-types';
 
-const SERIES_COLORS = { used: '#0D9488', available: '#F59E0B' };
+interface ThroughputTrendChartProps {
+  data: DashboardResponse['throughputTrend'] | undefined;
+  isLoading: boolean;
+}
 
-export function MaterialUsageChart() {
-  const t = useTranslations('dashboard');
-  const [_category, setCategory] = useState('all');
+// Format "2024-04-13" → "Apr 13"
+function shortDate(iso: string) {
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+export function MaterialUsageChart({ data, isLoading }: ThroughputTrendChartProps) {
+  const t = useTranslations('dashboard.throughput');
+
+  const chartData = (data ?? []).map((p) => ({
+    ...p,
+    date: shortDate(p.date),
+  }));
 
   const series = [
-    { dataKey: 'used', color: SERIES_COLORS.used, label: t('materialUsage.seriesUsed') },
-    { dataKey: 'available', color: SERIES_COLORS.available, label: t('materialUsage.seriesAvailable') },
+    { dataKey: 'completed', color: '#0D9488', label: t('seriesCompleted') },
+    { dataKey: 'planned', color: '#94A3B8', label: t('seriesPlanned'), dashed: true },
   ];
 
   return (
     <div className="rounded-lg border bg-card p-6">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-        <h2 className="text-base font-semibold">{t('materialUsage.title')}</h2>
-        <div className="flex items-center gap-2">
-          <select
-            className="rounded-md border bg-background px-3 py-1.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-            value={_category}
-            onChange={(e) => setCategory(e.target.value)}
-            aria-label={t('materialUsage.categoryLabel')}
-          >
-            <option value="all">{t('materialUsage.categoryLabel')}</option>
-          </select>
-          <select
-            className="rounded-md border bg-background px-3 py-1.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-            defaultValue="lastWeek"
-            aria-label={t('periodSelector.lastWeek')}
-          >
-            <option value="lastWeek">{t('periodSelector.lastWeek')}</option>
-          </select>
+        <div>
+          <h2 className="text-base font-semibold">{t('title')}</h2>
+          <p className="mt-0.5 text-xs text-muted-foreground">{t('subtitle')}</p>
         </div>
       </div>
-      <GroupedBarChart
-        data={MATERIAL_USAGE_DATA}
-        series={series}
-        xAxisKey="day"
-        yAxisUnit="%"
-        yAxisDomain={[0, 100]}
-        height={280}
-      />
+
+      {isLoading ? (
+        <div className="h-[280px] animate-pulse rounded-lg bg-muted" />
+      ) : chartData.length === 0 ? (
+        <div className="flex h-[280px] items-center justify-center text-sm text-muted-foreground">
+          {t('noData')}
+        </div>
+      ) : (
+        <LineChart data={chartData} series={series} xAxisKey="date" height={280} />
+      )}
     </div>
   );
 }

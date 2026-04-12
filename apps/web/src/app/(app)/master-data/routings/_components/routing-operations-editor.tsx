@@ -3,11 +3,13 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import type { RoutingOperationResponse } from '@i-factory/api-types';
+import { ConfirmDialog } from '@i-factory/ui';
 import {
   useAddRoutingOperation,
   useDeleteRoutingOperation,
 } from '@/hooks/use-routings';
 import { useWorkCenters } from '@/hooks/use-work-centers';
+import { useConfirmDialog } from '@/hooks/use-confirm-dialog';
 
 interface RoutingOperationsEditorProps {
   routingId: string;
@@ -19,6 +21,7 @@ export function RoutingOperationsEditor({ routingId, operations }: RoutingOperat
   const { data: workCenters } = useWorkCenters();
   const addOp = useAddRoutingOperation(routingId);
   const deleteOp = useDeleteRoutingOperation(routingId);
+  const { openConfirm, handleConfirm, handleCancel, dialog } = useConfirmDialog();
 
   const [showForm, setShowForm] = useState(false);
   const [opName, setOpName] = useState('');
@@ -137,7 +140,7 @@ export function RoutingOperationsEditor({ routingId, operations }: RoutingOperat
             </div>
             <button
               type="button"
-              onClick={() => { if (confirm(`Remove operation "${op.name}"?`)) deleteOp.mutate(op.id); }}
+              onClick={() => openConfirm(`Remove operation "${op.name}"?`, () => deleteOp.mutate(op.id), { confirmLabel: 'Remove' })}
               className="text-xs text-destructive hover:underline"
             >
               Remove
@@ -145,6 +148,9 @@ export function RoutingOperationsEditor({ routingId, operations }: RoutingOperat
           </li>
         ))}
       </ol>
+    {dialog && (
+      <ConfirmDialog message={dialog.message} confirmLabel={dialog.confirmLabel} onConfirm={handleConfirm} onCancel={handleCancel} />
+    )}
     </div>
   );
 }

@@ -17,6 +17,7 @@ export class AuthService {
     const payload = {
       sub: user.id,
       username: user.username,
+      fullName: user.fullName,
       role: user.role,
       allowedFactories: user.allowedFactories,
     };
@@ -30,10 +31,11 @@ export class AuthService {
 
   async refreshToken(token: string) {
     try {
-      const payload = this.jwtService.verify<{ sub: string; username: string; role: string; allowedFactories: string[] }>(token);
+      const payload = this.jwtService.verify<{ sub: string; username: string; fullName: string; role: string; allowedFactories: string[] }>(token);
       const newPayload = {
         sub: payload.sub,
         username: payload.username,
+        fullName: payload.fullName,
         role: payload.role,
         allowedFactories: payload.allowedFactories,
       };

@@ -2,18 +2,23 @@
 
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
+import { Eye, Trash2 } from 'lucide-react';
+import { ConfirmDialog } from '@i-factory/ui';
 import { useBoms, useDeleteBom } from '@/hooks/use-bom';
+import { useConfirmDialog } from '@/hooks/use-confirm-dialog';
 
 export function BomTable() {
   const t = useTranslations('bom');
   const { data: boms, isLoading } = useBoms();
   const deleteBom = useDeleteBom();
   const router = useRouter();
+  const { openConfirm, handleConfirm, handleCancel, dialog } = useConfirmDialog();
 
   if (isLoading) return <p className="text-muted-foreground">Loading…</p>;
   if (!boms?.length) return <p className="text-muted-foreground">No BOMs found. Create one to get started.</p>;
 
   return (
+    <>
     <div className="overflow-x-auto rounded-md border">
       <table className="w-full text-sm">
         <thead className="border-b bg-muted/50">
@@ -37,25 +42,33 @@ export function BomTable() {
                 </span>
               </td>
               <td className="px-4 py-3 text-right">
-                <button
-                  type="button"
-                  onClick={() => router.push(`/bom/${bom.id}`)}
-                  className="mr-2 text-sm text-primary hover:underline"
-                >
-                  View
-                </button>
-                <button
-                  type="button"
-                  onClick={() => { if (confirm(`Delete BOM "${bom.code}"?`)) deleteBom.mutate(bom.id); }}
-                  className="text-sm text-destructive hover:underline"
-                >
-                  Delete
-                </button>
+                <div className="flex items-center justify-end gap-1">
+                  <button
+                    type="button"
+                    onClick={() => router.push(`/bom/${bom.id}`)}
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
+                    title={t('actions.view')}
+                  >
+                    <Eye className="h-4 w-4 text-blue-600" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => openConfirm(`Delete BOM "${bom.code}"?`, () => deleteBom.mutate(bom.id))}
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
+                    title={t('actions.delete')}
+                  >
+                    <Trash2 className="h-4 w-4 text-red-600" />
+                  </button>
+                </div>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
+    {dialog && (
+      <ConfirmDialog message={dialog.message} confirmLabel={dialog.confirmLabel} onConfirm={handleConfirm} onCancel={handleCancel} />
+    )}
+    </>
   );
 }

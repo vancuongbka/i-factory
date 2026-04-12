@@ -960,6 +960,406 @@ async function seed() {
 
   console.log('✓ Report module seed data complete.');
 
+  // ── Dashboard module: machines, throughput, active WOs, alerts ─────────────
+  // Goal: populate all 4 dashboard widgets with ≥10 rows each.
+  //   • 6 more machines  →  10 total, with MAINTENANCE + BREAKDOWN for alerts
+  //   • 4 COMPLETED POs with actualEndDate in the last 7 days  →  throughput trend
+  //   • 5 more IN_PROGRESS POs  →  10 total active work orders in the table
+  //   • 8 more IN_PROGRESS WOs (10 incl. wo2 + wo8) with steps for progress bars
+  //   • 3 low-stock materials  →  low-stock alerts
+  //   • 3 QC FAIL/CONDITIONAL inspections in the last 7 days  →  QC alerts
+  console.log('Seeding dashboard module data...');
+
+  const DM = {
+    // 6 extra machines
+    machine: {
+      cncMill:    'e1000000-0000-0000-0000-000000000001',
+      windMach2:  'e1000000-0000-0000-0000-000000000002',
+      assy1:      'e1000000-0000-0000-0000-000000000003',
+      assy2:      'e1000000-0000-0000-0000-000000000004',
+      hydPress2:  'e1000000-0000-0000-0000-000000000005',
+      packConv:   'e1000000-0000-0000-0000-000000000006',
+    },
+    // 4 throughput-trend POs (COMPLETED, actualEndDate in last 7 days)
+    tpo: {
+      tp1: '71000000-0000-0000-0000-000000000001',
+      tp2: '71000000-0000-0000-0000-000000000002',
+      tp3: '71000000-0000-0000-0000-000000000003',
+      tp4: '71000000-0000-0000-0000-000000000004',
+    },
+    // 5 IN_PROGRESS POs feeding the active-WO table
+    apo: {
+      ap1: '71000000-0000-0000-0000-000000000005',
+      ap2: '71000000-0000-0000-0000-000000000006',
+      ap3: '71000000-0000-0000-0000-000000000007',
+      ap4: '71000000-0000-0000-0000-000000000008',
+      ap5: '71000000-0000-0000-0000-000000000009',
+    },
+    // 8 new IN_PROGRESS WOs
+    wo: {
+      w1: '81000000-0000-0000-0000-000000000001',
+      w2: '81000000-0000-0000-0000-000000000002',
+      w3: '81000000-0000-0000-0000-000000000003',
+      w4: '81000000-0000-0000-0000-000000000004',
+      w5: '81000000-0000-0000-0000-000000000005',
+      w6: '81000000-0000-0000-0000-000000000006',
+      w7: '81000000-0000-0000-0000-000000000007',
+      w8: '81000000-0000-0000-0000-000000000008',
+    },
+    // 3 low-stock materials
+    mat: {
+      bearing:    '41000000-0000-0000-0000-000000000001',
+      nomex:      '41000000-0000-0000-0000-000000000002',
+      thermal:    '41000000-0000-0000-0000-000000000003',
+    },
+    // 3 QC inspections in the last 7 days (FAIL / CONDITIONAL)
+    qc: {
+      dq1: '91000000-0000-0000-0000-000000000001',
+      dq2: '91000000-0000-0000-0000-000000000002',
+      dq3: '91000000-0000-0000-0000-000000000003',
+    },
+  };
+
+  // ── 6 extra machines (total 10) with varied statuses ──────────────────────
+  await qr.query(`
+    INSERT INTO machines (
+      id, "factoryId", "workCenterId", code, name, model, "serialNumber",
+      status, "capacityPerHour"
+    ) VALUES
+      (
+        '${DM.machine.cncMill}', '${ID.factory.hcm}', '${ID.workCenter.cnc}',
+        'CNC-003', 'CNC Milling Center #3', 'Haas VF-2', 'HAS-2023-00984',
+        'ACTIVE', 5.00
+      ),
+      (
+        '${DM.machine.windMach2}', '${ID.factory.hcm}', '${ID.workCenter.winding}',
+        'WIND-002', 'Automatic Winding Machine #2', 'MARSILLI 36N', 'MRS-2023-00217',
+        'MAINTENANCE', 1.00
+      ),
+      (
+        '${DM.machine.assy1}', '${ID.factory.hcm}', '${ID.workCenter.assembly}',
+        'ASSY-001', 'Semi-Auto Assembly Cell #1', 'Yamaha YS100', 'YAM-2022-00631',
+        'ACTIVE', 4.00
+      ),
+      (
+        '${DM.machine.assy2}', '${ID.factory.hcm}', '${ID.workCenter.assembly}',
+        'ASSY-002', 'Semi-Auto Assembly Cell #2', 'Yamaha YS100', 'YAM-2022-00632',
+        'ACTIVE', 4.00
+      ),
+      (
+        '${DM.machine.hydPress2}', '${ID.factory.hcm}', '${ID.workCenter.press}',
+        'PRESS-002', 'Hydraulic Press 30T', 'Schuler HPM 30', 'SCH-2020-05512',
+        'BREAKDOWN', 6.00
+      ),
+      (
+        '${DM.machine.packConv}', '${ID.factory.hcm}', '${ID.workCenter.packing}',
+        'PACK-001', 'Packing Conveyor Line', 'Intralox S-5700', 'ITX-2021-00388',
+        'IDLE', 20.00
+      )
+  `);
+
+  // ── 3 low-stock materials (currentStock < minStockLevel) ─────────────────
+  await qr.query(`
+    INSERT INTO materials (
+      id, "factoryId", code, name, unit,
+      "currentStock", "minStockLevel", "maxStockLevel",
+      "warehouseId", "isActive"
+    ) VALUES
+      (
+        '${DM.mat.bearing}', '${ID.factory.hcm}',
+        'M-007', 'Bearing SKF 6205', 'pcs',
+        8.000, 20.000, 200.000,
+        '${ID.warehouse.main}', true
+      ),
+      (
+        '${DM.mat.nomex}', '${ID.factory.hcm}',
+        'M-008', 'Nomex Insulation Sheet 0.25mm', 'pcs',
+        4.000, 15.000, 150.000,
+        '${ID.warehouse.prod}', true
+      ),
+      (
+        '${DM.mat.thermal}', '${ID.factory.hcm}',
+        'M-009', 'Thermal Conductive Compound', 'kg',
+        0.500, 2.000, 10.000,
+        '${ID.warehouse.prod}', true
+      )
+  `);
+
+  // ── 4 throughput POs — COMPLETED, actualEndDate within last 7 days ────────
+  await qr.query(`
+    INSERT INTO production_orders (
+      id, "factoryId", code, "productName", "productId", quantity, unit, status,
+      "plannedStartDate", "plannedEndDate",
+      "actualStartDate",  "actualEndDate",
+      "completedQuantity", "bomId", "productionLineId"
+    ) VALUES
+      (
+        '${DM.tpo.tp1}', '${ID.factory.hcm}',
+        'PO-2026-009', 'Electric Motor 3kW', '${ID.product.motor3kw}',
+        35.000, 'unit', 'COMPLETED',
+        '${past(14).toISOString()}', '${past(7).toISOString()}',
+        '${past(13).toISOString()}', '${past(6).toISOString()}',
+        35.000, '${ID.bom.motor}', '${ID.line.assembly}'
+      ),
+      (
+        '${DM.tpo.tp2}', '${ID.factory.hcm}',
+        'PO-2026-010', 'Control Circuit Board', '${ID.product.circuitBoard}',
+        50.000, 'unit', 'COMPLETED',
+        '${past(12).toISOString()}', '${past(5).toISOString()}',
+        '${past(11).toISOString()}', '${past(4).toISOString()}',
+        50.000, '${ID.bom.circuit}', '${ID.line.assembly}'
+      ),
+      (
+        '${DM.tpo.tp3}', '${ID.factory.hcm}',
+        'PO-2026-011', 'Electric Motor 3kW', '${ID.product.motor3kw}',
+        45.000, 'unit', 'COMPLETED',
+        '${past(10).toISOString()}', '${past(3).toISOString()}',
+        '${past(9).toISOString()}',  '${past(2).toISOString()}',
+        45.000, '${ID.bom.motor}', '${ID.line.assembly}'
+      ),
+      (
+        '${DM.tpo.tp4}', '${ID.factory.hcm}',
+        'PO-2026-012', 'Control Circuit Board', '${ID.product.circuitBoard}',
+        30.000, 'unit', 'COMPLETED',
+        '${past(8).toISOString()}',  '${past(2).toISOString()}',
+        '${past(7).toISOString()}',  '${past(1).toISOString()}',
+        30.000, '${ID.bom.circuit}', '${ID.line.assembly}'
+      )
+  `);
+
+  // ── 5 IN_PROGRESS POs for the active-WO table ────────────────────────────
+  await qr.query(`
+    INSERT INTO production_orders (
+      id, "factoryId", code, "productName", "productId", quantity, unit, status,
+      "plannedStartDate", "plannedEndDate",
+      "actualStartDate",  "actualEndDate",
+      "completedQuantity", "bomId", "productionLineId"
+    ) VALUES
+      (
+        '${DM.apo.ap1}', '${ID.factory.hcm}',
+        'PO-2026-013', 'Electric Motor 3kW', '${ID.product.motor3kw}',
+        80.000, 'unit', 'IN_PROGRESS',
+        '${past(5).toISOString()}',  '${future(15).toISOString()}',
+        '${past(5).toISOString()}',  NULL,
+        28.000, '${ID.bom.motor}', '${ID.line.assembly}'
+      ),
+      (
+        '${DM.apo.ap2}', '${ID.factory.hcm}',
+        'PO-2026-014', 'Control Circuit Board', '${ID.product.circuitBoard}',
+        60.000, 'unit', 'IN_PROGRESS',
+        '${past(4).toISOString()}',  '${future(8).toISOString()}',
+        '${past(4).toISOString()}',  NULL,
+        15.000, '${ID.bom.circuit}', '${ID.line.assembly}'
+      ),
+      (
+        '${DM.apo.ap3}', '${ID.factory.hcm}',
+        'PO-2026-015', 'Electric Motor 3kW', '${ID.product.motor3kw}',
+        40.000, 'unit', 'IN_PROGRESS',
+        '${past(3).toISOString()}',  '${future(5).toISOString()}',
+        '${past(3).toISOString()}',  NULL,
+        10.000, '${ID.bom.motor}', '${ID.line.assembly}'
+      ),
+      (
+        '${DM.apo.ap4}', '${ID.factory.hcm}',
+        'PO-2026-016', 'Control Circuit Board', '${ID.product.circuitBoard}',
+        90.000, 'unit', 'IN_PROGRESS',
+        '${past(8).toISOString()}',  '${future(2).toISOString()}',
+        '${past(8).toISOString()}',  NULL,
+        72.000, '${ID.bom.circuit}', '${ID.line.assembly}'
+      ),
+      (
+        '${DM.apo.ap5}', '${ID.factory.hcm}',
+        'PO-2026-017', 'Electric Motor 3kW', '${ID.product.motor3kw}',
+        55.000, 'unit', 'IN_PROGRESS',
+        '${past(6).toISOString()}',  '${future(10).toISOString()}',
+        '${past(6).toISOString()}',  NULL,
+        30.000, '${ID.bom.motor}', '${ID.line.assembly}'
+      )
+  `);
+
+  // ── 8 IN_PROGRESS work orders + steps (brings total to 10 with wo2 + wo8) ─
+  await qr.query(`
+    INSERT INTO work_orders (
+      id, "factoryId", "productionOrderId", code, description, status,
+      "assignedTo", "plannedStartDate", "plannedEndDate",
+      "actualStartDate", "actualEndDate"
+    ) VALUES
+      (
+        '${DM.wo.w1}', '${ID.factory.hcm}', '${DM.apo.ap1}',
+        'WO-2026-010', 'CNC machining + winding — Motor batch 28 units',
+        'IN_PROGRESS',
+        '${ID.user.operator1}',
+        '${past(5).toISOString()}', '${future(7).toISOString()}',
+        '${past(5).toISOString()}', NULL
+      ),
+      (
+        '${DM.wo.w2}', '${ID.factory.hcm}', '${DM.apo.ap1}',
+        'WO-2026-011', 'Final assembly and HV test — Motor batch remaining',
+        'IN_PROGRESS',
+        '${ID.user.operator2}',
+        '${past(2).toISOString()}', '${future(15).toISOString()}',
+        '${past(2).toISOString()}', NULL
+      ),
+      (
+        '${DM.wo.w3}', '${ID.factory.hcm}', '${DM.apo.ap2}',
+        'WO-2026-012', 'SMD placement + reflow — PCB batch 60 boards',
+        'IN_PROGRESS',
+        '${ID.user.operator2}',
+        '${past(4).toISOString()}', '${future(4).toISOString()}',
+        '${past(4).toISOString()}', NULL
+      ),
+      (
+        '${DM.wo.w4}', '${ID.factory.hcm}', '${DM.apo.ap3}',
+        'WO-2026-013', 'Shaft machining and stator winding — Motor batch 40 units',
+        'IN_PROGRESS',
+        '${ID.user.operator1}',
+        '${past(3).toISOString()}', '${future(5).toISOString()}',
+        '${past(3).toISOString()}', NULL
+      ),
+      (
+        '${DM.wo.w5}', '${ID.factory.hcm}', '${DM.apo.ap3}',
+        'WO-2026-014', 'Press assembly and end-shield fitting',
+        'IN_PROGRESS',
+        NULL,
+        '${past(1).toISOString()}', '${future(5).toISOString()}',
+        '${past(1).toISOString()}', NULL
+      ),
+      (
+        '${DM.wo.w6}', '${ID.factory.hcm}', '${DM.apo.ap4}',
+        'WO-2026-015', 'PCB functional test + firmware flash — 90 boards',
+        'IN_PROGRESS',
+        '${ID.user.operator2}',
+        '${past(8).toISOString()}', '${future(2).toISOString()}',
+        '${past(8).toISOString()}', NULL
+      ),
+      (
+        '${DM.wo.w7}', '${ID.factory.hcm}', '${DM.apo.ap5}',
+        'WO-2026-016', 'Motor winding — 55-unit batch first pass',
+        'IN_PROGRESS',
+        '${ID.user.operator1}',
+        '${past(6).toISOString()}', '${future(4).toISOString()}',
+        '${past(6).toISOString()}', NULL
+      ),
+      (
+        '${DM.wo.w8}', '${ID.factory.hcm}', '${DM.apo.ap5}',
+        'WO-2026-017', 'Electrical wiring, terminal box, and run-in test',
+        'IN_PROGRESS',
+        NULL,
+        '${past(2).toISOString()}', '${future(10).toISOString()}',
+        '${past(2).toISOString()}', NULL
+      )
+  `);
+
+  // Steps for the 8 new work orders — varied completion for meaningful progress bars
+  await qr.query(`
+    INSERT INTO work_order_steps (
+      id, "workOrderId", "stepNumber", name,
+      "estimatedMinutes", "requiredSkills", "isCompleted", "completedAt"
+    ) VALUES
+      -- WO-2026-010 (w1): 4 steps, 2 completed → 50%
+      ('82000000-0000-0000-0000-000000000001', '${DM.wo.w1}', 1, 'Steel rod cutting to length',    30,  '{"cnc-operator"}',     true,  '${past(5).toISOString()}'),
+      ('82000000-0000-0000-0000-000000000002', '${DM.wo.w1}', 2, 'CNC shaft turning and keyway',   45,  '{"cnc-operator"}',     true,  '${past(4).toISOString()}'),
+      ('82000000-0000-0000-0000-000000000003', '${DM.wo.w1}', 3, 'Stator coil winding',           120,  '{"winding"}',          false, NULL),
+      ('82000000-0000-0000-0000-000000000004', '${DM.wo.w1}', 4, 'Nomex insulation and lacing',    30,  '{"winding"}',          false, NULL),
+
+      -- WO-2026-011 (w2): 3 steps, 0 completed → 0%
+      ('82000000-0000-0000-0000-000000000005', '${DM.wo.w2}', 1, 'Final assembly and gasket fit',  60,  '{"assembly"}',         false, NULL),
+      ('82000000-0000-0000-0000-000000000006', '${DM.wo.w2}', 2, 'Terminal wiring and torque',     50,  '{"electrical"}',       false, NULL),
+      ('82000000-0000-0000-0000-000000000007', '${DM.wo.w2}', 3, 'HV withstand and run-in test',   30,  '{"qc-basic","electrical"}', false, NULL),
+
+      -- WO-2026-012 (w3): 4 steps, 3 completed → 75%
+      ('82000000-0000-0000-0000-000000000008', '${DM.wo.w3}', 1, 'Solder paste stencil application', 15, '{"assembly"}',        true,  '${past(4).toISOString()}'),
+      ('82000000-0000-0000-0000-000000000009', '${DM.wo.w3}', 2, 'SMD component pick and place',    45,  '{"assembly"}',        true,  '${past(3).toISOString()}'),
+      ('82000000-0000-0000-0000-00000000000a', '${DM.wo.w3}', 3, 'Reflow soldering profile',        20,  '{"assembly"}',        true,  '${past(2).toISOString()}'),
+      ('82000000-0000-0000-0000-00000000000b', '${DM.wo.w3}', 4, 'Functional test and firmware',    20,  '{"qc-basic"}',        false, NULL),
+
+      -- WO-2026-013 (w4): 3 steps, 1 completed → 33%
+      ('82000000-0000-0000-0000-00000000000c', '${DM.wo.w4}', 1, 'CNC shaft machining',             30,  '{"cnc-operator"}',    true,  '${past(3).toISOString()}'),
+      ('82000000-0000-0000-0000-00000000000d', '${DM.wo.w4}', 2, 'Stator coil winding 48 slots',   120,  '{"winding"}',         false, NULL),
+      ('82000000-0000-0000-0000-00000000000e', '${DM.wo.w4}', 3, 'Rotor press and bearing fit',     60,  '{"press-operator"}',  false, NULL),
+
+      -- WO-2026-014 (w5): 3 steps, 1 completed → 33%
+      ('82000000-0000-0000-0000-00000000000f', '${DM.wo.w5}', 1, 'Bearing press onto shaft',        45,  '{"press-operator"}',  true,  '${past(1).toISOString()}'),
+      ('82000000-0000-0000-0000-000000000010', '${DM.wo.w5}', 2, 'End-shield fitting and bolting',  40,  '{"assembly"}',        false, NULL),
+      ('82000000-0000-0000-0000-000000000011', '${DM.wo.w5}', 3, 'Rubber gasket sealing check',     15,  '{"assembly"}',        false, NULL),
+
+      -- WO-2026-015 (w6): 4 steps, 3 completed → 75%
+      ('82000000-0000-0000-0000-000000000012', '${DM.wo.w6}', 1, 'Power-on self-test (POST)',        10,  '{"qc-basic"}',        true,  '${past(7).toISOString()}'),
+      ('82000000-0000-0000-0000-000000000013', '${DM.wo.w6}', 2, 'Firmware flash v2.1.3 via JTAG',  15,  '{"qc-basic"}',        true,  '${past(6).toISOString()}'),
+      ('82000000-0000-0000-0000-000000000014', '${DM.wo.w6}', 3, 'RS485 communication validation',  10,  '{"qc-basic"}',        true,  '${past(5).toISOString()}'),
+      ('82000000-0000-0000-0000-000000000015', '${DM.wo.w6}', 4, 'Label, bag, and box for shipping', 10, '{"picker"}',          false, NULL),
+
+      -- WO-2026-016 (w7): 4 steps, 2 completed → 50%
+      ('82000000-0000-0000-0000-000000000016', '${DM.wo.w7}', 1, 'Pre-cut wire and strip ends',     20,  '{"electrical"}',      true,  '${past(6).toISOString()}'),
+      ('82000000-0000-0000-0000-000000000017', '${DM.wo.w7}', 2, 'Stator winding — phase A',       120,  '{"winding"}',         true,  '${past(4).toISOString()}'),
+      ('82000000-0000-0000-0000-000000000018', '${DM.wo.w7}', 3, 'Stator winding — phases B & C',  120,  '{"winding"}',         false, NULL),
+      ('82000000-0000-0000-0000-000000000019', '${DM.wo.w7}', 4, 'Varnish impregnation and cure',   60,  '{"winding"}',         false, NULL),
+
+      -- WO-2026-017 (w8): 3 steps, 1 completed → 33%
+      ('82000000-0000-0000-0000-00000000001a', '${DM.wo.w8}', 1, 'Connect stator leads to terminal box', 50, '{"electrical"}',  true,  '${past(2).toISOString()}'),
+      ('82000000-0000-0000-0000-00000000001b', '${DM.wo.w8}', 2, 'No-load run-in test 30 min',      30,  '{"electrical","qc-basic"}', false, NULL),
+      ('82000000-0000-0000-0000-00000000001c', '${DM.wo.w8}', 3, 'Vibration and current logging',   20,  '{"qc-basic"}',        false, NULL)
+  `);
+
+  // ── 3 QC inspections in the last 7 days (for alerts panel) ───────────────
+  await qr.query(`
+    INSERT INTO qc_inspections (
+      id, "factoryId", "workOrderId", "productionOrderId", "inspectorId",
+      "inspectedAt", "sampleSize", "passedCount", "failedCount", result, notes
+    ) VALUES
+      (
+        '${DM.qc.dq1}', '${ID.factory.hcm}', '${DM.wo.w1}', '${DM.apo.ap1}',
+        '${ID.user.qcInspector}',
+        '${past(5).toISOString()}',
+        14, 11, 3, 'FAIL',
+        '3 of 14 shafts had diameter 27.97mm — below 28.00mm±0.02mm tolerance. CNC tool wear suspected.'
+      ),
+      (
+        '${DM.qc.dq2}', '${ID.factory.hcm}', '${DM.wo.w3}', '${DM.apo.ap2}',
+        '${ID.user.qcInspector}',
+        '${past(2).toISOString()}',
+        30, 28, 2, 'CONDITIONAL',
+        '2 boards with lifted pads on C12 capacitor. Manually reworked and re-tested. Approved for next stage.'
+      ),
+      (
+        '${DM.qc.dq3}', '${ID.factory.hcm}', '${DM.wo.w6}', '${DM.apo.ap4}',
+        '${ID.user.qcInspector}',
+        '${past(1).toISOString()}',
+        45, 40, 5, 'FAIL',
+        '5 boards failed RS485 loopback test at 115200 baud after firmware flash. USB-JTAG fixture pin fault.'
+      )
+  `);
+
+  await qr.query(`
+    INSERT INTO qc_defects (
+      id, "inspectionId", code, description, severity, quantity,
+      "rootCause", "correctiveAction"
+    ) VALUES
+      (
+        'a2000000-0000-0000-0000-000000000001', '${DM.qc.dq1}',
+        'DEF-SHAFT-001', 'Shaft OD undersize — 27.97mm vs 28.00mm nominal',
+        'MAJOR', 3,
+        'CNC tool wear — insert not replaced at 200-part interval',
+        'Replace cutting insert. 100% diameter check on remaining batch. Update tooling PM schedule.'
+      ),
+      (
+        'a2000000-0000-0000-0000-000000000002', '${DM.qc.dq2}',
+        'DEF-PAD-001', 'Lifted pad on C12 100nF capacitor',
+        'MINOR', 2,
+        'Excessive rework temperature from prior manual touch-up on adjacent component',
+        'Rework affected boards with hot-air pencil. Brief operator on maximum touch-up temperature (300°C, 3s).'
+      ),
+      (
+        'a2000000-0000-0000-0000-000000000003', '${DM.qc.dq3}',
+        'DEF-JTAG-001', 'RS485 comm failure post firmware flash',
+        'MAJOR', 5,
+        'USB-JTAG programming fixture pin 7 intermittent — flash sequence incomplete on affected boards',
+        'Replace programming fixture pin. Re-flash 5 boards. Add post-flash comm verify to automated test script.'
+      )
+  `);
+
+  console.log('✓ Dashboard module seed data complete.');
+
   await qr.release();
   await AppDataSource.destroy();
   console.log('✓ Seed complete.');

@@ -38,6 +38,7 @@ import type {
   ErpSyncJobResponse,
 } from '@i-factory/api-types';
 import type { ReportRequestDto, ReportJobResponse } from '@i-factory/api-types';
+import type { DashboardResponse } from '@i-factory/api-types';
 import type {
   BomResponse,
   BomRevisionResponse,
@@ -112,6 +113,10 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
 }
 
 export const apiClient = {
+  dashboard: {
+    get: (factoryId: string) =>
+      request<DashboardResponse>(`/factories/${factoryId}/dashboard`, {}),
+  },
   factories: {
     list: () => request<unknown[]>('/factories', {}),
   },

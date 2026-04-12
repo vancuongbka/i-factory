@@ -2,18 +2,23 @@
 
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
+import { Pencil, Trash2 } from 'lucide-react';
+import { ConfirmDialog } from '@i-factory/ui';
 import { useRoutings, useDeleteRouting } from '@/hooks/use-routings';
+import { useConfirmDialog } from '@/hooks/use-confirm-dialog';
 
 export function RoutingTable() {
   const t = useTranslations('masterData.routings');
   const { data: routings, isLoading } = useRoutings();
   const deleteRouting = useDeleteRouting();
   const router = useRouter();
+  const { openConfirm, handleConfirm, handleCancel, dialog } = useConfirmDialog();
 
   if (isLoading) return <p className="text-muted-foreground">Loading…</p>;
   if (!routings?.length) return <p className="text-muted-foreground">No routings found. Create one to get started.</p>;
 
   return (
+    <>
     <div className="overflow-x-auto rounded-md border">
       <table className="w-full text-sm">
         <thead className="border-b bg-muted/50">
@@ -37,25 +42,33 @@ export function RoutingTable() {
                 </span>
               </td>
               <td className="px-4 py-3 text-right">
-                <button
-                  type="button"
-                  onClick={() => router.push(`/master-data/routings/${r.id}`)}
-                  className="mr-2 text-sm text-primary hover:underline"
-                >
-                  {t('actions.edit')}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => { if (confirm(`Delete routing "${r.name}"?`)) deleteRouting.mutate(r.id); }}
-                  className="text-sm text-destructive hover:underline"
-                >
-                  {t('actions.delete')}
-                </button>
+                <div className="flex items-center justify-end gap-1">
+                  <button
+                    type="button"
+                    onClick={() => router.push(`/master-data/routings/${r.id}`)}
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
+                    title={t('actions.edit')}
+                  >
+                    <Pencil className="h-4 w-4 text-blue-600" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => openConfirm(`Delete routing "${r.name}"?`, () => deleteRouting.mutate(r.id))}
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
+                    title={t('actions.delete')}
+                  >
+                    <Trash2 className="h-4 w-4 text-red-600" />
+                  </button>
+                </div>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
+    {dialog && (
+      <ConfirmDialog message={dialog.message} confirmLabel={dialog.confirmLabel} onConfirm={handleConfirm} onCancel={handleCancel} />
+    )}
+    </>
   );
 }

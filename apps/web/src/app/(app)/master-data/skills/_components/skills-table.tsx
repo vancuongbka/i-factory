@@ -2,9 +2,12 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { Trash2 } from 'lucide-react';
+import { ConfirmDialog } from '@i-factory/ui';
 import { SkillLevel } from '@i-factory/api-types';
 import { useSkills, useCreateSkill, useDeleteSkill } from '@/hooks/use-work-centers';
 import { useFactory } from '@/hooks/use-factory';
+import { useConfirmDialog } from '@/hooks/use-confirm-dialog';
 
 export function SkillsTable() {
   const t = useTranslations('masterData.skills');
@@ -12,6 +15,7 @@ export function SkillsTable() {
   const { data: skills, isLoading } = useSkills();
   const createSkill = useCreateSkill();
   const deleteSkill = useDeleteSkill();
+  const { openConfirm, handleConfirm, handleCancel, dialog } = useConfirmDialog();
 
   const [showForm, setShowForm] = useState(false);
   const [code, setCode] = useState('');
@@ -104,10 +108,11 @@ export function SkillsTable() {
                   <td className="px-4 py-3 text-right">
                     <button
                       type="button"
-                      onClick={() => { if (confirm(`Delete skill "${s.name}"?`)) deleteSkill.mutate(s.id); }}
-                      className="text-sm text-destructive hover:underline"
+                      onClick={() => openConfirm(`Delete skill "${s.name}"?`, () => deleteSkill.mutate(s.id))}
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
+                      title={t('actions.delete')}
                     >
-                      {t('actions.delete')}
+                      <Trash2 className="h-4 w-4 text-red-600" />
                     </button>
                   </td>
                 </tr>
@@ -115,6 +120,9 @@ export function SkillsTable() {
             </tbody>
           </table>
         </div>
+      )}
+      {dialog && (
+        <ConfirmDialog message={dialog.message} confirmLabel={dialog.confirmLabel} onConfirm={handleConfirm} onCancel={handleCancel} />
       )}
     </div>
   );

@@ -25,3 +25,4 @@ export * from './schemas/product.schema';
 export * from './schemas/work-center.schema';
 export * from './schemas/routing.schema';
 export * from './schemas/erp-sync.schema';
+export * from './schemas/dashboard.schema';

@@ -52,7 +52,7 @@ export function LoginForm() {
           type="password"
           autoComplete="current-password"
           className={inputClass}
-          placeholder="••••••••"
+          placeholder="Test@123"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required

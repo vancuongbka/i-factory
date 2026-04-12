@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
+import { Eye } from 'lucide-react';
 import { QCResult } from '@i-factory/api-types';
 import { useInspections } from '@/hooks/use-qc';
 
@@ -74,9 +75,10 @@ export function InspectionsTable() {
                   <button
                     type="button"
                     onClick={() => router.push(`/quality-control/inspections/${insp.id}`)}
-                    className="text-sm text-primary hover:underline"
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
+                    title={t('actions.view')}
                   >
-                    {t('actions.view')}
+                    <Eye className="h-4 w-4 text-blue-600" />
                   </button>
                 </td>
               </tr>

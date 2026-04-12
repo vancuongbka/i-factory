@@ -1,12 +1,16 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { Trash2 } from 'lucide-react';
+import { ConfirmDialog } from '@i-factory/ui';
 import { useMaterials, useDeleteMaterial } from '@/hooks/use-inventory';
+import { useConfirmDialog } from '@/hooks/use-confirm-dialog';
 
 export function MaterialsTable() {
   const t = useTranslations('inventory.materials');
   const { data: materials, isLoading } = useMaterials();
   const deleteMutation = useDeleteMaterial();
+  const { openConfirm, handleConfirm, handleCancel, dialog } = useConfirmDialog();
 
   if (isLoading) return <p className="text-sm text-muted-foreground">Loading…</p>;
   if (!materials?.length) {
@@ -14,6 +18,7 @@ export function MaterialsTable() {
   }
 
   return (
+    <>
     <div className="overflow-x-auto rounded-md border">
       <table className="w-full text-sm">
         <thead className="border-b bg-muted/50">
@@ -54,15 +59,12 @@ export function MaterialsTable() {
                 <td className="px-4 py-3 text-right">
                   <button
                     type="button"
-                    onClick={() => {
-                      if (confirm(`Delete material ${m.code}?`)) {
-                        deleteMutation.mutate(m.id);
-                      }
-                    }}
+                    onClick={() => openConfirm(`Delete material "${m.code}"?`, () => deleteMutation.mutate(m.id))}
                     disabled={deleteMutation.isPending}
-                    className="text-sm text-destructive hover:underline disabled:opacity-50"
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted disabled:opacity-50"
+                    title={t('actions.delete')}
                   >
-                    {t('actions.delete')}
+                    <Trash2 className="h-4 w-4 text-red-600" />
                   </button>
                 </td>
               </tr>
@@ -71,5 +73,9 @@ export function MaterialsTable() {
         </tbody>
       </table>
     </div>
+    {dialog && (
+      <ConfirmDialog message={dialog.message} confirmLabel={dialog.confirmLabel} onConfirm={handleConfirm} onCancel={handleCancel} />
+    )}
+    </>
   );
 }

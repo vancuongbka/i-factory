@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { ConfirmDialog } from '@i-factory/ui';
 import { useCategories, useCreateCategory, useDeleteCategory } from '@/hooks/use-categories';
 import { useFactory } from '@/hooks/use-factory';
+import { useConfirmDialog } from '@/hooks/use-confirm-dialog';
 
 export function CategoryTree() {
   const t = useTranslations('masterData.categories');
@@ -11,6 +13,7 @@ export function CategoryTree() {
   const { data: categories, isLoading } = useCategories();
   const createCategory = useCreateCategory();
   const deleteCategory = useDeleteCategory();
+  const { openConfirm, handleConfirm, handleCancel, dialog } = useConfirmDialog();
 
   const [showForm, setShowForm] = useState(false);
   const [code, setCode] = useState('');
@@ -118,7 +121,7 @@ export function CategoryTree() {
               <span className="font-mono text-xs text-muted-foreground">{root.code}</span>
               <button
                 type="button"
-                onClick={() => { if (confirm(`Delete "${root.name}"?`)) deleteCategory.mutate(root.id); }}
+                onClick={() => openConfirm(`Delete "${root.name}"?`, () => deleteCategory.mutate(root.id))}
                 className="ml-4 text-xs text-destructive hover:underline"
               >
                 {t('actions.delete')}
@@ -132,7 +135,7 @@ export function CategoryTree() {
                     <span className="font-mono text-xs text-muted-foreground">{child.code}</span>
                     <button
                       type="button"
-                      onClick={() => { if (confirm(`Delete "${child.name}"?`)) deleteCategory.mutate(child.id); }}
+                      onClick={() => openConfirm(`Delete "${child.name}"?`, () => deleteCategory.mutate(child.id))}
                       className="ml-4 text-xs text-destructive hover:underline"
                     >
                       {t('actions.delete')}
@@ -144,6 +147,9 @@ export function CategoryTree() {
           </li>
         ))}
       </ul>
+      {dialog && (
+        <ConfirmDialog message={dialog.message} confirmLabel={dialog.confirmLabel} onConfirm={handleConfirm} onCancel={handleCancel} />
+      )}
     </div>
   );
 }

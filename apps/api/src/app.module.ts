@@ -23,6 +23,7 @@ import { ReportsModule } from './modules/reports/reports.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
 import { SyncModule } from './modules/sync/sync.module';
 import { MasterDataModule } from './modules/master-data/master-data.module';
+import { DashboardModule } from './modules/dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -61,6 +62,7 @@ import { MasterDataModule } from './modules/master-data/master-data.module';
     NotificationsModule,
     SyncModule,
     MasterDataModule,
+    DashboardModule,
   ],
 })
 export class AppModule {}

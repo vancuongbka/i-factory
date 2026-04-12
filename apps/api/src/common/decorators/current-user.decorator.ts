@@ -4,6 +4,7 @@ import { Request } from 'express';
 export interface CurrentUserPayload {
   sub: string;           // user UUID
   username: string;
+  fullName: string;
   role: string;
   allowedFactories: string[];
 }

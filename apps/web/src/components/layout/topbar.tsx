@@ -6,6 +6,19 @@ import { useTranslations, useLocale } from 'next-intl';
 import { useAuth } from '@/providers/auth-provider';
 
 // ---------------------------------------------------------------------------
+// Role display names
+// ---------------------------------------------------------------------------
+const ROLE_LABELS: Record<string, string> = {
+  SUPER_ADMIN: 'Super Admin',
+  FACTORY_ADMIN: 'Factory Admin',
+  PRODUCTION_MANAGER: 'Production Manager',
+  QC_INSPECTOR: 'QC Inspector',
+  WAREHOUSE_STAFF: 'Warehouse Staff',
+  OPERATOR: 'Operator',
+  VIEWER: 'Viewer',
+};
+
+// ---------------------------------------------------------------------------
 // Circular flag icons
 // ---------------------------------------------------------------------------
 function FlagCircle({ children }: { children: React.ReactNode }) {
@@ -68,7 +81,7 @@ export function Topbar() {
   const pathname = usePathname();
   const router = useRouter();
 
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const [langOpen, setLangOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
 
@@ -183,31 +196,22 @@ export function Topbar() {
           <button
             type="button"
             onClick={() => { setUserOpen((v) => !v); setLangOpen(false); }}
-            className="flex items-center gap-2.5 rounded-lg border bg-background px-2.5 py-1.5 hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border bg-background hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring"
             aria-label="User menu"
             aria-expanded={userOpen}
           >
-            {/* Avatar */}
             <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
-              KA
+              {user?.fullName?.slice(0, 2).toUpperCase() ?? '??'}
             </span>
-            {/* Name + role */}
-            <span className="hidden flex-col items-start text-left lg:flex">
-              <span className="text-sm font-semibold leading-none">CuongNV</span>
-              <span className="mt-0.5 text-xs leading-none text-muted-foreground">Manager</span>
-            </span>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 text-muted-foreground" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"/>
-            </svg>
           </button>
 
           {userOpen && (
             <>
               <div className="fixed inset-0 z-10" onClick={() => setUserOpen(false)} aria-hidden="true" />
-              <div className="absolute right-0 z-20 mt-1 w-44 rounded-lg border bg-card shadow-lg">
+              <div className="absolute right-0 z-20 mt-1 w-48 rounded-lg border bg-card shadow-lg">
                 <div className="border-b px-4 py-3">
-                  <p className="text-sm font-semibold">Karim Ahmed</p>
-                  <p className="text-xs text-muted-foreground">Manager</p>
+                  <p className="text-sm font-semibold">{user?.fullName ?? '—'}</p>
+                  <p className="text-xs text-muted-foreground">{user?.role ? (ROLE_LABELS[user.role] ?? user.role) : '—'}</p>
                 </div>
                 <div className="p-1">
                   <a href="/settings/users" className="flex items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-muted">

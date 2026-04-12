@@ -42,62 +42,60 @@
   "dashboard": {
     "title": "Tổng quan",
     "pageTitle": "Tổng quan — iFactory",
-    "periodSelector": {
-      "lastWeek": "1 tuần qua"
-    },
     "kpi": {
-      "lowPerformanceMachines": {
-        "title": "Máy Hiệu Suất Thấp",
-        "description": "tăng trong tuần này",
-        "viewReport": "Xem Báo cáo"
+      "viewReport": "Xem Báo cáo",
+      "oee": {
+        "title": "OEE",
+        "description": "Hiệu Suất Thiết Bị Tổng Thể",
+        "good": "Hiệu suất tốt",
+        "average": "Hiệu suất trung bình",
+        "poor": "Cần chú ý"
       },
-      "machineMalfunctions": {
-        "title": "Máy Hỏng Hóc",
-        "description": "giảm trong tuần này",
-        "viewReport": "Xem Báo cáo"
+      "output": {
+        "title": "Sản Lượng Thực / Kế Hoạch",
+        "units": "đơn vị",
+        "label": "sản lượng kế hoạch đã hoàn thành"
       },
-      "employeeAbsenteeism": {
-        "title": "Vắng Mặt Nhân Viên",
-        "description": "nhân viên trong tuần này",
-        "viewReport": "Xem Báo cáo"
+      "yieldRate": {
+        "title": "Tỷ Lệ Yield (Chất Lượng)",
+        "description": "Tỷ lệ sản phẩm không lỗi",
+        "good": "Chất lượng xuất sắc",
+        "needsAttention": "Cần chú ý"
       },
-      "materialShortage": {
-        "title": "Thiếu Nguyên Liệu",
-        "description": "tăng trong tuần này",
-        "viewReport": "Xem Báo cáo"
+      "machines": {
+        "title": "Máy Đang Hoạt Động",
+        "description": "Tài sản đang vận hành",
+        "label": "tỷ lệ sử dụng"
       }
     },
-    "materialUsage": {
-      "title": "Mức Sử Dụng Nguyên Liệu",
-      "categoryLabel": "Danh mục",
-      "seriesUsed": "Đã dùng",
-      "seriesAvailable": "Còn lại"
+    "throughput": {
+      "title": "Sản Lượng Sản Xuất",
+      "subtitle": "Sản lượng thực tế / kế hoạch — 7 ngày qua",
+      "seriesCompleted": "Hoàn thành",
+      "seriesPlanned": "Kế hoạch",
+      "noData": "Không có dữ liệu sản xuất trong kỳ này."
     },
-    "attendanceSummary": {
-      "title": "Tổng Hợp Chuyên Cần",
-      "seriesOnTime": "Đúng giờ",
-      "seriesLate": "Muộn",
-      "seriesAbsent": "Vắng mặt"
+    "alerts": {
+      "title": "Cảnh Báo & Dừng Máy",
+      "allClear": "Tất Cả Bình Thường",
+      "allClearSub": "Không có cảnh báo nào tại thời điểm này.",
+      "machineDown": "Máy dừng hoạt động",
+      "lowStock": "Tồn Kho Thấp",
+      "qcFailed": "Cảnh Báo QC",
+      "failed": "Lỗi"
     },
-    "productionMonitoring": {
-      "title": "Giám Sát Sản Xuất",
-      "viewAll": "Xem Tất cả",
-      "searchPlaceholder": "Tìm mã lô...",
-      "noResults": "Không tìm thấy lô sản xuất.",
-      "machineStatus": {
-        "healthy": "Hoạt Động Tốt",
-        "lowPerformance": "Hiệu Suất Thấp"
-      },
+    "workOrders": {
+      "title": "Lệnh Sản Xuất Đang Thực Hiện",
+      "viewAll": "Xem Tất Cả",
+      "searchPlaceholder": "Tìm lệnh sản xuất...",
+      "noResults": "Không có lệnh sản xuất khớp kết quả tìm kiếm.",
+      "noActive": "Không có lệnh sản xuất đang thực hiện.",
       "columns": {
-        "batchId": "Mã Lô",
-        "garmentType": "Loại May Mặc",
-        "targetOutput": "Sản Lượng Mục Tiêu",
-        "actualOutput": "Sản Lượng Thực Tế",
-        "efficiency": "Hiệu Suất (%)",
-        "machineStatus": "Trạng Thái Máy",
-        "materialAvailability": "Tình Trạng NVL",
-        "issuesAlerts": "Vấn Đề / Cảnh Báo",
-        "action": "Hành Động"
+        "code": "Mã Lệnh",
+        "product": "Sản Phẩm",
+        "progress": "Tiến Độ",
+        "eta": "Ngày Dự Kiến",
+        "status": "Trạng Thái"
       }
     }
   },
@@ -248,7 +246,9 @@
       "create": "Tạo BOM",
       "revise": "Tạo phiên bản mới",
       "addItem": "Thêm vật tư",
-      "save": "Lưu"
+      "save": "Lưu",
+      "view": "Xem",
+      "delete": "Xóa"
     }
   },
   "inventory": {

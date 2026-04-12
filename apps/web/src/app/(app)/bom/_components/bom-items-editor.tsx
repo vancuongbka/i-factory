@@ -2,7 +2,9 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { ConfirmDialog } from '@i-factory/ui';
 import { useAddBomItem, useRemoveBomItem } from '@/hooks/use-bom';
+import { useConfirmDialog } from '@/hooks/use-confirm-dialog';
 
 interface BomItem {
   id: string;
@@ -24,6 +26,7 @@ export function BomItemsEditor({ bomId, items }: BomItemsEditorProps) {
   const t = useTranslations('bom.items');
   const addItem = useAddBomItem(bomId);
   const removeItem = useRemoveBomItem(bomId);
+  const { openConfirm, handleConfirm, handleCancel, dialog } = useConfirmDialog();
 
   const [showForm, setShowForm] = useState(false);
   const [itemType, setItemType] = useState<'material' | 'childBom'>('material');
@@ -155,7 +158,7 @@ export function BomItemsEditor({ bomId, items }: BomItemsEditorProps) {
                   <td className="px-3 py-2 text-right">
                     <button
                       type="button"
-                      onClick={() => { if (confirm('Remove this item?')) removeItem.mutate(item.id); }}
+                      onClick={() => openConfirm('Remove this item?', () => removeItem.mutate(item.id), { confirmLabel: 'Remove' })}
                       className="text-xs text-destructive hover:underline"
                     >
                       Remove
@@ -166,6 +169,9 @@ export function BomItemsEditor({ bomId, items }: BomItemsEditorProps) {
             </tbody>
           </table>
         </div>
+      )}
+      {dialog && (
+        <ConfirmDialog message={dialog.message} confirmLabel={dialog.confirmLabel} onConfirm={handleConfirm} onCancel={handleCancel} />
       )}
     </div>
   );

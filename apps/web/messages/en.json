@@ -42,62 +42,60 @@
   "dashboard": {
     "title": "Dashboard",
     "pageTitle": "Dashboard — iFactory",
-    "periodSelector": {
-      "lastWeek": "Last 1 Week"
-    },
     "kpi": {
-      "lowPerformanceMachines": {
-        "title": "Low-Performance Machines",
-        "description": "increased this week",
-        "viewReport": "View Report"
+      "viewReport": "View Report",
+      "oee": {
+        "title": "OEE",
+        "description": "Overall Equipment Effectiveness",
+        "good": "Good performance",
+        "average": "Average performance",
+        "poor": "Needs attention"
       },
-      "machineMalfunctions": {
-        "title": "Machine Malfunctions",
-        "description": "decreased this week",
-        "viewReport": "View Report"
+      "output": {
+        "title": "Actual vs. Planned Output",
+        "units": "units",
+        "label": "of planned output completed"
       },
-      "employeeAbsenteeism": {
-        "title": "Employee Absenteeism",
-        "description": "employees this week",
-        "viewReport": "View Report"
+      "yieldRate": {
+        "title": "Yield Rate (Quality)",
+        "description": "Non-defective product rate",
+        "good": "Excellent quality",
+        "needsAttention": "Needs attention"
       },
-      "materialShortage": {
-        "title": "Material Shortage",
-        "description": "increased this week",
-        "viewReport": "View Report"
+      "machines": {
+        "title": "Active Machines",
+        "description": "Operational assets",
+        "label": "utilization rate"
       }
     },
-    "materialUsage": {
-      "title": "Material Usage",
-      "categoryLabel": "Category",
-      "seriesUsed": "Used",
-      "seriesAvailable": "Available"
+    "throughput": {
+      "title": "Production Throughput",
+      "subtitle": "Completed vs. planned output — last 7 days",
+      "seriesCompleted": "Completed",
+      "seriesPlanned": "Planned",
+      "noData": "No production data for this period."
     },
-    "attendanceSummary": {
-      "title": "Attendance Summary",
-      "seriesOnTime": "On Time",
-      "seriesLate": "Late",
-      "seriesAbsent": "Absent"
+    "alerts": {
+      "title": "Alerts & Downtime",
+      "allClear": "All Clear",
+      "allClearSub": "No active alerts at this time.",
+      "machineDown": "Machine downtime",
+      "lowStock": "Low Stock",
+      "qcFailed": "QC Alert",
+      "failed": "Failed"
     },
-    "productionMonitoring": {
-      "title": "Production Monitoring",
+    "workOrders": {
+      "title": "Active Work Orders",
       "viewAll": "View All",
-      "searchPlaceholder": "Search batch...",
-      "noResults": "No production batches found.",
-      "machineStatus": {
-        "healthy": "Healthy",
-        "lowPerformance": "Low Performance"
-      },
+      "searchPlaceholder": "Search work order...",
+      "noResults": "No work orders match your search.",
+      "noActive": "No active work orders.",
       "columns": {
-        "batchId": "Batch ID",
-        "garmentType": "Garment Type",
-        "targetOutput": "Target Output",
-        "actualOutput": "Actual Output",
-        "efficiency": "Efficiency (%)",
-        "machineStatus": "Machine Status",
-        "materialAvailability": "Material Availability",
-        "issuesAlerts": "Issues / Alerts",
-        "action": "Action"
+        "code": "Work Order",
+        "product": "Product",
+        "progress": "Progress",
+        "eta": "ETA",
+        "status": "Status"
       }
     }
   },
@@ -248,7 +246,9 @@
       "create": "Create BOM",
       "revise": "Create Revision",
       "addItem": "Add Item",
-      "save": "Save"
+      "save": "Save",
+      "view": "View",
+      "delete": "Delete"
     }
   },
   "inventory": {

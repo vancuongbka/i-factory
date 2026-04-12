@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { useDashboard } from '@/hooks/use-dashboard';
 import { DashboardStatsRow } from './dashboard-stats-row';
 import { MaterialUsageChart } from './material-usage-chart';
 import { AttendanceSummaryChart } from './attendance-summary-chart';
@@ -8,38 +9,29 @@ import { ProductionMonitoringTable } from './production-monitoring-table';
 
 export function DashboardClient() {
   const t = useTranslations('dashboard');
-
-  const statsLabels = {
-    lowPerfMachines: {
-      title: t('kpi.lowPerformanceMachines.title'),
-      viewReport: t('kpi.lowPerformanceMachines.viewReport'),
-      description: t('kpi.lowPerformanceMachines.description'),
-    },
-    malfunctions: {
-      title: t('kpi.machineMalfunctions.title'),
-      viewReport: t('kpi.machineMalfunctions.viewReport'),
-      description: t('kpi.machineMalfunctions.description'),
-    },
-    absenteeism: {
-      title: t('kpi.employeeAbsenteeism.title'),
-      viewReport: t('kpi.employeeAbsenteeism.viewReport'),
-      description: t('kpi.employeeAbsenteeism.description'),
-    },
-    materialShortage: {
-      title: t('kpi.materialShortage.title'),
-      viewReport: t('kpi.materialShortage.viewReport'),
-      description: t('kpi.materialShortage.description'),
-    },
-  };
+  const { data, isLoading, error } = useDashboard();
 
   return (
     <div className="space-y-6">
-      <DashboardStatsRow labels={statsLabels} />
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <MaterialUsageChart />
-        <AttendanceSummaryChart />
+      {/* Page header */}
+      <div>
+        <h1 className="text-2xl font-bold tracking-tight">{t('title')}</h1>
+        {error && (
+          <p className="mt-1 text-sm text-destructive">{String(error)}</p>
+        )}
       </div>
-      <ProductionMonitoringTable />
+
+      {/* Row 1 — KPI cards */}
+      <DashboardStatsRow data={data} isLoading={isLoading} />
+
+      {/* Row 2 — Throughput trend + Alerts */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <MaterialUsageChart data={data?.throughputTrend} isLoading={isLoading} />
+        <AttendanceSummaryChart data={data} isLoading={isLoading} />
+      </div>
+
+      {/* Row 3 — Active work orders */}
+      <ProductionMonitoringTable data={data?.activeWorkOrders} isLoading={isLoading} />
     </div>
   );
 }

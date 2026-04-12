@@ -2,9 +2,12 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { Trash2 } from 'lucide-react';
 import { MachineStatus } from '@i-factory/api-types';
+import { ConfirmDialog } from '@i-factory/ui';
 import { useMachines, useCreateMachine, useDeleteMachine } from '@/hooks/use-work-centers';
 import { useFactory } from '@/hooks/use-factory';
+import { useConfirmDialog } from '@/hooks/use-confirm-dialog';
 
 interface MachinesPanelProps {
   workCenterId: string;
@@ -16,6 +19,7 @@ export function MachinesPanel({ workCenterId }: MachinesPanelProps) {
   const { data: machines, isLoading } = useMachines(workCenterId);
   const createMachine = useCreateMachine(workCenterId);
   const deleteMachine = useDeleteMachine(workCenterId);
+  const { openConfirm, handleConfirm, handleCancel, dialog } = useConfirmDialog();
 
   const [showForm, setShowForm] = useState(false);
   const [code, setCode] = useState('');
@@ -124,10 +128,11 @@ export function MachinesPanel({ workCenterId }: MachinesPanelProps) {
                   <td className="px-4 py-3 text-right">
                     <button
                       type="button"
-                      onClick={() => { if (confirm(`Remove machine "${m.name}"?`)) deleteMachine.mutate(m.id); }}
-                      className="text-sm text-destructive hover:underline"
+                      onClick={() => openConfirm(`Remove machine "${m.name}"?`, () => deleteMachine.mutate(m.id), { confirmLabel: 'Remove' })}
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
+                      title={t('actions.delete')}
                     >
-                      {t('actions.delete')}
+                      <Trash2 className="h-4 w-4 text-red-600" />
                     </button>
                   </td>
                 </tr>
@@ -135,6 +140,9 @@ export function MachinesPanel({ workCenterId }: MachinesPanelProps) {
             </tbody>
           </table>
         </div>
+      )}
+      {dialog && (
+        <ConfirmDialog message={dialog.message} confirmLabel={dialog.confirmLabel} onConfirm={handleConfirm} onCancel={handleCancel} />
       )}
     </div>
   );

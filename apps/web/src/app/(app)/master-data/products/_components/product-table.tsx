@@ -2,7 +2,10 @@
 
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
+import { Pencil, Trash2 } from 'lucide-react';
+import { ConfirmDialog } from '@i-factory/ui';
 import { useProducts, useDeleteProduct } from '@/hooks/use-products';
+import { useConfirmDialog } from '@/hooks/use-confirm-dialog';
 import type { ProductType } from '@i-factory/api-types';
 
 export function ProductTable() {
@@ -10,6 +13,7 @@ export function ProductTable() {
   const { data: products, isLoading } = useProducts();
   const deleteProduct = useDeleteProduct();
   const router = useRouter();
+  const { openConfirm, handleConfirm, handleCancel, dialog } = useConfirmDialog();
 
   if (isLoading) {
     return <p className="text-muted-foreground">Loading…</p>;
@@ -20,6 +24,7 @@ export function ProductTable() {
   }
 
   return (
+    <>
     <div className="overflow-x-auto rounded-md border">
       <table className="w-full text-sm">
         <thead className="border-b bg-muted/50">
@@ -47,29 +52,39 @@ export function ProductTable() {
                 </span>
               </td>
               <td className="px-4 py-3 text-right">
-                <button
-                  type="button"
-                  onClick={() => router.push(`/master-data/products/${product.id}`)}
-                  className="mr-2 text-sm text-primary hover:underline"
-                >
-                  {t('actions.edit')}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (confirm(`Delete product "${product.name}"?`)) {
-                      deleteProduct.mutate(product.id);
-                    }
-                  }}
-                  className="text-sm text-destructive hover:underline"
-                >
-                  {t('actions.delete')}
-                </button>
+                <div className="flex items-center justify-end gap-1">
+                  <button
+                    type="button"
+                    onClick={() => router.push(`/master-data/products/${product.id}`)}
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
+                    title={t('actions.edit')}
+                  >
+                    <Pencil className="h-4 w-4 text-blue-600" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => openConfirm(`Delete product "${product.name}"?`, () => deleteProduct.mutate(product.id))}
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
+                    title={t('actions.delete')}
+                  >
+                    <Trash2 className="h-4 w-4 text-red-600" />
+                  </button>
+                </div>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
+    {dialog && (
+      <ConfirmDialog
+        message={dialog.message}
+        description={dialog.description}
+        confirmLabel={dialog.confirmLabel}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+      />
+    )}
+    </>
   );
 }

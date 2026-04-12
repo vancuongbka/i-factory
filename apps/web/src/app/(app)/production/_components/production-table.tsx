@@ -2,8 +2,11 @@
 
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
+import { Eye, Trash2 } from 'lucide-react';
+import { ConfirmDialog } from '@i-factory/ui';
 import { ProductionStatus } from '@i-factory/api-types';
 import { useProductionOrders, useDeleteProductionOrder } from '@/hooks/use-production-orders';
+import { useConfirmDialog } from '@/hooks/use-confirm-dialog';
 
 const STATUS_STYLES: Record<ProductionStatus, string> = {
   [ProductionStatus.DRAFT]:       'bg-gray-100 text-gray-700',
@@ -27,6 +30,7 @@ export function ProductionTable() {
   const router = useRouter();
   const { data: orders, isLoading } = useProductionOrders();
   const deleteMutation = useDeleteProductionOrder();
+  const { openConfirm, handleConfirm, handleCancel, dialog } = useConfirmDialog();
 
   if (isLoading) {
     return <p className="text-sm text-muted-foreground">Loading…</p>;
@@ -36,6 +40,7 @@ export function ProductionTable() {
   }
 
   return (
+    <>
     <div className="overflow-x-auto rounded-md border">
       <table className="w-full text-sm">
         <thead className="border-b bg-muted/50">
@@ -70,25 +75,23 @@ export function ProductionTable() {
               <td className="px-4 py-3">{formatDate(order.plannedStartDate)}</td>
               <td className="px-4 py-3">{formatDate(order.plannedEndDate)}</td>
               <td className="px-4 py-3 text-right">
-                <div className="flex items-center justify-end gap-3">
+                <div className="flex items-center justify-end gap-1">
                   <button
                     type="button"
                     onClick={() => router.push(`/production/${order.id}`)}
-                    className="text-sm text-primary hover:underline"
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
+                    title={t('actions.view')}
                   >
-                    {t('actions.view')}
+                    <Eye className="h-4 w-4 text-blue-600" />
                   </button>
                   <button
                     type="button"
-                    onClick={() => {
-                      if (confirm(`Delete ${order.code}?`)) {
-                        deleteMutation.mutate(order.id);
-                      }
-                    }}
+                    onClick={() => openConfirm(`Delete ${order.code}?`, () => deleteMutation.mutate(order.id))}
                     disabled={deleteMutation.isPending}
-                    className="text-sm text-destructive hover:underline disabled:opacity-50"
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted disabled:opacity-50"
+                    title={t('actions.delete')}
                   >
-                    {t('actions.delete')}
+                    <Trash2 className="h-4 w-4 text-red-600" />
                   </button>
                 </div>
               </td>
@@ -97,5 +100,9 @@ export function ProductionTable() {
         </tbody>
       </table>
     </div>
+    {dialog && (
+      <ConfirmDialog message={dialog.message} confirmLabel={dialog.confirmLabel} onConfirm={handleConfirm} onCancel={handleCancel} />
+    )}
+    </>
   );
 }
