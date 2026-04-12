@@ -12,6 +12,9 @@ export class FactoryAccessGuard implements CanActivate {
     // Super admin can access all factories
     if (user.role === UserRole.SUPER_ADMIN) return true;
 
+    // Single-factory mode: empty allowedFactories = no restriction
+    if (user.allowedFactories.length === 0) return true;
+
     const factoryId = (request.params['factoryId'] ?? request.body?.factoryId ?? request.query['factoryId']) as string | undefined;
 
     if (!factoryId) return true; // No factory context required for this route

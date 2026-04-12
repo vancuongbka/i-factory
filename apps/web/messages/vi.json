@@ -108,13 +108,63 @@
   "workOrders": {
     "title": "Lệnh Công việc",
     "pageTitle": "Lệnh Công việc — iFactory",
+    "noResults": "Chưa có lệnh công việc nào. Hãy tạo mới.",
     "new": {
       "title": "Tạo Lệnh Công việc mới",
       "pageTitle": "Tạo Lệnh Công việc — iFactory"
     },
     "detail": {
-      "title": "Lệnh Công việc #{id}",
+      "title": "Lệnh Công việc",
       "pageTitle": "Chi tiết Lệnh Công việc — iFactory"
+    },
+    "columns": {
+      "code": "Mã LCV",
+      "productionOrder": "Lệnh Sản xuất",
+      "status": "Trạng thái",
+      "plannedStart": "Ngày bắt đầu",
+      "plannedEnd": "Ngày kết thúc",
+      "steps": "Bước",
+      "actions": "Thao tác"
+    },
+    "status": {
+      "PENDING": "Chờ xử lý",
+      "ASSIGNED": "Đã phân công",
+      "IN_PROGRESS": "Đang thực hiện",
+      "ON_HOLD": "Tạm dừng",
+      "COMPLETED": "Hoàn thành",
+      "REJECTED": "Bị từ chối",
+      "CANCELLED": "Đã hủy"
+    },
+    "steps": {
+      "title": "Các bước thực hiện",
+      "stepNumber": "Bước",
+      "name": "Tên bước",
+      "workCenter": "Trung tâm SX",
+      "estimatedMinutes": "Dự kiến (phút)",
+      "requiredSkills": "Kỹ năng cần thiết",
+      "completed": "Hoàn thành",
+      "pending": "Chờ thực hiện",
+      "noSteps": "Chưa có bước nào được định nghĩa."
+    },
+    "form": {
+      "code": "Mã LCV",
+      "productionOrderId": "ID Lệnh Sản xuất",
+      "description": "Mô tả",
+      "plannedStartDate": "Ngày bắt đầu dự kiến",
+      "plannedEndDate": "Ngày kết thúc dự kiến",
+      "modeLabel": "Chế độ bước",
+      "modeFromRouting": "Tự động từ quy trình",
+      "modeManual": "Nhập thủ công",
+      "stepNumber": "Bước #",
+      "stepName": "Tên bước",
+      "estimatedMinutes": "Phút dự kiến",
+      "addStep": "Thêm bước",
+      "removeStep": "Xóa"
+    },
+    "actions": {
+      "create": "Tạo lệnh mới",
+      "view": "Xem",
+      "createSubmit": "Tạo Lệnh Công việc"
     }
   },
   "bom": {

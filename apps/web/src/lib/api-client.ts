@@ -45,6 +45,25 @@ import type {
   AddBomItemDto,
   CreateBomRevisionDto,
 } from '@i-factory/api-types';
+import type {
+  WorkOrderResponse,
+  CreateWorkOrderDto,
+} from '@i-factory/api-types';
+
+export interface WorkOrderStep {
+  id: string;
+  workOrderId: string;
+  stepNumber: number;
+  name: string;
+  description?: string;
+  estimatedMinutes?: number;
+  requiredSkills: string[];
+  workCenterId?: string;
+  isCompleted: boolean;
+  completedAt?: string;
+}
+
+export type WorkOrderWithSteps = WorkOrderResponse & { steps: WorkOrderStep[] };
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
 
@@ -80,7 +99,25 @@ export const apiClient = {
   },
   workOrders: {
     list: (factoryId: string, token?: string) =>
-      request<unknown[]>(`/factories/${factoryId}/work-orders`, { token }),
+      request<WorkOrderWithSteps[]>(`/factories/${factoryId}/work-orders`, { token }),
+    get: (factoryId: string, id: string, token?: string) =>
+      request<WorkOrderWithSteps>(`/factories/${factoryId}/work-orders/${id}`, { token }),
+    create: (factoryId: string, body: CreateWorkOrderDto, token?: string) =>
+      request<WorkOrderWithSteps>(`/factories/${factoryId}/work-orders`, {
+        method: 'POST',
+        body: JSON.stringify(body),
+        token,
+      }),
+    createFromRouting: (
+      factoryId: string,
+      productionOrderId: string,
+      body: CreateWorkOrderDto,
+      token?: string,
+    ) =>
+      request<WorkOrderWithSteps>(
+        `/factories/${factoryId}/work-orders/${productionOrderId}/from-routing`,
+        { method: 'POST', body: JSON.stringify(body), token },
+      ),
   },
   inventory: {
     materials: (factoryId: string, token?: string) =>

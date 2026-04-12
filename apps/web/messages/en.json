@@ -108,13 +108,63 @@
   "workOrders": {
     "title": "Work Orders",
     "pageTitle": "Work Orders — iFactory",
+    "noResults": "No work orders found. Create one to get started.",
     "new": {
       "title": "Create New Work Order",
       "pageTitle": "Create Work Order — iFactory"
     },
     "detail": {
-      "title": "Work Order #{id}",
+      "title": "Work Order",
       "pageTitle": "Work Order — iFactory"
+    },
+    "columns": {
+      "code": "WO Code",
+      "productionOrder": "Production Order",
+      "status": "Status",
+      "plannedStart": "Planned Start",
+      "plannedEnd": "Planned End",
+      "steps": "Steps",
+      "actions": "Actions"
+    },
+    "status": {
+      "PENDING": "Pending",
+      "ASSIGNED": "Assigned",
+      "IN_PROGRESS": "In Progress",
+      "ON_HOLD": "On Hold",
+      "COMPLETED": "Completed",
+      "REJECTED": "Rejected",
+      "CANCELLED": "Cancelled"
+    },
+    "steps": {
+      "title": "Work Steps",
+      "stepNumber": "Step",
+      "name": "Step Name",
+      "workCenter": "Work Center",
+      "estimatedMinutes": "Est. (min)",
+      "requiredSkills": "Required Skills",
+      "completed": "Completed",
+      "pending": "Pending",
+      "noSteps": "No steps defined for this work order."
+    },
+    "form": {
+      "code": "WO Code",
+      "productionOrderId": "Production Order ID",
+      "description": "Description",
+      "plannedStartDate": "Planned Start",
+      "plannedEndDate": "Planned End",
+      "modeLabel": "Step Mode",
+      "modeFromRouting": "Auto-generate from routing",
+      "modeManual": "Define steps manually",
+      "stepNumber": "Step #",
+      "stepName": "Step Name",
+      "estimatedMinutes": "Est. Minutes",
+      "addStep": "Add Step",
+      "removeStep": "Remove"
+    },
+    "actions": {
+      "create": "New Work Order",
+      "view": "View",
+      "createSubmit": "Create Work Order"
     }
   },
   "bom": {

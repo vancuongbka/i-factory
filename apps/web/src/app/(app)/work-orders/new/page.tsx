@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+import { CreateWorkOrderForm } from '../_components/create-work-order-form';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('workOrders');
@@ -7,10 +8,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function NewWorkOrderPage() {
-
+  const t = await getTranslations('workOrders');
   return (
-    <div>
-      {/* TODO: CreateWorkOrderForm client component */}
+    <div className="space-y-6 max-w-3xl">
+      <h2 className="text-xl font-semibold">{t('new.title')}</h2>
+      <CreateWorkOrderForm />
     </div>
   );
 }
