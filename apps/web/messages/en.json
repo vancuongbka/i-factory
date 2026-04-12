@@ -33,11 +33,11 @@
   "auth": {
     "signIn": "Sign In",
     "signInSubtitle": "Sign in to continue",
-    "pageTitle": "Sign In — i-factory"
+    "pageTitle": "Sign In — iFactory"
   },
   "dashboard": {
     "title": "Dashboard",
-    "pageTitle": "Dashboard — i-factory",
+    "pageTitle": "Dashboard — iFactory",
     "periodSelector": {
       "lastWeek": "Last 1 Week"
     },
@@ -99,38 +99,38 @@
   },
   "production": {
     "title": "Production Orders",
-    "pageTitle": "Production — i-factory",
+    "pageTitle": "Production — iFactory",
     "detail": {
       "title": "Production Order #{id}",
-      "pageTitle": "Production Order — i-factory"
+      "pageTitle": "Production Order — iFactory"
     }
   },
   "workOrders": {
     "title": "Work Orders",
-    "pageTitle": "Work Orders — i-factory",
+    "pageTitle": "Work Orders — iFactory",
     "new": {
       "title": "Create New Work Order",
-      "pageTitle": "Create Work Order — i-factory"
+      "pageTitle": "Create Work Order — iFactory"
     },
     "detail": {
       "title": "Work Order #{id}",
-      "pageTitle": "Work Order — i-factory"
+      "pageTitle": "Work Order — iFactory"
     }
   },
   "bom": {
     "title": "Bill of Materials (BOM)",
-    "pageTitle": "BOM — i-factory",
+    "pageTitle": "BOM — iFactory",
     "new": {
       "title": "Create BOM",
-      "pageTitle": "Create BOM — i-factory"
+      "pageTitle": "Create BOM — iFactory"
     },
     "detail": {
       "title": "BOM {code} v{version}",
-      "pageTitle": "BOM Detail — i-factory"
+      "pageTitle": "BOM Detail — iFactory"
     },
     "revisions": {
       "title": "Revision History",
-      "pageTitle": "BOM Revisions — i-factory"
+      "pageTitle": "BOM Revisions — iFactory"
     },
     "fields": {
       "code": "Code",
@@ -160,51 +160,51 @@
   },
   "inventory": {
     "title": "Inventory Management",
-    "pageTitle": "Inventory — i-factory",
+    "pageTitle": "Inventory — iFactory",
     "materials": {
       "title": "Materials List",
-      "pageTitle": "Materials — i-factory"
+      "pageTitle": "Materials — iFactory"
     },
     "movements": {
       "title": "Stock Movements",
-      "pageTitle": "Stock Movements — i-factory"
+      "pageTitle": "Stock Movements — iFactory"
     }
   },
   "qualityControl": {
     "title": "Quality Control (QC)",
-    "pageTitle": "Quality Control — i-factory",
+    "pageTitle": "Quality Control — iFactory",
     "inspections": {
       "title": "Quality Inspection Records",
-      "pageTitle": "Inspections — i-factory"
+      "pageTitle": "Inspections — iFactory"
     }
   },
   "reports": {
     "title": "Production Reports",
     "subtitle": "Generate async reports. You will be notified when results are ready.",
-    "pageTitle": "Reports — i-factory"
+    "pageTitle": "Reports — iFactory"
   },
   "factories": {
     "title": "Factory Management",
-    "pageTitle": "Factories — i-factory"
+    "pageTitle": "Factories — iFactory"
   },
   "notifications": {
     "title": "Notifications",
-    "pageTitle": "Notifications — i-factory"
+    "pageTitle": "Notifications — iFactory"
   },
   "users": {
     "title": "User Management",
-    "pageTitle": "User Management — i-factory"
+    "pageTitle": "User Management — iFactory"
   },
   "masterData": {
     "products": {
       "title": "Products",
-      "pageTitle": "Products — i-factory",
+      "pageTitle": "Products — iFactory",
       "new": {
         "title": "Create Product",
-        "pageTitle": "Create Product — i-factory"
+        "pageTitle": "Create Product — iFactory"
       },
       "detail": {
-        "pageTitle": "Product Detail — i-factory"
+        "pageTitle": "Product Detail — iFactory"
       },
       "fields": {
         "sku": "SKU",
@@ -229,7 +229,7 @@
     },
     "categories": {
       "title": "Product Categories",
-      "pageTitle": "Categories — i-factory",
+      "pageTitle": "Categories — iFactory",
       "fields": {
         "code": "Code",
         "name": "Name",
@@ -245,7 +245,7 @@
     },
     "uoms": {
       "title": "Units of Measure",
-      "pageTitle": "Units of Measure — i-factory",
+      "pageTitle": "Units of Measure — iFactory",
       "fields": {
         "code": "Code",
         "name": "Name",
@@ -261,9 +261,9 @@
     },
     "workCenters": {
       "title": "Work Centers",
-      "pageTitle": "Work Centers — i-factory",
+      "pageTitle": "Work Centers — iFactory",
       "detail": {
-        "pageTitle": "Work Center Detail — i-factory"
+        "pageTitle": "Work Center Detail — iFactory"
       },
       "fields": {
         "code": "Code",
@@ -309,7 +309,7 @@
     },
     "skills": {
       "title": "Skills",
-      "pageTitle": "Skills — i-factory",
+      "pageTitle": "Skills — iFactory",
       "fields": {
         "code": "Code",
         "name": "Name",
@@ -331,13 +331,13 @@
     },
     "routings": {
       "title": "Routings",
-      "pageTitle": "Routings — i-factory",
+      "pageTitle": "Routings — iFactory",
       "new": {
         "title": "Create Routing",
-        "pageTitle": "Create Routing — i-factory"
+        "pageTitle": "Create Routing — iFactory"
       },
       "detail": {
-        "pageTitle": "Routing Detail — i-factory"
+        "pageTitle": "Routing Detail — iFactory"
       },
       "fields": {
         "code": "Code",
@@ -366,7 +366,7 @@
     },
     "erpSync": {
       "title": "ERP Sync",
-      "pageTitle": "ERP Sync — i-factory",
+      "pageTitle": "ERP Sync — iFactory",
       "fields": {
         "entityType": "Entity Type",
         "externalSystem": "External System",

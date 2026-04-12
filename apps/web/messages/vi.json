@@ -33,11 +33,11 @@
   "auth": {
     "signIn": "Đăng nhập",
     "signInSubtitle": "Đăng nhập để tiếp tục",
-    "pageTitle": "Đăng nhập — i-factory"
+    "pageTitle": "Đăng nhập — iFactory"
   },
   "dashboard": {
     "title": "Tổng quan",
-    "pageTitle": "Tổng quan — i-factory",
+    "pageTitle": "Tổng quan — iFactory",
     "periodSelector": {
       "lastWeek": "1 tuần qua"
     },
@@ -99,38 +99,38 @@
   },
   "production": {
     "title": "Lệnh Sản xuất",
-    "pageTitle": "Sản xuất — i-factory",
+    "pageTitle": "Sản xuất — iFactory",
     "detail": {
       "title": "Lệnh Sản xuất #{id}",
-      "pageTitle": "Chi tiết Lệnh Sản xuất — i-factory"
+      "pageTitle": "Chi tiết Lệnh Sản xuất — iFactory"
     }
   },
   "workOrders": {
     "title": "Lệnh Công việc",
-    "pageTitle": "Lệnh Công việc — i-factory",
+    "pageTitle": "Lệnh Công việc — iFactory",
     "new": {
       "title": "Tạo Lệnh Công việc mới",
-      "pageTitle": "Tạo Lệnh Công việc — i-factory"
+      "pageTitle": "Tạo Lệnh Công việc — iFactory"
     },
     "detail": {
       "title": "Lệnh Công việc #{id}",
-      "pageTitle": "Chi tiết Lệnh Công việc — i-factory"
+      "pageTitle": "Chi tiết Lệnh Công việc — iFactory"
     }
   },
   "bom": {
     "title": "Định mức Nguyên vật liệu (BOM)",
-    "pageTitle": "Định mức NVL — i-factory",
+    "pageTitle": "Định mức NVL — iFactory",
     "new": {
       "title": "Tạo BOM",
-      "pageTitle": "Tạo BOM — i-factory"
+      "pageTitle": "Tạo BOM — iFactory"
     },
     "detail": {
       "title": "BOM {code} v{version}",
-      "pageTitle": "Chi tiết BOM — i-factory"
+      "pageTitle": "Chi tiết BOM — iFactory"
     },
     "revisions": {
       "title": "Lịch sử phiên bản",
-      "pageTitle": "Phiên bản BOM — i-factory"
+      "pageTitle": "Phiên bản BOM — iFactory"
     },
     "fields": {
       "code": "Mã",
@@ -160,51 +160,51 @@
   },
   "inventory": {
     "title": "Quản lý Kho hàng",
-    "pageTitle": "Kho hàng — i-factory",
+    "pageTitle": "Kho hàng — iFactory",
     "materials": {
       "title": "Danh sách Nguyên vật liệu",
-      "pageTitle": "Nguyên vật liệu — i-factory"
+      "pageTitle": "Nguyên vật liệu — iFactory"
     },
     "movements": {
       "title": "Phiếu Nhập / Xuất kho",
-      "pageTitle": "Nhập/Xuất kho — i-factory"
+      "pageTitle": "Nhập/Xuất kho — iFactory"
     }
   },
   "qualityControl": {
     "title": "Kiểm soát Chất lượng (QC)",
-    "pageTitle": "Kiểm soát Chất lượng — i-factory",
+    "pageTitle": "Kiểm soát Chất lượng — iFactory",
     "inspections": {
       "title": "Phiếu Kiểm tra Chất lượng",
-      "pageTitle": "Phiếu Kiểm tra — i-factory"
+      "pageTitle": "Phiếu Kiểm tra — iFactory"
     }
   },
   "reports": {
     "title": "Báo cáo Sản xuất",
     "subtitle": "Tạo báo cáo async. Kết quả sẽ được thông báo khi sẵn sàng.",
-    "pageTitle": "Báo cáo — i-factory"
+    "pageTitle": "Báo cáo — iFactory"
   },
   "factories": {
     "title": "Quản lý Nhà máy",
-    "pageTitle": "Nhà máy — i-factory"
+    "pageTitle": "Nhà máy — iFactory"
   },
   "notifications": {
     "title": "Thông báo",
-    "pageTitle": "Thông báo — i-factory"
+    "pageTitle": "Thông báo — iFactory"
   },
   "users": {
     "title": "Quản lý Người dùng",
-    "pageTitle": "Quản lý Người dùng — i-factory"
+    "pageTitle": "Quản lý Người dùng — iFactory"
   },
   "masterData": {
     "products": {
       "title": "Sản phẩm",
-      "pageTitle": "Sản phẩm — i-factory",
+      "pageTitle": "Sản phẩm — iFactory",
       "new": {
         "title": "Tạo sản phẩm",
-        "pageTitle": "Tạo sản phẩm — i-factory"
+        "pageTitle": "Tạo sản phẩm — iFactory"
       },
       "detail": {
-        "pageTitle": "Chi tiết sản phẩm — i-factory"
+        "pageTitle": "Chi tiết sản phẩm — iFactory"
       },
       "fields": {
         "sku": "Mã SKU",
@@ -229,7 +229,7 @@
     },
     "categories": {
       "title": "Danh mục sản phẩm",
-      "pageTitle": "Danh mục — i-factory",
+      "pageTitle": "Danh mục — iFactory",
       "fields": {
         "code": "Mã",
         "name": "Tên",
@@ -245,7 +245,7 @@
     },
     "uoms": {
       "title": "Đơn vị đo lường",
-      "pageTitle": "Đơn vị đo — i-factory",
+      "pageTitle": "Đơn vị đo — iFactory",
       "fields": {
         "code": "Mã",
         "name": "Tên",
@@ -261,9 +261,9 @@
     },
     "workCenters": {
       "title": "Trung tâm sản xuất",
-      "pageTitle": "Trung tâm SX — i-factory",
+      "pageTitle": "Trung tâm SX — iFactory",
       "detail": {
-        "pageTitle": "Chi tiết trung tâm SX — i-factory"
+        "pageTitle": "Chi tiết trung tâm SX — iFactory"
       },
       "fields": {
         "code": "Mã",
@@ -309,7 +309,7 @@
     },
     "skills": {
       "title": "Kỹ năng",
-      "pageTitle": "Kỹ năng — i-factory",
+      "pageTitle": "Kỹ năng — iFactory",
       "fields": {
         "code": "Mã",
         "name": "Tên",
@@ -331,13 +331,13 @@
     },
     "routings": {
       "title": "Quy trình sản xuất",
-      "pageTitle": "Quy trình — i-factory",
+      "pageTitle": "Quy trình — iFactory",
       "new": {
         "title": "Tạo quy trình",
-        "pageTitle": "Tạo quy trình — i-factory"
+        "pageTitle": "Tạo quy trình — iFactory"
       },
       "detail": {
-        "pageTitle": "Chi tiết quy trình — i-factory"
+        "pageTitle": "Chi tiết quy trình — iFactory"
       },
       "fields": {
         "code": "Mã",
@@ -366,7 +366,7 @@
     },
     "erpSync": {
       "title": "Đồng bộ ERP",
-      "pageTitle": "Đồng bộ ERP — i-factory",
+      "pageTitle": "Đồng bộ ERP — iFactory",
       "fields": {
         "entityType": "Loại dữ liệu",
         "externalSystem": "Hệ thống ngoài",

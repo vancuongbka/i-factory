@@ -194,7 +194,7 @@ export function Sidebar() {
     <aside className="flex h-full w-60 flex-shrink-0 flex-col border-r bg-card">
       {/* Logo */}
       <div className="flex h-16 flex-shrink-0 items-center border-b px-5">
-        <span className="text-lg font-bold tracking-tight">i-factory</span>
+        <span className="text-lg font-bold tracking-tight">iFactory</span>
       </div>
 
       {/* Nav */}

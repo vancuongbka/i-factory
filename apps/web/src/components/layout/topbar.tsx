@@ -64,7 +64,7 @@ export function Topbar() {
   const localeLabel = isEN ? 'EN' : 'VI';
 
   const match = ROUTE_TITLES.find((r) => pathname.startsWith(r.prefix));
-  const pageTitle = match ? tNav(match.key as Parameters<typeof tNav>[0]) : 'i-factory';
+  const pageTitle = match ? tNav(match.key as Parameters<typeof tNav>[0]) : 'iFactory';
 
   return (
     <header className="flex h-16 flex-shrink-0 items-center justify-between border-b bg-card px-4">
