@@ -32,7 +32,7 @@ export function KpiCard({
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-3">
           {icon && <div className="flex-shrink-0">{icon}</div>}
-          <p className="text-sm font-medium text-muted-foreground">{title}</p>
+          <p className="text-sm font-semibold text-foreground">{title}</p>
         </div>
         {trend && (
           <span
