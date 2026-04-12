@@ -100,9 +100,48 @@
   "production": {
     "title": "Production Orders",
     "pageTitle": "Production — iFactory",
+    "noResults": "No production orders found. Create one to get started.",
+    "new": {
+      "title": "Create Production Order",
+      "pageTitle": "Create Production Order — iFactory"
+    },
     "detail": {
-      "title": "Production Order #{id}",
+      "title": "Production Order",
       "pageTitle": "Production Order — iFactory"
+    },
+    "columns": {
+      "code": "PO Code",
+      "productName": "Product",
+      "quantity": "Quantity",
+      "status": "Status",
+      "plannedStart": "Planned Start",
+      "plannedEnd": "Planned End",
+      "actions": "Actions"
+    },
+    "status": {
+      "DRAFT": "Draft",
+      "PLANNED": "Planned",
+      "IN_PROGRESS": "In Progress",
+      "PAUSED": "Paused",
+      "COMPLETED": "Completed",
+      "CANCELLED": "Cancelled"
+    },
+    "form": {
+      "code": "PO Code",
+      "productName": "Product Name",
+      "quantity": "Quantity",
+      "unit": "Unit",
+      "plannedStartDate": "Planned Start Date",
+      "plannedEndDate": "Planned End Date",
+      "productionLineId": "Production Line ID (optional)",
+      "bomId": "BOM ID (optional)",
+      "notes": "Notes"
+    },
+    "actions": {
+      "create": "New Production Order",
+      "view": "View",
+      "delete": "Delete",
+      "createSubmit": "Create Production Order"
     }
   },
   "workOrders": {
@@ -243,7 +282,47 @@
   },
   "users": {
     "title": "User Management",
-    "pageTitle": "User Management — iFactory"
+    "pageTitle": "User Management — iFactory",
+    "noResults": "No users found.",
+    "new": {
+      "title": "Create User",
+      "pageTitle": "Create User — iFactory"
+    },
+    "columns": {
+      "fullName": "Full Name",
+      "username": "Username",
+      "email": "Email",
+      "role": "Role",
+      "status": "Status",
+      "createdAt": "Created",
+      "actions": "Actions"
+    },
+    "role": {
+      "SUPER_ADMIN": "Super Admin",
+      "FACTORY_ADMIN": "Factory Admin",
+      "PRODUCTION_MANAGER": "Production Manager",
+      "QC_INSPECTOR": "QC Inspector",
+      "WAREHOUSE_STAFF": "Warehouse Staff",
+      "OPERATOR": "Operator",
+      "VIEWER": "Viewer"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "form": {
+      "username": "Username",
+      "email": "Email",
+      "password": "Password",
+      "fullName": "Full Name",
+      "role": "Role",
+      "allowedFactories": "Allowed Factories (comma-separated UUIDs)"
+    },
+    "actions": {
+      "create": "New User",
+      "delete": "Delete",
+      "createSubmit": "Create User"
+    }
   },
   "masterData": {
     "products": {

@@ -48,6 +48,12 @@ import type {
 import type {
   WorkOrderResponse,
   CreateWorkOrderDto,
+  ProductionOrderResponse,
+  CreateProductionOrderDto,
+  UpdateProductionOrderDto,
+  UserResponse,
+  CreateUserDto,
+  UpdateUserDto,
 } from '@i-factory/api-types';
 
 export interface WorkOrderStep {
@@ -93,9 +99,35 @@ export const apiClient = {
   factories: {
     list: (token?: string) => request<unknown[]>('/factories', { token }),
   },
+  users: {
+    list: (token?: string) => request<UserResponse[]>('/users', { token }),
+    get: (id: string, token?: string) => request<UserResponse>(`/users/${id}`, { token }),
+    create: (body: CreateUserDto, token?: string) =>
+      request<UserResponse>('/users', { method: 'POST', body: JSON.stringify(body), token }),
+    update: (id: string, body: UpdateUserDto, token?: string) =>
+      request<UserResponse>(`/users/${id}`, { method: 'PATCH', body: JSON.stringify(body), token }),
+    remove: (id: string, token?: string) =>
+      request<void>(`/users/${id}`, { method: 'DELETE', token }),
+  },
   production: {
     list: (factoryId: string, token?: string) =>
-      request<unknown[]>(`/factories/${factoryId}/production`, { token }),
+      request<ProductionOrderResponse[]>(`/factories/${factoryId}/production`, { token }),
+    get: (factoryId: string, id: string, token?: string) =>
+      request<ProductionOrderResponse>(`/factories/${factoryId}/production/${id}`, { token }),
+    create: (factoryId: string, body: CreateProductionOrderDto, token?: string) =>
+      request<ProductionOrderResponse>(`/factories/${factoryId}/production`, {
+        method: 'POST',
+        body: JSON.stringify(body),
+        token,
+      }),
+    update: (factoryId: string, id: string, body: UpdateProductionOrderDto, token?: string) =>
+      request<ProductionOrderResponse>(`/factories/${factoryId}/production/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(body),
+        token,
+      }),
+    remove: (factoryId: string, id: string, token?: string) =>
+      request<void>(`/factories/${factoryId}/production/${id}`, { method: 'DELETE', token }),
   },
   workOrders: {
     list: (factoryId: string, token?: string) =>

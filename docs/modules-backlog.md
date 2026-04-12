@@ -12,11 +12,11 @@
 | Auth | ✅ Complete | ✅ Login page | — |
 | Master Data (MDM) | ✅ Complete | ✅ Complete | — |
 | BOM | ✅ Complete | ✅ Complete | — |
-| Work Orders | ✅ Complete | ❌ Empty | High |
+| Work Orders | ✅ Complete | ✅ Complete | — |
 | Dashboard | — | ✅ Complete | — |
-| Users | 🔶 Read-only | ❌ Empty | High |
+| Users | ✅ Complete | ✅ Complete | — |
 | Factories | 🔶 Read-only | ❌ Empty | High |
-| Production | 🔶 Read-only | ❌ Empty | High |
+| Production | ✅ Complete | ✅ Complete | — |
 | Inventory | 🔶 Read-only | ❌ Empty | Medium |
 | Quality Control | 🔶 Read-only | ❌ Empty | Medium |
 | Reports | 🔶 Queue only | ❌ Empty | Medium |

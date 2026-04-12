@@ -31,6 +31,8 @@ export const productionOrderResponseSchema = z.object({
   actualStartDate: z.string().datetime().nullable(),
   actualEndDate: z.string().datetime().nullable(),
   completedQuantity: z.number().default(0),
+  productionLineId: z.string().uuid().nullable().optional(),
+  bomId: z.string().uuid().nullable().optional(),
   customFields: z.record(z.unknown()).nullable(),
   createdAt: z.string().datetime(),
   updatedAt: z.string().datetime(),

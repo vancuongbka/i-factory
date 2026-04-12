@@ -100,9 +100,48 @@
   "production": {
     "title": "Lệnh Sản xuất",
     "pageTitle": "Sản xuất — iFactory",
+    "noResults": "Chưa có lệnh sản xuất nào. Tạo mới để bắt đầu.",
+    "new": {
+      "title": "Tạo Lệnh Sản xuất",
+      "pageTitle": "Tạo Lệnh Sản xuất — iFactory"
+    },
     "detail": {
-      "title": "Lệnh Sản xuất #{id}",
+      "title": "Lệnh Sản xuất",
       "pageTitle": "Chi tiết Lệnh Sản xuất — iFactory"
+    },
+    "columns": {
+      "code": "Mã LS",
+      "productName": "Sản phẩm",
+      "quantity": "Số lượng",
+      "status": "Trạng thái",
+      "plannedStart": "Bắt đầu dự kiến",
+      "plannedEnd": "Kết thúc dự kiến",
+      "actions": "Thao tác"
+    },
+    "status": {
+      "DRAFT": "Nháp",
+      "PLANNED": "Đã lên kế hoạch",
+      "IN_PROGRESS": "Đang sản xuất",
+      "PAUSED": "Tạm dừng",
+      "COMPLETED": "Hoàn thành",
+      "CANCELLED": "Đã hủy"
+    },
+    "form": {
+      "code": "Mã lệnh sản xuất",
+      "productName": "Tên sản phẩm",
+      "quantity": "Số lượng",
+      "unit": "Đơn vị",
+      "plannedStartDate": "Ngày bắt đầu dự kiến",
+      "plannedEndDate": "Ngày kết thúc dự kiến",
+      "productionLineId": "ID Dây chuyền (tùy chọn)",
+      "bomId": "ID BOM (tùy chọn)",
+      "notes": "Ghi chú"
+    },
+    "actions": {
+      "create": "Tạo Lệnh Sản xuất",
+      "view": "Xem",
+      "delete": "Xóa",
+      "createSubmit": "Tạo Lệnh Sản xuất"
     }
   },
   "workOrders": {
@@ -243,7 +282,47 @@
   },
   "users": {
     "title": "Quản lý Người dùng",
-    "pageTitle": "Quản lý Người dùng — iFactory"
+    "pageTitle": "Quản lý Người dùng — iFactory",
+    "noResults": "Chưa có người dùng nào.",
+    "new": {
+      "title": "Tạo Người dùng",
+      "pageTitle": "Tạo Người dùng — iFactory"
+    },
+    "columns": {
+      "fullName": "Họ và tên",
+      "username": "Tên đăng nhập",
+      "email": "Email",
+      "role": "Vai trò",
+      "status": "Trạng thái",
+      "createdAt": "Ngày tạo",
+      "actions": "Thao tác"
+    },
+    "role": {
+      "SUPER_ADMIN": "Quản trị viên",
+      "FACTORY_ADMIN": "Quản trị nhà máy",
+      "PRODUCTION_MANAGER": "Quản lý sản xuất",
+      "QC_INSPECTOR": "Kiểm tra chất lượng",
+      "WAREHOUSE_STAFF": "Nhân viên kho",
+      "OPERATOR": "Công nhân",
+      "VIEWER": "Chỉ xem"
+    },
+    "status": {
+      "active": "Hoạt động",
+      "inactive": "Ngừng hoạt động"
+    },
+    "form": {
+      "username": "Tên đăng nhập",
+      "email": "Email",
+      "password": "Mật khẩu",
+      "fullName": "Họ và tên",
+      "role": "Vai trò",
+      "allowedFactories": "Nhà máy được phép (UUID cách nhau bằng dấu phẩy)"
+    },
+    "actions": {
+      "create": "Tạo người dùng",
+      "delete": "Xóa",
+      "createSubmit": "Tạo người dùng"
+    }
   },
   "masterData": {
     "products": {
