@@ -17,7 +17,7 @@
 | Users | ✅ Complete | ✅ Complete | — |
 | Factories | 🔶 Read-only | ❌ Empty | High |
 | Production | ✅ Complete | ✅ Complete | — |
-| Inventory | 🔶 Read-only | ❌ Empty | Medium |
+| Inventory | ✅ Complete | ✅ Complete | — |
 | Quality Control | 🔶 Read-only | ❌ Empty | Medium |
 | Reports | 🔶 Queue only | ❌ Empty | Medium |
 | Notifications | 🔶 Broadcast only | ❌ Empty | Low |

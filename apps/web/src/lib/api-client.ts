@@ -54,6 +54,11 @@ import type {
   UserResponse,
   CreateUserDto,
   UpdateUserDto,
+  MaterialResponse,
+  CreateMaterialDto,
+  UpdateMaterialDto,
+  StockMovementResponse,
+  CreateStockMovementDto,
 } from '@i-factory/api-types';
 
 export interface WorkOrderStep {
@@ -152,8 +157,46 @@ export const apiClient = {
       ),
   },
   inventory: {
-    materials: (factoryId: string, token?: string) =>
-      request<unknown[]>(`/factories/${factoryId}/inventory/materials`, { token }),
+    materials: {
+      list: (factoryId: string, token?: string) =>
+        request<MaterialResponse[]>(`/factories/${factoryId}/inventory/materials`, { token }),
+      get: (factoryId: string, id: string, token?: string) =>
+        request<MaterialResponse>(`/factories/${factoryId}/inventory/materials/${id}`, { token }),
+      create: (factoryId: string, body: CreateMaterialDto, token?: string) =>
+        request<MaterialResponse>(`/factories/${factoryId}/inventory/materials`, {
+          method: 'POST',
+          body: JSON.stringify(body),
+          token,
+        }),
+      update: (factoryId: string, id: string, body: UpdateMaterialDto, token?: string) =>
+        request<MaterialResponse>(`/factories/${factoryId}/inventory/materials/${id}`, {
+          method: 'PATCH',
+          body: JSON.stringify(body),
+          token,
+        }),
+      remove: (factoryId: string, id: string, token?: string) =>
+        request<void>(`/factories/${factoryId}/inventory/materials/${id}`, {
+          method: 'DELETE',
+          token,
+        }),
+      lowStock: (factoryId: string, token?: string) =>
+        request<MaterialResponse[]>(`/factories/${factoryId}/inventory/low-stock`, { token }),
+    },
+    movements: {
+      list: (factoryId: string, materialId?: string, token?: string) => {
+        const qs = materialId ? `?materialId=${materialId}` : '';
+        return request<StockMovementResponse[]>(
+          `/factories/${factoryId}/inventory/movements${qs}`,
+          { token },
+        );
+      },
+      record: (factoryId: string, body: CreateStockMovementDto, token?: string) =>
+        request<StockMovementResponse>(`/factories/${factoryId}/inventory/movements`, {
+          method: 'POST',
+          body: JSON.stringify(body),
+          token,
+        }),
+    },
   },
   qc: {
     inspections: (factoryId: string, token?: string) =>

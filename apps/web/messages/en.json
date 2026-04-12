@@ -251,12 +251,71 @@
     "title": "Inventory Management",
     "pageTitle": "Inventory — iFactory",
     "materials": {
-      "title": "Materials List",
-      "pageTitle": "Materials — iFactory"
+      "title": "Materials",
+      "pageTitle": "Materials — iFactory",
+      "noResults": "No materials found. Add one to get started.",
+      "new": {
+        "title": "Add Material",
+        "pageTitle": "Add Material — iFactory"
+      },
+      "columns": {
+        "code": "Code",
+        "name": "Name",
+        "unit": "Unit",
+        "currentStock": "Stock",
+        "minStock": "Min",
+        "maxStock": "Max",
+        "actions": "Actions"
+      },
+      "lowStock": "Low Stock",
+      "form": {
+        "code": "Material Code",
+        "name": "Material Name",
+        "unit": "Unit of Measure",
+        "currentStock": "Initial Stock",
+        "minStockLevel": "Min Stock Level",
+        "maxStockLevel": "Max Stock Level (optional)",
+        "warehouseId": "Warehouse ID (optional)"
+      },
+      "actions": {
+        "create": "Add Material",
+        "delete": "Delete",
+        "createSubmit": "Save Material"
+      }
     },
     "movements": {
       "title": "Stock Movements",
-      "pageTitle": "Stock Movements — iFactory"
+      "pageTitle": "Stock Movements — iFactory",
+      "noResults": "No movements recorded yet.",
+      "type": {
+        "RECEIPT": "Receipt",
+        "ISSUE": "Issue",
+        "TRANSFER": "Transfer",
+        "ADJUSTMENT": "Adjustment",
+        "RETURN": "Return",
+        "SCRAP": "Scrap"
+      },
+      "columns": {
+        "type": "Type",
+        "material": "Material ID",
+        "quantity": "Qty",
+        "unit": "Unit",
+        "reference": "Reference",
+        "notes": "Notes",
+        "date": "Date"
+      },
+      "record": {
+        "title": "Record Movement",
+        "materialId": "Material ID",
+        "type": "Movement Type",
+        "quantity": "Quantity",
+        "unit": "Unit",
+        "notes": "Notes (optional)",
+        "submit": "Record"
+      },
+      "actions": {
+        "record": "Record Movement"
+      }
     }
   },
   "qualityControl": {

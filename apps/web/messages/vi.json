@@ -251,12 +251,71 @@
     "title": "Quản lý Kho hàng",
     "pageTitle": "Kho hàng — iFactory",
     "materials": {
-      "title": "Danh sách Nguyên vật liệu",
-      "pageTitle": "Nguyên vật liệu — iFactory"
+      "title": "Nguyên vật liệu",
+      "pageTitle": "Nguyên vật liệu — iFactory",
+      "noResults": "Chưa có nguyên vật liệu. Thêm mới để bắt đầu.",
+      "new": {
+        "title": "Thêm Nguyên vật liệu",
+        "pageTitle": "Thêm Nguyên vật liệu — iFactory"
+      },
+      "columns": {
+        "code": "Mã",
+        "name": "Tên",
+        "unit": "Đơn vị",
+        "currentStock": "Tồn kho",
+        "minStock": "Tối thiểu",
+        "maxStock": "Tối đa",
+        "actions": "Thao tác"
+      },
+      "lowStock": "Sắp hết",
+      "form": {
+        "code": "Mã nguyên vật liệu",
+        "name": "Tên nguyên vật liệu",
+        "unit": "Đơn vị đo",
+        "currentStock": "Tồn kho ban đầu",
+        "minStockLevel": "Mức tồn tối thiểu",
+        "maxStockLevel": "Mức tồn tối đa (tùy chọn)",
+        "warehouseId": "ID Kho (tùy chọn)"
+      },
+      "actions": {
+        "create": "Thêm Nguyên vật liệu",
+        "delete": "Xóa",
+        "createSubmit": "Lưu"
+      }
     },
     "movements": {
       "title": "Phiếu Nhập / Xuất kho",
-      "pageTitle": "Nhập/Xuất kho — iFactory"
+      "pageTitle": "Nhập/Xuất kho — iFactory",
+      "noResults": "Chưa có phiếu kho nào.",
+      "type": {
+        "RECEIPT": "Nhập kho",
+        "ISSUE": "Xuất kho",
+        "TRANSFER": "Chuyển kho",
+        "ADJUSTMENT": "Điều chỉnh",
+        "RETURN": "Trả hàng",
+        "SCRAP": "Phế phẩm"
+      },
+      "columns": {
+        "type": "Loại",
+        "material": "Mã NVL",
+        "quantity": "SL",
+        "unit": "ĐVT",
+        "reference": "Tham chiếu",
+        "notes": "Ghi chú",
+        "date": "Ngày"
+      },
+      "record": {
+        "title": "Ghi phiếu kho",
+        "materialId": "ID Nguyên vật liệu",
+        "type": "Loại phiếu",
+        "quantity": "Số lượng",
+        "unit": "Đơn vị",
+        "notes": "Ghi chú (tùy chọn)",
+        "submit": "Ghi nhận"
+      },
+      "actions": {
+        "record": "Ghi phiếu kho"
+      }
     }
   },
   "qualityControl": {
