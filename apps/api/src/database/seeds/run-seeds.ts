@@ -29,12 +29,12 @@ const ID = {
     prod: '30000000-0000-0000-0000-000000000002',
   },
   material: {
-    steelRod:    '40000000-0000-0000-0000-000000000001',
-    aluminumSheet: '40000000-0000-0000-0000-000000000002',
+    steelRod:       '40000000-0000-0000-0000-000000000001',
+    aluminumSheet:  '40000000-0000-0000-0000-000000000002',
     electronicComp: '40000000-0000-0000-0000-000000000003',
-    plasticCasing: '40000000-0000-0000-0000-000000000004',
-    rubberGasket:  '40000000-0000-0000-0000-000000000005',
-    copperWire:    '40000000-0000-0000-0000-000000000006',
+    plasticCasing:  '40000000-0000-0000-0000-000000000004',
+    rubberGasket:   '40000000-0000-0000-0000-000000000005',
+    copperWire:     '40000000-0000-0000-0000-000000000006',
   },
   bom: {
     motor:   '50000000-0000-0000-0000-000000000001',
@@ -80,6 +80,73 @@ const ID = {
   defect: {
     d1: '90000001-0000-0000-0000-000000000001',
     d2: '90000001-0000-0000-0000-000000000002',
+  },
+  // ── MDM ────────────────────────────────────────────────────────────────────
+  uom: {
+    kg:   'a0000000-0000-0000-0000-000000000001',
+    pcs:  'a0000000-0000-0000-0000-000000000002',
+    m:    'a0000000-0000-0000-0000-000000000003',
+    unit: 'a0000000-0000-0000-0000-000000000004',
+    L:    'a0000000-0000-0000-0000-000000000005',
+    min:  'a0000000-0000-0000-0000-000000000006',
+  },
+  category: {
+    electronics:    'b0000000-0000-0000-0000-000000000001',
+    motors:         'b0000000-0000-0000-0000-000000000002',
+    circuitBoards:  'b0000000-0000-0000-0000-000000000003',
+    rawMaterials:   'b0000000-0000-0000-0000-000000000004',
+    steelProducts:  'b0000000-0000-0000-0000-000000000005',
+    wireCables:     'b0000000-0000-0000-0000-000000000006',
+  },
+  product: {
+    motor3kw:       'c0000000-0000-0000-0000-000000000001',
+    circuitBoard:   'c0000000-0000-0000-0000-000000000002',
+    steelRod:       'c0000000-0000-0000-0000-000000000003',
+    aluminumSheet:  'c0000000-0000-0000-0000-000000000004',
+    electronicComp: 'c0000000-0000-0000-0000-000000000005',
+    plasticCasing:  'c0000000-0000-0000-0000-000000000006',
+    rubberGasket:   'c0000000-0000-0000-0000-000000000007',
+    copperWire:     'c0000000-0000-0000-0000-000000000008',
+  },
+  workCenter: {
+    cnc:        'd0000000-0000-0000-0000-000000000001',
+    winding:    'd0000000-0000-0000-0000-000000000002',
+    assembly:   'd0000000-0000-0000-0000-000000000003',
+    press:      'd0000000-0000-0000-0000-000000000004',
+    inspection: 'd0000000-0000-0000-0000-000000000005',
+    packing:    'd0000000-0000-0000-0000-000000000006',
+  },
+  machine: {
+    cncSaw:      'e0000000-0000-0000-0000-000000000001',
+    drillPress:  'e0000000-0000-0000-0000-000000000002',
+    windingMach: 'e0000000-0000-0000-0000-000000000003',
+    hydPress:    'e0000000-0000-0000-0000-000000000004',
+  },
+  skill: {
+    cncOp:       'f0000000-0000-0000-0000-000000000001',
+    windingOp:   'f0000000-0000-0000-0000-000000000002',
+    assembly:    'f0000000-0000-0000-0000-000000000003',
+    pressOp:     'f0000000-0000-0000-0000-000000000004',
+    qcInspect:   'f0000000-0000-0000-0000-000000000005',
+    electrical:  'f0000000-0000-0000-0000-000000000006',
+    materialHdl: 'f0000000-0000-0000-0000-000000000007',
+  },
+  routing: {
+    motor:   'a1000000-0000-0000-0000-000000000001',
+    circuit: 'a1000000-0000-0000-0000-000000000002',
+  },
+  routingOp: {
+    // motor routing operations
+    mOp1: 'a1000001-0000-0000-0000-000000000001',
+    mOp2: 'a1000001-0000-0000-0000-000000000002',
+    mOp3: 'a1000001-0000-0000-0000-000000000003',
+    mOp4: 'a1000001-0000-0000-0000-000000000004',
+    mOp5: 'a1000001-0000-0000-0000-000000000005',
+    // circuit board routing operations
+    cOp1: 'a1000001-0000-0000-0000-000000000006',
+    cOp2: 'a1000001-0000-0000-0000-000000000007',
+    cOp3: 'a1000001-0000-0000-0000-000000000008',
+    cOp4: 'a1000001-0000-0000-0000-000000000009',
   },
 };
 
@@ -340,6 +407,317 @@ async function seed() {
       (gen_random_uuid(), '${ID.factory.hcm}', '${ID.user.warehouse}', 'inventory:low-stock',
        'Low Stock Alert', 'Material M-002 (Aluminum Sheet) is approaching minimum stock level (200 pcs remaining).', false,
        '{"materialId": "${ID.material.aluminumSheet}", "currentStock": 200, "minLevel": 50}'::jsonb)
+  `);
+
+  // ── MDM: Units of Measure ─────────────────────────────────────────────────
+  console.log('Seeding units of measure...');
+  await qr.query(`
+    INSERT INTO units_of_measure (id, "factoryId", code, name, symbol, "isBase", "isActive")
+    VALUES
+      ('${ID.uom.kg}',   '${ID.factory.hcm}', 'KG',   'Kilogram',   'kg',   true,  true),
+      ('${ID.uom.pcs}',  '${ID.factory.hcm}', 'PCS',  'Pieces',     'pcs',  true,  true),
+      ('${ID.uom.m}',    '${ID.factory.hcm}', 'M',    'Meter',      'm',    true,  true),
+      ('${ID.uom.unit}', '${ID.factory.hcm}', 'UNIT', 'Unit',       'unit', true,  true),
+      ('${ID.uom.L}',    '${ID.factory.hcm}', 'L',    'Liter',      'L',    true,  true),
+      ('${ID.uom.min}',  '${ID.factory.hcm}', 'MIN',  'Minute',     'min',  false, true)
+  `);
+
+  // ── MDM: Product Categories ───────────────────────────────────────────────
+  console.log('Seeding product categories...');
+  // Insert root categories first, then children
+  await qr.query(`
+    INSERT INTO product_categories (id, "factoryId", code, name, "parentId", description, "sortOrder")
+    VALUES
+      ('${ID.category.electronics}',   '${ID.factory.hcm}', 'CAT-ELEC', 'Electronics',    NULL,                           'Finished electronic products and assemblies', 1),
+      ('${ID.category.rawMaterials}',  '${ID.factory.hcm}', 'CAT-RAW',  'Raw Materials',  NULL,                           'Unprocessed input materials',                 2),
+      ('${ID.category.motors}',        '${ID.factory.hcm}', 'CAT-MOT',  'Motors',         '${ID.category.electronics}',   'Electric motors and assemblies',              1),
+      ('${ID.category.circuitBoards}', '${ID.factory.hcm}', 'CAT-PCB',  'Circuit Boards', '${ID.category.electronics}',   'Printed circuit boards and control units',    2),
+      ('${ID.category.steelProducts}', '${ID.factory.hcm}', 'CAT-STL',  'Steel Products', '${ID.category.rawMaterials}',  'Steel rods, sheets, and profiles',            1),
+      ('${ID.category.wireCables}',    '${ID.factory.hcm}', 'CAT-WIRE', 'Wire & Cables',  '${ID.category.rawMaterials}',  'Copper wire, cables, and conductors',         2)
+  `);
+
+  // ── MDM: Products ─────────────────────────────────────────────────────────
+  console.log('Seeding products...');
+  await qr.query(`
+    INSERT INTO products (id, "factoryId", sku, name, type, "categoryId", "uomId", description, "technicalSpecs", "isActive")
+    VALUES
+      (
+        '${ID.product.motor3kw}', '${ID.factory.hcm}',
+        'MOTOR-3KW', 'Electric Motor 3kW', 'FINISHED',
+        '${ID.category.motors}', '${ID.uom.unit}',
+        'Standard 3kW induction motor, IP54, IE2 efficiency class',
+        '{"powerKw": 3, "voltageV": 380, "frequencyHz": 50, "rpmNominal": 1450, "efficiencyClass": "IE2", "protectionClass": "IP54"}'::jsonb,
+        true
+      ),
+      (
+        '${ID.product.circuitBoard}', '${ID.factory.hcm}',
+        'PCB-CTRL-V2', 'Control Circuit Board V2', 'FINISHED',
+        '${ID.category.circuitBoards}', '${ID.uom.unit}',
+        'Motor control PCB with PLC interface, V2.1 revision',
+        '{"revision": "2.1", "dimensions": "120x80mm", "inputVoltage": "24VDC", "plcInterface": "RS485"}'::jsonb,
+        true
+      ),
+      (
+        '${ID.product.steelRod}', '${ID.factory.hcm}',
+        'RM-STEEL-10', 'Steel Rod 10mm', 'RAW_MATERIAL',
+        '${ID.category.steelProducts}', '${ID.uom.kg}',
+        'Cold-drawn steel rod, diameter 10mm, grade S235',
+        '{"diameter": "10mm", "grade": "S235", "tensileStrength": "360MPa"}'::jsonb,
+        true
+      ),
+      (
+        '${ID.product.aluminumSheet}', '${ID.factory.hcm}',
+        'RM-ALU-2MM', 'Aluminum Sheet 2mm', 'RAW_MATERIAL',
+        NULL, '${ID.uom.pcs}',
+        'Aluminum alloy sheet 2mm thickness, 1000×2000mm panels',
+        '{"thickness": "2mm", "alloy": "6061-T6", "dimensions": "1000x2000mm"}'::jsonb,
+        true
+      ),
+      (
+        '${ID.product.electronicComp}', '${ID.factory.hcm}',
+        'RM-ELEC-COMP', 'Electronic Components Kit', 'RAW_MATERIAL',
+        NULL, '${ID.uom.pcs}',
+        'Mixed SMD component kit for PCB assembly (resistors, capacitors, ICs)',
+        '{"componentCount": 48, "packageTypes": ["0402", "0603", "SO8", "TQFP32"]}'::jsonb,
+        true
+      ),
+      (
+        '${ID.product.plasticCasing}', '${ID.factory.hcm}',
+        'RM-PLASTIC-A', 'Plastic Casing Type A', 'RAW_MATERIAL',
+        NULL, '${ID.uom.pcs}',
+        'ABS injection-molded enclosure for control board',
+        '{"material": "ABS", "color": "RAL7035", "dimensions": "130x90x40mm"}'::jsonb,
+        true
+      ),
+      (
+        '${ID.product.rubberGasket}', '${ID.factory.hcm}',
+        'CONS-GASKET-50', 'Rubber Gasket 50mm', 'CONSUMABLE',
+        NULL, '${ID.uom.pcs}',
+        'EPDM rubber sealing gasket, 50mm OD, for motor end shields',
+        '{"material": "EPDM", "outerDiameter": "50mm", "thickness": "3mm"}'::jsonb,
+        true
+      ),
+      (
+        '${ID.product.copperWire}', '${ID.factory.hcm}',
+        'RM-WIRE-1.5', 'Copper Wire 1.5mm', 'RAW_MATERIAL',
+        '${ID.category.wireCables}', '${ID.uom.m}',
+        'Enameled copper magnet wire, 1.5mm diameter, class H insulation',
+        '{"diameter": "1.5mm", "insulation": "Class H", "conductivity": "99.9% IACS"}'::jsonb,
+        true
+      )
+  `);
+
+  // ── MDM: Work Centers ─────────────────────────────────────────────────────
+  console.log('Seeding work centers...');
+  await qr.query(`
+    INSERT INTO work_centers (id, "factoryId", code, name, type, "capacityPerHour", description, "isActive")
+    VALUES
+      ('${ID.workCenter.cnc}',        '${ID.factory.hcm}', 'WC-CNC',    'CNC Machining Center',   'MACHINE',    6.00,  'CNC cutting, drilling, and turning operations',         true),
+      ('${ID.workCenter.winding}',    '${ID.factory.hcm}', 'WC-WIND',   'Winding Station',        'MACHINE',    1.00,  'Automatic coil winding for motor stators and rotors',   true),
+      ('${ID.workCenter.assembly}',   '${ID.factory.hcm}', 'WC-ASSY',   'Final Assembly',         'ASSEMBLY',   4.00,  'Manual and semi-automated product assembly',            true),
+      ('${ID.workCenter.press}',      '${ID.factory.hcm}', 'WC-PRESS',  'Hydraulic Press',        'MACHINE',    8.00,  '50-ton hydraulic press for shaft and bearing assembly', true),
+      ('${ID.workCenter.inspection}', '${ID.factory.hcm}', 'WC-QC',     'QC Inspection Station',  'INSPECTION', 12.00, 'Dimensional, electrical, and functional testing',       true),
+      ('${ID.workCenter.packing}',    '${ID.factory.hcm}', 'WC-PACK',   'Packaging Area',         'PACKING',    20.00, 'Labeling, boxing, and palletizing for shipment',        true)
+  `);
+
+  // ── MDM: Machines ─────────────────────────────────────────────────────────
+  console.log('Seeding machines...');
+  await qr.query(`
+    INSERT INTO machines (id, "factoryId", "workCenterId", code, name, model, "serialNumber", status, "capacityPerHour")
+    VALUES
+      (
+        '${ID.machine.cncSaw}', '${ID.factory.hcm}', '${ID.workCenter.cnc}',
+        'CNC-001', 'Fanuc CNC Lathe #1', 'Fanuc 0i-TF Plus', 'FCT-2021-00412',
+        'ACTIVE', 4.00
+      ),
+      (
+        '${ID.machine.drillPress}', '${ID.factory.hcm}', '${ID.workCenter.cnc}',
+        'CNC-002', 'CNC Radial Drill Press', 'Haas TM-2', 'HAS-2020-07831',
+        'IDLE', 6.00
+      ),
+      (
+        '${ID.machine.windingMach}', '${ID.factory.hcm}', '${ID.workCenter.winding}',
+        'WIND-001', 'Automatic Winding Machine', 'MARSILLI 36N', 'MRS-2022-00156',
+        'ACTIVE', 1.00
+      ),
+      (
+        '${ID.machine.hydPress}', '${ID.factory.hcm}', '${ID.workCenter.press}',
+        'PRESS-001', 'Hydraulic Press 50T', 'Schuler HPM 50', 'SCH-2019-03377',
+        'ACTIVE', 8.00
+      )
+  `);
+
+  // ── MDM: Skills ───────────────────────────────────────────────────────────
+  console.log('Seeding skills...');
+  await qr.query(`
+    INSERT INTO skills (id, "factoryId", code, name, level, description, "isActive")
+    VALUES
+      ('${ID.skill.cncOp}',       '${ID.factory.hcm}', 'SK-CNC',    'CNC Machine Operation',       'ADVANCED',      'Operate CNC lathes and milling machines; program G-code',  true),
+      ('${ID.skill.windingOp}',   '${ID.factory.hcm}', 'SK-WIND',   'Coil Winding',                'INTERMEDIATE',  'Set up and operate automatic coil winding machines',        true),
+      ('${ID.skill.assembly}',    '${ID.factory.hcm}', 'SK-ASSY',   'Mechanical Assembly',         'BASIC',         'Hand tools, torque wrenches, assembly fixtures',            true),
+      ('${ID.skill.pressOp}',     '${ID.factory.hcm}', 'SK-PRESS',  'Hydraulic Press Operation',   'INTERMEDIATE',  'Operate hydraulic press; read force and stroke settings',   true),
+      ('${ID.skill.qcInspect}',   '${ID.factory.hcm}', 'SK-QC',     'QC Inspection',               'ADVANCED',      'Dimensional measurement, electrical testing, FAT/SAT',     true),
+      ('${ID.skill.electrical}',  '${ID.factory.hcm}', 'SK-ELEC',   'Electrical Wiring',           'EXPERT',        'Wire motor terminals, perform insulation resistance tests',  true),
+      ('${ID.skill.materialHdl}', '${ID.factory.hcm}', 'SK-MAT',    'Material Handling',           'BASIC',         'Forklift operation, pallet jack, warehouse picking',        true)
+  `);
+
+  // ── MDM: Routings ─────────────────────────────────────────────────────────
+  console.log('Seeding routings...');
+  await qr.query(`
+    INSERT INTO routings (id, "factoryId", "productId", code, name, version, "isActive", notes)
+    VALUES
+      (
+        '${ID.routing.motor}', '${ID.factory.hcm}', '${ID.product.motor3kw}',
+        'RT-MOTOR-001', 'Electric Motor 3kW — Standard Routing', '1.0', true,
+        'Standard manufacturing routing for IE2 3kW induction motor. Total cycle: ~5.5 hours.'
+      ),
+      (
+        '${ID.routing.circuit}', '${ID.factory.hcm}', '${ID.product.circuitBoard}',
+        'RT-CIRCUIT-001', 'Control Circuit Board — Assembly Routing', '1.0', true,
+        'SMT + through-hole assembly routing for V2.1 control PCB. Total cycle: ~2.5 hours.'
+      )
+  `);
+
+  // ── MDM: Routing Operations ───────────────────────────────────────────────
+  console.log('Seeding routing operations...');
+  await qr.query(`
+    INSERT INTO routing_operations (
+      id, "routingId", sequence, name, "workCenterId",
+      "setupTimeMinutes", "cycleTimeMinutes", "machineIds", "requiredSkills",
+      "workInstructions", "isOptional"
+    ) VALUES
+      -- Electric Motor 3kW routing
+      (
+        '${ID.routingOp.mOp1}', '${ID.routing.motor}', 10,
+        'CNC Shaft Machining',
+        '${ID.workCenter.cnc}',
+        15, 30.00,
+        ARRAY['${ID.machine.cncSaw}']::uuid[],
+        ARRAY['SK-CNC'],
+        'Turn steel rod to 28mm shaft diameter. Face ends. Cut keyway 8×4mm per DWG-SHAFT-3KW. Tolerance ±0.02mm on bearing seats.',
+        false
+      ),
+      (
+        '${ID.routingOp.mOp2}', '${ID.routing.motor}', 20,
+        'Stator Coil Winding',
+        '${ID.workCenter.winding}',
+        10, 120.00,
+        ARRAY['${ID.machine.windingMach}']::uuid[],
+        ARRAY['SK-WIND'],
+        'Wind 48 stator slots, 3-phase, 4-pole. Use 1.5mm enameled copper wire. 3 layers per slot. Insulate inter-layer with Nomex 410.',
+        false
+      ),
+      (
+        '${ID.routingOp.mOp3}', '${ID.routing.motor}', 30,
+        'Rotor & Bearing Press Assembly',
+        '${ID.workCenter.press}',
+        5, 45.00,
+        ARRAY['${ID.machine.hydPress}']::uuid[],
+        ARRAY['SK-PRESS', 'SK-ASSY'],
+        'Press SKF 6205 bearings onto shaft at 2-ton force. Check axial runout <0.05mm. Press rotor lamination stack to shaft.',
+        false
+      ),
+      (
+        '${ID.routingOp.mOp4}', '${ID.routing.motor}', 40,
+        'Final Assembly & Wiring',
+        '${ID.workCenter.assembly}',
+        15, 60.00,
+        ARRAY[]::uuid[],
+        ARRAY['SK-ASSY', 'SK-ELEC'],
+        'Mount end shields. Install rubber gaskets. Connect stator leads to terminal box per WD-MOTOR-3KW-v2. Torque all fasteners to spec.',
+        false
+      ),
+      (
+        '${ID.routingOp.mOp5}', '${ID.routing.motor}', 50,
+        'Electrical & Functional Test',
+        '${ID.workCenter.inspection}',
+        0, 30.00,
+        ARRAY[]::uuid[],
+        ARRAY['SK-QC', 'SK-ELEC'],
+        'Measure winding resistance (all 3 phases within ±2%). HV withstand test 1500V/1min. No-load run 30min: record current and vibration (≤2.8mm/s).',
+        false
+      ),
+      -- Control Circuit Board routing
+      (
+        '${ID.routingOp.cOp1}', '${ID.routing.circuit}', 10,
+        'SMD Component Placement',
+        '${ID.workCenter.assembly}',
+        5, 45.00,
+        ARRAY[]::uuid[],
+        ARRAY['SK-ASSY'],
+        'Apply solder paste via stencil. Place SMD components using pick-and-place fixture. Verify placement against BOM-002 component list.',
+        false
+      ),
+      (
+        '${ID.routingOp.cOp2}', '${ID.routing.circuit}', 20,
+        'Reflow Soldering',
+        '${ID.workCenter.assembly}',
+        0, 20.00,
+        ARRAY[]::uuid[],
+        ARRAY['SK-ASSY'],
+        'Reflow profile: preheat 150°C/60s, soak 180°C/90s, peak 245°C/10s. Inspect solder joints under 10× magnification after cooling.',
+        false
+      ),
+      (
+        '${ID.routingOp.cOp3}', '${ID.routing.circuit}', 30,
+        'Functional Test & Programming',
+        '${ID.workCenter.inspection}',
+        0, 20.00,
+        ARRAY[]::uuid[],
+        ARRAY['SK-QC'],
+        'Flash firmware v2.1.3 via JTAG. Run built-in self-test. Verify RS485 communication at 9600 baud. Check all I/O channels.',
+        false
+      ),
+      (
+        '${ID.routingOp.cOp4}', '${ID.routing.circuit}', 40,
+        'Labeling & Packaging',
+        '${ID.workCenter.packing}',
+        5, 10.00,
+        ARRAY[]::uuid[],
+        ARRAY['SK-MAT'],
+        'Apply serialized QR label. Insert into anti-static bag. Place in foam-padded box with datasheet. Label outer carton.',
+        false
+      )
+  `);
+
+  // ── MDM: Back-link BOMs and Production Orders to MDM Products ─────────────
+  console.log('Linking BOMs and production orders to MDM products...');
+  await qr.query(`
+    UPDATE boms SET "productId" = '${ID.product.motor3kw}'
+    WHERE id = '${ID.bom.motor}'
+  `);
+  await qr.query(`
+    UPDATE boms SET "productId" = '${ID.product.circuitBoard}'
+    WHERE id = '${ID.bom.circuit}'
+  `);
+  await qr.query(`
+    UPDATE production_orders SET "productId" = '${ID.product.motor3kw}'
+    WHERE id IN ('${ID.po.po1}', '${ID.po.po2}')
+  `);
+  await qr.query(`
+    UPDATE production_orders SET "productId" = '${ID.product.circuitBoard}'
+    WHERE id = '${ID.po.po3}'
+  `);
+  // Back-link work order steps to their work centers via routing
+  await qr.query(`
+    UPDATE work_order_steps SET "workCenterId" = '${ID.workCenter.cnc}'
+    WHERE id = '${ID.step.s3}'
+  `);
+  await qr.query(`
+    UPDATE work_order_steps SET "workCenterId" = '${ID.workCenter.winding}'
+    WHERE id = '${ID.step.s4}'
+  `);
+  await qr.query(`
+    UPDATE work_order_steps SET "workCenterId" = '${ID.workCenter.press}'
+    WHERE id = '${ID.step.s5}'
+  `);
+  await qr.query(`
+    UPDATE work_order_steps SET "workCenterId" = '${ID.workCenter.assembly}'
+    WHERE id IN ('${ID.step.s6}', '${ID.step.s7}')
+  `);
+  await qr.query(`
+    UPDATE work_order_steps SET "workCenterId" = '${ID.workCenter.inspection}'
+    WHERE id = '${ID.step.s8}'
   `);
 
   await qr.release();

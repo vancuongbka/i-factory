@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm --filter @i-factory/web typecheck)",
+      "Bash(pnpm --filter @i-factory/api exec tsc --noEmit --project apps/api/tsconfig.json)",
+      "Bash(pnpm --filter @i-factory/api typecheck)"
+    ]
+  }
+}

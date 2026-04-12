@@ -13,7 +13,15 @@
     "reports": "Báo cáo",
     "notifications": "Thông báo",
     "factories": "Nhà máy",
-    "users": "Người dùng"
+    "users": "Người dùng",
+    "masterData": "Dữ liệu gốc",
+    "products": "Sản phẩm",
+    "workCenters": "Trung tâm SX",
+    "routings": "Quy trình",
+    "categories": "Danh mục",
+    "uoms": "Đơn vị đo",
+    "skills": "Kỹ năng",
+    "erpSync": "Đồng bộ ERP"
   },
   "auth": {
     "signIn": "Đăng nhập",
@@ -47,7 +55,44 @@
   },
   "bom": {
     "title": "Định mức Nguyên vật liệu (BOM)",
-    "pageTitle": "Định mức NVL — i-factory"
+    "pageTitle": "Định mức NVL — i-factory",
+    "new": {
+      "title": "Tạo BOM",
+      "pageTitle": "Tạo BOM — i-factory"
+    },
+    "detail": {
+      "title": "BOM {code} v{version}",
+      "pageTitle": "Chi tiết BOM — i-factory"
+    },
+    "revisions": {
+      "title": "Lịch sử phiên bản",
+      "pageTitle": "Phiên bản BOM — i-factory"
+    },
+    "fields": {
+      "code": "Mã",
+      "productName": "Tên sản phẩm",
+      "version": "Phiên bản",
+      "outputQuantity": "Sản lượng đầu ra",
+      "outputUnit": "Đơn vị đầu ra",
+      "isPhantom": "BOM ảo",
+      "notes": "Ghi chú",
+      "isActive": "Đang hoạt động"
+    },
+    "items": {
+      "sequence": "STT",
+      "material": "Nguyên vật liệu",
+      "childBom": "BOM con",
+      "quantity": "Số lượng",
+      "unit": "Đơn vị",
+      "waste": "Hao hụt %",
+      "notes": "Ghi chú"
+    },
+    "actions": {
+      "create": "Tạo BOM",
+      "revise": "Tạo phiên bản mới",
+      "addItem": "Thêm vật tư",
+      "save": "Lưu"
+    }
   },
   "inventory": {
     "title": "Quản lý Kho hàng",
@@ -85,5 +130,199 @@
   "users": {
     "title": "Quản lý Người dùng",
     "pageTitle": "Quản lý Người dùng — i-factory"
+  },
+  "masterData": {
+    "products": {
+      "title": "Sản phẩm",
+      "pageTitle": "Sản phẩm — i-factory",
+      "new": {
+        "title": "Tạo sản phẩm",
+        "pageTitle": "Tạo sản phẩm — i-factory"
+      },
+      "detail": {
+        "pageTitle": "Chi tiết sản phẩm — i-factory"
+      },
+      "fields": {
+        "sku": "Mã SKU",
+        "name": "Tên",
+        "type": "Loại",
+        "category": "Danh mục",
+        "uom": "Đơn vị đo",
+        "description": "Mô tả",
+        "isActive": "Đang hoạt động"
+      },
+      "types": {
+        "FINISHED": "Thành phẩm",
+        "SEMI_FINISHED": "Bán thành phẩm",
+        "RAW_MATERIAL": "Nguyên vật liệu",
+        "CONSUMABLE": "Vật tư tiêu hao"
+      },
+      "actions": {
+        "create": "Tạo sản phẩm",
+        "edit": "Sửa",
+        "delete": "Xóa"
+      }
+    },
+    "categories": {
+      "title": "Danh mục sản phẩm",
+      "pageTitle": "Danh mục — i-factory",
+      "fields": {
+        "code": "Mã",
+        "name": "Tên",
+        "parent": "Danh mục cha",
+        "description": "Mô tả",
+        "sortOrder": "Thứ tự sắp xếp"
+      },
+      "actions": {
+        "create": "Tạo danh mục",
+        "edit": "Sửa",
+        "delete": "Xóa"
+      }
+    },
+    "uoms": {
+      "title": "Đơn vị đo lường",
+      "pageTitle": "Đơn vị đo — i-factory",
+      "fields": {
+        "code": "Mã",
+        "name": "Tên",
+        "symbol": "Ký hiệu",
+        "isBase": "Đơn vị cơ bản",
+        "isActive": "Đang hoạt động"
+      },
+      "actions": {
+        "create": "Tạo đơn vị",
+        "edit": "Sửa",
+        "delete": "Xóa"
+      }
+    },
+    "workCenters": {
+      "title": "Trung tâm sản xuất",
+      "pageTitle": "Trung tâm SX — i-factory",
+      "detail": {
+        "pageTitle": "Chi tiết trung tâm SX — i-factory"
+      },
+      "fields": {
+        "code": "Mã",
+        "name": "Tên",
+        "type": "Loại",
+        "capacity": "Công suất / Giờ",
+        "description": "Mô tả",
+        "isActive": "Đang hoạt động"
+      },
+      "types": {
+        "MACHINE": "Máy móc",
+        "ASSEMBLY": "Lắp ráp",
+        "INSPECTION": "Kiểm tra",
+        "PACKING": "Đóng gói"
+      },
+      "actions": {
+        "create": "Tạo trung tâm",
+        "edit": "Sửa",
+        "delete": "Xóa"
+      },
+      "machines": {
+        "title": "Máy móc",
+        "fields": {
+          "code": "Mã",
+          "name": "Tên",
+          "model": "Model",
+          "serialNumber": "Số serial",
+          "status": "Trạng thái",
+          "capacity": "Công suất / Giờ"
+        },
+        "statuses": {
+          "ACTIVE": "Đang chạy",
+          "IDLE": "Chờ",
+          "MAINTENANCE": "Bảo trì",
+          "BREAKDOWN": "Hỏng"
+        },
+        "actions": {
+          "add": "Thêm máy",
+          "edit": "Sửa",
+          "delete": "Xóa"
+        }
+      }
+    },
+    "skills": {
+      "title": "Kỹ năng",
+      "pageTitle": "Kỹ năng — i-factory",
+      "fields": {
+        "code": "Mã",
+        "name": "Tên",
+        "level": "Cấp độ",
+        "description": "Mô tả",
+        "isActive": "Đang hoạt động"
+      },
+      "levels": {
+        "BASIC": "Cơ bản",
+        "INTERMEDIATE": "Trung cấp",
+        "ADVANCED": "Nâng cao",
+        "EXPERT": "Chuyên gia"
+      },
+      "actions": {
+        "create": "Tạo kỹ năng",
+        "edit": "Sửa",
+        "delete": "Xóa"
+      }
+    },
+    "routings": {
+      "title": "Quy trình sản xuất",
+      "pageTitle": "Quy trình — i-factory",
+      "new": {
+        "title": "Tạo quy trình",
+        "pageTitle": "Tạo quy trình — i-factory"
+      },
+      "detail": {
+        "pageTitle": "Chi tiết quy trình — i-factory"
+      },
+      "fields": {
+        "code": "Mã",
+        "name": "Tên",
+        "version": "Phiên bản",
+        "product": "Sản phẩm",
+        "isActive": "Đang hoạt động",
+        "notes": "Ghi chú"
+      },
+      "operations": {
+        "title": "Công đoạn",
+        "sequence": "STT",
+        "name": "Tên",
+        "workCenter": "Trung tâm SX",
+        "cycleTime": "Thời gian chu kỳ (phút)",
+        "setupTime": "Thời gian chuẩn bị (phút)",
+        "isOptional": "Tùy chọn",
+        "instructions": "Hướng dẫn"
+      },
+      "actions": {
+        "create": "Tạo quy trình",
+        "addOperation": "Thêm công đoạn",
+        "edit": "Sửa",
+        "delete": "Xóa"
+      }
+    },
+    "erpSync": {
+      "title": "Đồng bộ ERP",
+      "pageTitle": "Đồng bộ ERP — i-factory",
+      "fields": {
+        "entityType": "Loại dữ liệu",
+        "externalSystem": "Hệ thống ngoài",
+        "syncMode": "Chế độ đồng bộ",
+        "dryRun": "Kiểm tra thử (không lưu)",
+        "records": "Dữ liệu (mảng JSON)"
+      },
+      "syncModes": {
+        "UPSERT": "Upsert (thêm hoặc cập nhật)",
+        "REPLACE": "Thay thế (xóa tất cả, rồi thêm mới)"
+      },
+      "actions": {
+        "trigger": "Kích hoạt đồng bộ"
+      },
+      "status": {
+        "queued": "Đang chờ",
+        "processing": "Đang xử lý",
+        "completed": "Hoàn thành",
+        "failed": "Thất bại"
+      }
+    }
   }
 }

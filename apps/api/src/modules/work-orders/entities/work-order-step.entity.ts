@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { WorkOrderEntity } from './work-order.entity';
+import { WorkCenterEntity } from '../../master-data/work-centers/entities/work-center.entity';
 
 @Entity('work_order_steps')
 export class WorkOrderStepEntity {
@@ -26,6 +27,13 @@ export class WorkOrderStepEntity {
 
   @Column({ type: 'text', array: true, default: [] })
   requiredSkills!: string[];
+
+  /** Optional link to Work Center master. Populated when creating from a routing. */
+  @Column({ type: 'uuid', nullable: true })
+  workCenterId?: string;
+
+  @ManyToOne(() => WorkCenterEntity, { nullable: true, onDelete: 'SET NULL' })
+  workCenter?: WorkCenterEntity;
 
   @Column({ default: false })
   isCompleted!: boolean;

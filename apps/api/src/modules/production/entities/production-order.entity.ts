@@ -3,10 +3,12 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { ProductionStatus } from '@i-factory/api-types';
+import { ProductEntity } from '../../master-data/products/entities/product.entity';
 
 @Entity('production_orders')
 export class ProductionOrderEntity {
@@ -21,6 +23,13 @@ export class ProductionOrderEntity {
 
   @Column({ length: 200 })
   productName!: string;
+
+  /** Optional link to the Products master record. */
+  @Column({ type: 'uuid', nullable: true })
+  productId?: string;
+
+  @ManyToOne(() => ProductEntity, { nullable: true, onDelete: 'SET NULL' })
+  product?: ProductEntity;
 
   @Column({ type: 'decimal', precision: 12, scale: 3 })
   quantity!: number;

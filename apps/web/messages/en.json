@@ -13,7 +13,15 @@
     "reports": "Reports",
     "notifications": "Notifications",
     "factories": "Factories",
-    "users": "Users"
+    "users": "Users",
+    "masterData": "Master Data",
+    "products": "Products",
+    "workCenters": "Work Centers",
+    "routings": "Routings",
+    "categories": "Categories",
+    "uoms": "Units of Measure",
+    "skills": "Skills",
+    "erpSync": "ERP Sync"
   },
   "auth": {
     "signIn": "Sign In",
@@ -47,7 +55,44 @@
   },
   "bom": {
     "title": "Bill of Materials (BOM)",
-    "pageTitle": "BOM — i-factory"
+    "pageTitle": "BOM — i-factory",
+    "new": {
+      "title": "Create BOM",
+      "pageTitle": "Create BOM — i-factory"
+    },
+    "detail": {
+      "title": "BOM {code} v{version}",
+      "pageTitle": "BOM Detail — i-factory"
+    },
+    "revisions": {
+      "title": "Revision History",
+      "pageTitle": "BOM Revisions — i-factory"
+    },
+    "fields": {
+      "code": "Code",
+      "productName": "Product Name",
+      "version": "Version",
+      "outputQuantity": "Output Quantity",
+      "outputUnit": "Output Unit",
+      "isPhantom": "Phantom BOM",
+      "notes": "Notes",
+      "isActive": "Active"
+    },
+    "items": {
+      "sequence": "Seq",
+      "material": "Material",
+      "childBom": "Child BOM",
+      "quantity": "Quantity",
+      "unit": "Unit",
+      "waste": "Waste %",
+      "notes": "Notes"
+    },
+    "actions": {
+      "create": "Create BOM",
+      "revise": "Create Revision",
+      "addItem": "Add Item",
+      "save": "Save"
+    }
   },
   "inventory": {
     "title": "Inventory Management",
@@ -85,5 +130,199 @@
   "users": {
     "title": "User Management",
     "pageTitle": "User Management — i-factory"
+  },
+  "masterData": {
+    "products": {
+      "title": "Products",
+      "pageTitle": "Products — i-factory",
+      "new": {
+        "title": "Create Product",
+        "pageTitle": "Create Product — i-factory"
+      },
+      "detail": {
+        "pageTitle": "Product Detail — i-factory"
+      },
+      "fields": {
+        "sku": "SKU",
+        "name": "Name",
+        "type": "Type",
+        "category": "Category",
+        "uom": "Unit of Measure",
+        "description": "Description",
+        "isActive": "Active"
+      },
+      "types": {
+        "FINISHED": "Finished Good",
+        "SEMI_FINISHED": "Semi-Finished",
+        "RAW_MATERIAL": "Raw Material",
+        "CONSUMABLE": "Consumable"
+      },
+      "actions": {
+        "create": "Create Product",
+        "edit": "Edit",
+        "delete": "Delete"
+      }
+    },
+    "categories": {
+      "title": "Product Categories",
+      "pageTitle": "Categories — i-factory",
+      "fields": {
+        "code": "Code",
+        "name": "Name",
+        "parent": "Parent Category",
+        "description": "Description",
+        "sortOrder": "Sort Order"
+      },
+      "actions": {
+        "create": "Create Category",
+        "edit": "Edit",
+        "delete": "Delete"
+      }
+    },
+    "uoms": {
+      "title": "Units of Measure",
+      "pageTitle": "Units of Measure — i-factory",
+      "fields": {
+        "code": "Code",
+        "name": "Name",
+        "symbol": "Symbol",
+        "isBase": "Base Unit",
+        "isActive": "Active"
+      },
+      "actions": {
+        "create": "Create UoM",
+        "edit": "Edit",
+        "delete": "Delete"
+      }
+    },
+    "workCenters": {
+      "title": "Work Centers",
+      "pageTitle": "Work Centers — i-factory",
+      "detail": {
+        "pageTitle": "Work Center Detail — i-factory"
+      },
+      "fields": {
+        "code": "Code",
+        "name": "Name",
+        "type": "Type",
+        "capacity": "Capacity / Hour",
+        "description": "Description",
+        "isActive": "Active"
+      },
+      "types": {
+        "MACHINE": "Machine",
+        "ASSEMBLY": "Assembly",
+        "INSPECTION": "Inspection",
+        "PACKING": "Packing"
+      },
+      "actions": {
+        "create": "Create Work Center",
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "machines": {
+        "title": "Machines",
+        "fields": {
+          "code": "Code",
+          "name": "Name",
+          "model": "Model",
+          "serialNumber": "Serial Number",
+          "status": "Status",
+          "capacity": "Capacity / Hour"
+        },
+        "statuses": {
+          "ACTIVE": "Active",
+          "IDLE": "Idle",
+          "MAINTENANCE": "Maintenance",
+          "BREAKDOWN": "Breakdown"
+        },
+        "actions": {
+          "add": "Add Machine",
+          "edit": "Edit",
+          "delete": "Remove"
+        }
+      }
+    },
+    "skills": {
+      "title": "Skills",
+      "pageTitle": "Skills — i-factory",
+      "fields": {
+        "code": "Code",
+        "name": "Name",
+        "level": "Level",
+        "description": "Description",
+        "isActive": "Active"
+      },
+      "levels": {
+        "BASIC": "Basic",
+        "INTERMEDIATE": "Intermediate",
+        "ADVANCED": "Advanced",
+        "EXPERT": "Expert"
+      },
+      "actions": {
+        "create": "Create Skill",
+        "edit": "Edit",
+        "delete": "Delete"
+      }
+    },
+    "routings": {
+      "title": "Routings",
+      "pageTitle": "Routings — i-factory",
+      "new": {
+        "title": "Create Routing",
+        "pageTitle": "Create Routing — i-factory"
+      },
+      "detail": {
+        "pageTitle": "Routing Detail — i-factory"
+      },
+      "fields": {
+        "code": "Code",
+        "name": "Name",
+        "version": "Version",
+        "product": "Product",
+        "isActive": "Active",
+        "notes": "Notes"
+      },
+      "operations": {
+        "title": "Operations",
+        "sequence": "Seq",
+        "name": "Name",
+        "workCenter": "Work Center",
+        "cycleTime": "Cycle Time (min)",
+        "setupTime": "Setup Time (min)",
+        "isOptional": "Optional",
+        "instructions": "Instructions"
+      },
+      "actions": {
+        "create": "Create Routing",
+        "addOperation": "Add Operation",
+        "edit": "Edit",
+        "delete": "Delete"
+      }
+    },
+    "erpSync": {
+      "title": "ERP Sync",
+      "pageTitle": "ERP Sync — i-factory",
+      "fields": {
+        "entityType": "Entity Type",
+        "externalSystem": "External System",
+        "syncMode": "Sync Mode",
+        "dryRun": "Dry Run (validate only)",
+        "records": "Records (JSON array)"
+      },
+      "syncModes": {
+        "UPSERT": "Upsert (add or update)",
+        "REPLACE": "Replace (delete all, then insert)"
+      },
+      "actions": {
+        "trigger": "Trigger Sync"
+      },
+      "status": {
+        "queued": "Queued",
+        "processing": "Processing",
+        "completed": "Completed",
+        "failed": "Failed"
+      }
+    }
   }
 }

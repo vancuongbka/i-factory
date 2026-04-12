@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type MutableRefObject } from 'react';
 import { io, Socket } from 'socket.io-client';
 
 interface UseWebSocketOptions {
@@ -10,7 +10,7 @@ interface UseWebSocketOptions {
   onEvent?: (event: string, data: unknown) => void;
 }
 
-export function useWebSocket({ namespace, factoryId, token, onEvent }: UseWebSocketOptions) {
+export function useWebSocket({ namespace, factoryId, token, onEvent }: UseWebSocketOptions): MutableRefObject<Socket | null> {
   const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {
