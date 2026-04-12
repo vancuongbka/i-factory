@@ -23,7 +23,7 @@ export function FactoryProvider({ children }: { children: React.ReactNode }) {
           setFactoryId(id);
         }
       })
-      .catch(() => undefined); // fail silently; queries stay disabled until resolved
+      .catch((err: unknown) => console.error('[FactoryProvider] failed to resolve factory:', err));
   }, [factoryId]);
 
   return (

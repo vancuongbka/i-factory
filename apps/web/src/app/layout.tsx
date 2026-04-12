@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { NextIntlClientProvider } from 'next-intl';
 import { Inter } from 'next/font/google';
 import { cookies } from 'next/headers';
+import { AuthProvider } from '@/providers/auth-provider';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin', 'vietnamese'] });
@@ -20,7 +21,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     <html lang={locale} suppressHydrationWarning>
       <body className={inter.className}>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
+          <AuthProvider>
+            {children}
+          </AuthProvider>
         </NextIntlClientProvider>
       </body>
     </html>

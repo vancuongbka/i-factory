@@ -32,8 +32,12 @@
   },
   "auth": {
     "signIn": "Đăng nhập",
-    "signInSubtitle": "Đăng nhập để tiếp tục",
-    "pageTitle": "Đăng nhập — iFactory"
+    "signingIn": "Đang đăng nhập…",
+    "signInSubtitle": "Đăng nhập vào tài khoản của bạn để tiếp tục",
+    "pageTitle": "Đăng nhập — iFactory",
+    "username": "Tên đăng nhập",
+    "password": "Mật khẩu",
+    "defaultCredentialsHint": "Tài khoản mặc định: admin / Test@123"
   },
   "dashboard": {
     "title": "Tổng quan",

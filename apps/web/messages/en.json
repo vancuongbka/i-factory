@@ -32,8 +32,12 @@
   },
   "auth": {
     "signIn": "Sign In",
-    "signInSubtitle": "Sign in to continue",
-    "pageTitle": "Sign In — iFactory"
+    "signingIn": "Signing in…",
+    "signInSubtitle": "Sign in to your account to continue",
+    "pageTitle": "Sign In — iFactory",
+    "username": "Username",
+    "password": "Password",
+    "defaultCredentialsHint": "Default credentials: admin / Test@123"
   },
   "dashboard": {
     "title": "Dashboard",

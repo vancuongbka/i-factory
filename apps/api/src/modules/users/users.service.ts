@@ -15,10 +15,12 @@ export class UsersService {
   ) {}
 
   async validateCredentials(username: string, password: string): Promise<UserEntity | null> {
-    const user = await this.repo.findOne({
-      where: { username, isActive: true },
-      select: ['id', 'username', 'email', 'fullName', 'role', 'allowedFactories', 'isActive', 'passwordHash'],
-    });
+    // passwordHash has select:false — must use addSelect() to load it
+    const user = await this.repo
+      .createQueryBuilder('user')
+      .addSelect('user.passwordHash')
+      .where('user.username = :username AND user.isActive = true', { username })
+      .getOne();
     if (!user) return null;
     const valid = await bcrypt.compare(password, user.passwordHash);
     return valid ? user : null;
@@ -64,10 +66,11 @@ export class UsersService {
   }
 
   async changePassword(id: string, newPassword: string): Promise<void> {
-    const user = await this.repo.findOne({
-      where: { id },
-      select: ['id', 'passwordHash'],
-    });
+    const user = await this.repo
+      .createQueryBuilder('user')
+      .addSelect('user.passwordHash')
+      .where('user.id = :id', { id })
+      .getOne();
     if (!user) throw new NotFoundException(`User ${id} not found`);
     user.passwordHash = await bcrypt.hash(newPassword, BCRYPT_ROUNDS);
     await this.repo.save(user);
