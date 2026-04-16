@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
 import { useAuth } from '@/providers/auth-provider';
 import { CommandPalette } from '@/components/command-palette';
+import { ThemeSwitch } from '@/components/theme-switch';
 
 // ---------------------------------------------------------------------------
 // Role display names
@@ -190,6 +191,9 @@ export function Topbar() {
             </>
           )}
         </div>
+
+        {/* Theme switcher */}
+        <ThemeSwitch />
 
         {/* Notification bell */}
         <button

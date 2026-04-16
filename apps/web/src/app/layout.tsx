@@ -3,6 +3,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { Inter } from 'next/font/google';
 import { cookies, headers } from 'next/headers';
 import { AuthProvider } from '@/providers/auth-provider';
+import { ThemeProvider } from '@/providers/theme-provider';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin', 'vietnamese'] });
@@ -45,11 +46,13 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={inter.className}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <AuthProvider>
-            {children}
-          </AuthProvider>
-        </NextIntlClientProvider>
+        <ThemeProvider>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <AuthProvider>
+              {children}
+            </AuthProvider>
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
