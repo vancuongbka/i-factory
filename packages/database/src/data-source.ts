@@ -1,6 +1,14 @@
 import 'reflect-metadata';
+import { config } from 'dotenv';
+config(); // loads .env from cwd — used when running CLI scripts (migrations, seeds)
 
 import { DataSource } from 'typeorm';
+
+function requireEnv(key: string): string {
+  const value = process.env[key];
+  if (!value) throw new Error(`Missing required environment variable: ${key}`);
+  return value;
+}
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -11,20 +19,18 @@ const migrationGlob = isProduction
   ? 'dist/database/migrations/**/*.js'
   : 'src/database/migrations/**/*.ts';
 
-// DIRECT_URL bypasses PgBouncer for migrations (DDL statements require a direct connection).
-// Falls back to DATABASE_URL, then individual fields for local dev.
-const connectionUrl = process.env.DIRECT_URL ?? process.env.DATABASE_URL;
+const connectionUrl = process.env.DATABASE_URL;
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
   ...(connectionUrl
     ? { url: connectionUrl }
     : {
-        host: process.env.DATABASE_HOST ?? 'localhost',
-        port: Number(process.env.DATABASE_PORT ?? 6000),
-        database: process.env.DATABASE_NAME ?? 'ifactory',
-        username: process.env.DATABASE_USER ?? 'ifactory',
-        password: process.env.DATABASE_PASSWORD ?? 'ifactory_dev',
+        host: requireEnv('DATABASE_HOST'),
+        port: Number(requireEnv('DATABASE_PORT')),
+        database: requireEnv('DATABASE_NAME'),
+        username: requireEnv('DATABASE_USER'),
+        password: requireEnv('DATABASE_PASSWORD'),
       }),
   entities: [entityGlob],
   migrations: [migrationGlob],

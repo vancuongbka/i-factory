@@ -14,6 +14,7 @@
     "db:schema:drop": "typeorm schema:drop -d src/data-source.ts"
   },
   "dependencies": {
+    "dotenv": "^16.0.0",
     "pg": "^8.12.0",
     "typeorm": "^0.3.20"
   },

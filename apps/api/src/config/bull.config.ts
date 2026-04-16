@@ -1,8 +1,9 @@
 import { registerAs } from '@nestjs/config';
+import { requireEnv } from './env';
 
 export default registerAs('bull', () => ({
-  boardUsername: process.env.BULL_BOARD_USERNAME ?? 'admin',
-  boardPassword: process.env.BULL_BOARD_PASSWORD ?? 'changeme',
+  boardUsername: requireEnv('BULL_BOARD_USERNAME'),
+  boardPassword: requireEnv('BULL_BOARD_PASSWORD'),
   queues: {
     reports: 'reports',
     factorySync: 'factory-sync',

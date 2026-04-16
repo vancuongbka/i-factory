@@ -5,6 +5,9 @@
  * Idempotent: skips all inserts if factories table already has rows.
  * To re-seed: truncate all tables first, then run again.
  */
+import { config } from 'dotenv';
+config(); // must run before any module that reads process.env
+
 import 'reflect-metadata';
 import * as bcrypt from 'bcryptjs';
 import { AppDataSource } from '@i-factory/database';

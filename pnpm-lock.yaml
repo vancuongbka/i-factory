@@ -92,6 +92,9 @@ importers:
       cache-manager-redis-store:
         specifier: ^3.0.1
         version: 3.0.1
+      dotenv:
+        specifier: ^16.0.0
+        version: 16.6.1
       ioredis:
         specifier: ^5.4.1
         version: 5.10.1
@@ -269,6 +272,9 @@ importers:
 
   packages/database:
     dependencies:
+      dotenv:
+        specifier: ^16.0.0
+        version: 16.6.1
       pg:
         specifier: ^8.12.0
         version: 8.20.0

@@ -1,4 +1,5 @@
 import { registerAs } from '@nestjs/config';
+import { requireEnv } from './env';
 
 export default registerAs('redis', () => {
   const url = process.env.REDIS_URL;
@@ -11,8 +12,8 @@ export default registerAs('redis', () => {
     };
   }
   return {
-    host: process.env.REDIS_HOST ?? 'localhost',
-    port: parseInt(process.env.REDIS_PORT ?? '6379', 10),
+    host: requireEnv('REDIS_HOST'),
+    port: parseInt(requireEnv('REDIS_PORT'), 10),
     password: process.env.REDIS_PASSWORD || undefined,
   };
 });
