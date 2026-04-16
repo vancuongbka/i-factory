@@ -10,8 +10,8 @@ export function LoginForm() {
   const { login } = useAuth();
   const router = useRouter();
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('admin');
+  const [password, setPassword] = useState('Test@123');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
