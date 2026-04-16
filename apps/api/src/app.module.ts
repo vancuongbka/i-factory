@@ -41,6 +41,7 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
         connection: {
           host: config.get<string>('redis.host'),
           port: config.get<number>('redis.port'),
+          password: config.get<string | undefined>('redis.password'),
         },
       }),
     }),
