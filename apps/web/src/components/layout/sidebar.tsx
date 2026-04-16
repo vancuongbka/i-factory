@@ -213,11 +213,11 @@ export function Sidebar() {
                       href={item.href}
                       className={`flex items-center gap-3 rounded-lg px-2.5 py-2.5 text-[13px] font-medium transition-colors ${
                         active
-                          ? 'bg-primary text-primary-foreground'
+                          ? 'bg-secondary text-foreground'
                           : 'text-foreground hover:bg-muted'
                       }`}
                     >
-                      <span className={active ? 'text-primary-foreground' : 'text-muted-foreground'}>
+                      <span className={active ? 'text-foreground' : 'text-muted-foreground'}>
                         {item.icon}
                       </span>
                       <span className="truncate">

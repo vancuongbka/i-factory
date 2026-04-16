@@ -11,9 +11,9 @@
     --card-foreground: 0 0% 0%;     /* #000000 */
     --primary: 211 100% 47.6%;      /* #0070f3 — Vercel blue */
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 96.1%;        /* #f5f5f5 */
+    --secondary: 0 0% 89.8%;        /* #e5e5e5 — active/selected item background */
     --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;            /* #f5f5f5 */
+    --muted: 0 0% 96.1%;            /* #f5f5f5 — hover background */
     --muted-foreground: 0 0% 40%;   /* #666666 */
     --border: 0 0% 91.8%;           /* #eaeaea */
     --input: 0 0% 91.8%;            /* #eaeaea */
@@ -23,14 +23,14 @@
 
   .dark {
     --background: 0 0% 0%;          /* #000000 */
-    --foreground: 0 0% 100%;        /* #ffffff */
-    --card: 0 0% 6.7%;              /* #111111 */
-    --card-foreground: 0 0% 100%;
+    --foreground: 0 0% 92.9%;       /* #ededed — off-white, less harsh than pure white */
+    --card: 0 0% 7.8%;              /* #141414 — Vercel sidebar dark */
+    --card-foreground: 0 0% 92.9%;
     --primary: 211 100% 47.6%;      /* #0070f3 — same blue in dark */
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 9%;           /* #171717 */
-    --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 9%;               /* #171717 */
+    --secondary: 0 0% 15.7%;        /* #282828 — active/selected item background */
+    --secondary-foreground: 0 0% 92.9%;
+    --muted: 0 0% 10.2%;            /* #1a1a1a — hover background */
     --muted-foreground: 0 0% 53.3%; /* #888888 */
     --border: 0 0% 20%;             /* #333333 */
     --input: 0 0% 20%;              /* #333333 */
