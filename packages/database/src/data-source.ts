@@ -11,11 +11,14 @@ const migrationGlob = isProduction
   ? 'dist/database/migrations/**/*.js'
   : 'src/database/migrations/**/*.ts';
 
+// DIRECT_URL bypasses PgBouncer for migrations (DDL statements require a direct connection).
+// Falls back to DATABASE_URL, then individual fields for local dev.
+const connectionUrl = process.env.DIRECT_URL ?? process.env.DATABASE_URL;
+
 export const AppDataSource = new DataSource({
   type: 'postgres',
-  // Use DATABASE_URL when provided; fall back to individual fields for local dev.
-  ...(process.env.DATABASE_URL
-    ? { url: process.env.DATABASE_URL }
+  ...(connectionUrl
+    ? { url: connectionUrl }
     : {
         host: process.env.DATABASE_HOST ?? 'localhost',
         port: Number(process.env.DATABASE_PORT ?? 6000),
@@ -28,5 +31,5 @@ export const AppDataSource = new DataSource({
   // Never use synchronize: true in production — all schema changes via migrations.
   synchronize: !isProduction && process.env.DATABASE_SYNCHRONIZE === 'true',
   logging: process.env.DATABASE_LOGGING === 'true',
-  ssl: isProduction ? { rejectUnauthorized: false } : false,
+  ssl: isProduction || !!connectionUrl ? { rejectUnauthorized: false } : false,
 });
