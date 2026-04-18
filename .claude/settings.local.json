@@ -5,7 +5,9 @@
       "Bash(pnpm --filter @i-factory/api exec tsc --noEmit --project apps/api/tsconfig.json)",
       "Bash(pnpm --filter @i-factory/api typecheck)",
       "Bash(xargs grep:*)",
-      "Bash(pnpm --filter @i-factory/web add next-themes)"
+      "Bash(pnpm --filter @i-factory/web add next-themes)",
+      "Bash(pnpm --filter @i-factory/api-types build)",
+      "Bash(npx tsc *)"
     ]
   }
 }

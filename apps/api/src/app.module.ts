@@ -24,6 +24,7 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
 import { SyncModule } from './modules/sync/sync.module';
 import { MasterDataModule } from './modules/master-data/master-data.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { CncModule } from './modules/cnc/cnc.module';
 
 @Module({
   imports: [
@@ -64,6 +65,7 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
     SyncModule,
     MasterDataModule,
     DashboardModule,
+    CncModule,
   ],
 })
 export class AppModule {}

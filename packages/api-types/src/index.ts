@@ -8,6 +8,9 @@ export * from './enums/product-type.enum';
 export * from './enums/work-center-type.enum';
 export * from './enums/machine-status.enum';
 export * from './enums/skill-level.enum';
+export * from './enums/cnc-machine-status.enum';
+export * from './enums/daily-schedule-status.enum';
+export * from './enums/schedule-entry-status.enum';
 
 // Schemas + Types
 export * from './schemas/auth.schema';
@@ -26,3 +29,4 @@ export * from './schemas/work-center.schema';
 export * from './schemas/routing.schema';
 export * from './schemas/erp-sync.schema';
 export * from './schemas/dashboard.schema';
+export * from './schemas/cnc.schema';

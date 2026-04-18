@@ -23,6 +23,9 @@
     "skills": "Kỹ năng",
     "erpSync": "Đồng bộ ERP",
     "menuGroup": "Menu",
+    "cncGroup": "CNC",
+    "cncMachines": "Máy CNC",
+    "cncMonitoring": "Giám sát trực tiếp",
     "settingsGroup": "Cài đặt"
   },
   "topbar": {
@@ -670,6 +673,89 @@
         "completed": "Hoàn thành",
         "failed": "Thất bại"
       }
+    }
+  },
+  "cnc": {
+    "machines": {
+      "title": "Máy CNC",
+      "pageTitle": "Máy CNC — iFactory",
+      "noResults": "Chưa có máy CNC. Hãy thêm máy để bắt đầu.",
+      "new": {
+        "title": "Đăng ký máy CNC",
+        "pageTitle": "Máy CNC mới — iFactory"
+      },
+      "fields": {
+        "code": "Mã máy",
+        "name": "Tên máy",
+        "model": "Model",
+        "maxSpindleRpm": "Tốc độ trục tối đa (RPM)",
+        "numberOfAxes": "Số trục"
+      },
+      "columns": {
+        "code": "Mã",
+        "name": "Tên",
+        "model": "Model",
+        "axes": "Số trục",
+        "status": "Trạng thái",
+        "actions": "Thao tác"
+      },
+      "status": {
+        "RUNNING": "Đang chạy",
+        "IDLE": "Chờ",
+        "SETUP": "Chuẩn bị",
+        "ERROR": "Lỗi",
+        "MAINTENANCE": "Bảo trì"
+      },
+      "actions": {
+        "create": "Thêm máy",
+        "createSubmit": "Đăng ký máy",
+        "creating": "Đang đăng ký…",
+        "view": "Xem",
+        "delete": "Xóa",
+        "cancel": "Hủy",
+        "confirmDelete": "Xóa máy {code}?"
+      }
+    },
+    "schedules": {
+      "title": "Lịch sản xuất ngày",
+      "pageTitle": "Lịch CNC — iFactory",
+      "noResults": "Chưa có lịch.",
+      "columns": {
+        "date": "Ngày",
+        "status": "Trạng thái",
+        "shifts": "Ca",
+        "actions": "Thao tác"
+      },
+      "status": {
+        "DRAFT": "Nháp",
+        "PUBLISHED": "Đã xuất bản",
+        "IN_PROGRESS": "Đang thực hiện",
+        "COMPLETED": "Hoàn thành",
+        "ARCHIVED": "Lưu trữ"
+      },
+      "actions": {
+        "publish": "Xuất bản",
+        "delete": "Xóa"
+      }
+    },
+    "entries": {
+      "status": {
+        "PENDING": "Chờ",
+        "SETUP": "Chuẩn bị",
+        "RUNNING": "Đang chạy",
+        "PAUSED": "Tạm dừng",
+        "COMPLETED": "Hoàn thành",
+        "ERROR": "Lỗi"
+      }
+    },
+    "downtime": {
+      "title": "Sự cố máy",
+      "active": "Sự cố đang xảy ra",
+      "noActive": "Không có sự cố nào."
+    },
+    "monitoring": {
+      "title": "Giám sát trực tiếp",
+      "pageTitle": "Giám sát CNC — iFactory"
     }
   },
   "commandPalette": {

@@ -171,6 +171,12 @@ Key capabilities inferred from code:
 | [WO-004](WO-004.md) | Work Order Status Lifecycle and Operator Assignment | inferred | high | work-orders |
 | [WO-005](WO-005.md) | Work Order Step Completion Tracking | inferred | medium | work-orders |
 
+### CNC Daily Planning & Real-time Monitoring Module
+
+| ID | Title | Status | Priority | Source Module |
+|----|-------|--------|----------|---------------|
+| [CNC-001](CNC-001.md) | CNC Daily Planning & Real-time Monitoring | draft | high | cnc |
+
 ---
 
 ## Open Questions

@@ -23,6 +23,9 @@
     "skills": "Skills",
     "erpSync": "ERP Sync",
     "menuGroup": "Menu",
+    "cncGroup": "CNC",
+    "cncMachines": "CNC Machines",
+    "cncMonitoring": "Live Monitoring",
     "settingsGroup": "Settings"
   },
   "topbar": {
@@ -670,6 +673,89 @@
         "completed": "Completed",
         "failed": "Failed"
       }
+    }
+  },
+  "cnc": {
+    "machines": {
+      "title": "CNC Machines",
+      "pageTitle": "CNC Machines — iFactory",
+      "noResults": "No CNC machines found. Add one to get started.",
+      "new": {
+        "title": "Register CNC Machine",
+        "pageTitle": "New CNC Machine — iFactory"
+      },
+      "fields": {
+        "code": "Machine Code",
+        "name": "Machine Name",
+        "model": "Model",
+        "maxSpindleRpm": "Max Spindle RPM",
+        "numberOfAxes": "Number of Axes"
+      },
+      "columns": {
+        "code": "Code",
+        "name": "Name",
+        "model": "Model",
+        "axes": "Axes",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "RUNNING": "Running",
+        "IDLE": "Idle",
+        "SETUP": "Setup",
+        "ERROR": "Error",
+        "MAINTENANCE": "Maintenance"
+      },
+      "actions": {
+        "create": "New Machine",
+        "createSubmit": "Register Machine",
+        "creating": "Registering…",
+        "view": "View",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "confirmDelete": "Delete machine {code}?"
+      }
+    },
+    "schedules": {
+      "title": "Daily Schedules",
+      "pageTitle": "CNC Schedules — iFactory",
+      "noResults": "No schedules found.",
+      "columns": {
+        "date": "Date",
+        "status": "Status",
+        "shifts": "Shifts",
+        "actions": "Actions"
+      },
+      "status": {
+        "DRAFT": "Draft",
+        "PUBLISHED": "Published",
+        "IN_PROGRESS": "In Progress",
+        "COMPLETED": "Completed",
+        "ARCHIVED": "Archived"
+      },
+      "actions": {
+        "publish": "Publish",
+        "delete": "Delete"
+      }
+    },
+    "entries": {
+      "status": {
+        "PENDING": "Pending",
+        "SETUP": "Setup",
+        "RUNNING": "Running",
+        "PAUSED": "Paused",
+        "COMPLETED": "Completed",
+        "ERROR": "Error"
+      }
+    },
+    "downtime": {
+      "title": "Machine Downtime",
+      "active": "Active Incidents",
+      "noActive": "No active downtime incidents."
+    },
+    "monitoring": {
+      "title": "Live Monitoring",
+      "pageTitle": "CNC Monitoring — iFactory"
     }
   },
   "commandPalette": {

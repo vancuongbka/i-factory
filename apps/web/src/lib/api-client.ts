@@ -4,6 +4,26 @@
  */
 
 import type {
+  CncMachineResponse,
+  DailyScheduleResponse,
+  ScheduleEntryResponse,
+  ProductionLogResponse,
+  CncDowntimeResponse,
+  CncKpiSummary,
+  CreateCncMachineDto,
+  UpdateCncMachineDto,
+  CncMachineStatus,
+  CreateDailyScheduleDto,
+  UpdateDailyScheduleDto,
+  CreateScheduleEntryDto,
+  UpdateScheduleEntryDto,
+  AdvanceEntryStatusDto,
+  ReorderScheduleEntriesDto,
+  CreateProductionLogDto,
+  CreateCncDowntimeDto,
+  ResolveCncDowntimeDto,
+} from '@i-factory/api-types';
+import type {
   ProductCategoryResponse,
   UomResponse,
   ProductResponse,
@@ -259,6 +279,132 @@ export const apiClient = {
   notifications: {
     list: (factoryId: string) =>
       request<unknown[]>(`/factories/${factoryId}/notifications`, {}),
+  },
+
+  // ── CNC ───────────────────────────────────────────────────────────────────────
+
+  cnc: {
+    machines: {
+      list: (factoryId: string) =>
+        request<CncMachineResponse[]>(`/factories/${factoryId}/cnc/machines`, {}),
+      get: (factoryId: string, id: string) =>
+        request<CncMachineResponse>(`/factories/${factoryId}/cnc/machines/${id}`, {}),
+      create: (factoryId: string, body: CreateCncMachineDto) =>
+        request<CncMachineResponse>(`/factories/${factoryId}/cnc/machines`, {
+          method: 'POST',
+          body: JSON.stringify(body),
+        }),
+      update: (factoryId: string, id: string, body: UpdateCncMachineDto) =>
+        request<CncMachineResponse>(`/factories/${factoryId}/cnc/machines/${id}`, {
+          method: 'PATCH',
+          body: JSON.stringify(body),
+        }),
+      remove: (factoryId: string, id: string) =>
+        request<void>(`/factories/${factoryId}/cnc/machines/${id}`, { method: 'DELETE' }),
+      updateStatus: (factoryId: string, id: string, status: CncMachineStatus) =>
+        request<CncMachineResponse>(`/factories/${factoryId}/cnc/machines/${id}/status`, {
+          method: 'PATCH',
+          body: JSON.stringify({ status }),
+        }),
+      kpiSummary: (factoryId: string, date: string) =>
+        request<CncKpiSummary>(
+          `/factories/${factoryId}/cnc/machines/kpi/summary?date=${date}`,
+          {},
+        ),
+    },
+
+    schedules: {
+      list: (factoryId: string) =>
+        request<DailyScheduleResponse[]>(`/factories/${factoryId}/cnc/schedules`, {}),
+      get: (factoryId: string, id: string) =>
+        request<DailyScheduleResponse>(`/factories/${factoryId}/cnc/schedules/${id}`, {}),
+      byDate: (factoryId: string, date: string) =>
+        request<DailyScheduleResponse>(
+          `/factories/${factoryId}/cnc/schedules/by-date/${date}`,
+          {},
+        ),
+      create: (factoryId: string, body: CreateDailyScheduleDto) =>
+        request<DailyScheduleResponse>(`/factories/${factoryId}/cnc/schedules`, {
+          method: 'POST',
+          body: JSON.stringify(body),
+        }),
+      update: (factoryId: string, id: string, body: UpdateDailyScheduleDto) =>
+        request<DailyScheduleResponse>(`/factories/${factoryId}/cnc/schedules/${id}`, {
+          method: 'PATCH',
+          body: JSON.stringify(body),
+        }),
+      publish: (factoryId: string, id: string) =>
+        request<DailyScheduleResponse>(`/factories/${factoryId}/cnc/schedules/${id}/publish`, {
+          method: 'POST',
+        }),
+      remove: (factoryId: string, id: string) =>
+        request<void>(`/factories/${factoryId}/cnc/schedules/${id}`, { method: 'DELETE' }),
+    },
+
+    entries: {
+      listBySchedule: (factoryId: string, scheduleId: string) =>
+        request<ScheduleEntryResponse[]>(
+          `/factories/${factoryId}/cnc/schedules/${scheduleId}/entries`,
+          {},
+        ),
+      get: (factoryId: string, id: string) =>
+        request<ScheduleEntryResponse>(`/factories/${factoryId}/cnc/entries/${id}`, {}),
+      create: (factoryId: string, body: CreateScheduleEntryDto) =>
+        request<ScheduleEntryResponse>(`/factories/${factoryId}/cnc/entries`, {
+          method: 'POST',
+          body: JSON.stringify(body),
+        }),
+      update: (factoryId: string, id: string, body: UpdateScheduleEntryDto) =>
+        request<ScheduleEntryResponse>(`/factories/${factoryId}/cnc/entries/${id}`, {
+          method: 'PATCH',
+          body: JSON.stringify(body),
+        }),
+      remove: (factoryId: string, id: string) =>
+        request<void>(`/factories/${factoryId}/cnc/entries/${id}`, { method: 'DELETE' }),
+      advanceStatus: (factoryId: string, id: string, body: AdvanceEntryStatusDto) =>
+        request<ScheduleEntryResponse>(
+          `/factories/${factoryId}/cnc/entries/${id}/advance-status`,
+          { method: 'POST', body: JSON.stringify(body) },
+        ),
+      reorder: (factoryId: string, body: ReorderScheduleEntriesDto) =>
+        request<void>(`/factories/${factoryId}/cnc/entries/reorder`, {
+          method: 'POST',
+          body: JSON.stringify(body),
+        }),
+    },
+
+    productionLogs: {
+      listByEntry: (factoryId: string, entryId: string) =>
+        request<ProductionLogResponse[]>(
+          `/factories/${factoryId}/cnc/entries/${entryId}/logs`,
+          {},
+        ),
+      create: (factoryId: string, body: CreateProductionLogDto) =>
+        request<ProductionLogResponse>(`/factories/${factoryId}/cnc/production-logs`, {
+          method: 'POST',
+          body: JSON.stringify(body),
+        }),
+    },
+
+    downtime: {
+      active: (factoryId: string) =>
+        request<CncDowntimeResponse[]>(`/factories/${factoryId}/cnc/downtime/active`, {}),
+      listByMachine: (factoryId: string, machineId: string) =>
+        request<CncDowntimeResponse[]>(
+          `/factories/${factoryId}/cnc/machines/${machineId}/downtime`,
+          {},
+        ),
+      raise: (factoryId: string, body: CreateCncDowntimeDto) =>
+        request<CncDowntimeResponse>(`/factories/${factoryId}/cnc/downtime`, {
+          method: 'POST',
+          body: JSON.stringify(body),
+        }),
+      resolve: (factoryId: string, id: string, body: ResolveCncDowntimeDto) =>
+        request<CncDowntimeResponse>(`/factories/${factoryId}/cnc/downtime/${id}/resolve`, {
+          method: 'PATCH',
+          body: JSON.stringify(body),
+        }),
+    },
   },
 
   // ── Master Data ───────────────────────────────────────────────────────────────
