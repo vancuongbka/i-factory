@@ -26,6 +26,7 @@
     "cncGroup": "CNC",
     "cncMachines": "CNC Machines",
     "cncMonitoring": "Live Monitoring",
+    "cncPlanning": "Planning",
     "settingsGroup": "Settings"
   },
   "topbar": {
@@ -714,6 +715,11 @@
         "delete": "Delete",
         "cancel": "Cancel",
         "confirmDelete": "Delete machine {code}?"
+      },
+      "detail": {
+        "pageTitle": "Machine Detail — iFactory",
+        "downtimeHistory": "Downtime History",
+        "notFound": "Machine not found."
       }
     },
     "schedules": {
@@ -751,11 +757,82 @@
     "downtime": {
       "title": "Machine Downtime",
       "active": "Active Incidents",
-      "noActive": "No active downtime incidents."
+      "noActive": "No active downtime incidents.",
+      "noHistory": "No downtime history.",
+      "raiseTitle": "Raise Downtime Incident",
+      "resolveTitle": "Resolve Incident",
+      "raising": "Raising…",
+      "resolving": "Resolving…",
+      "fields": {
+        "faultCode": "Fault Code",
+        "description": "Description",
+        "rootCause": "Root Cause",
+        "correctiveAction": "Corrective Action"
+      },
+      "status": {
+        "active": "Active",
+        "resolved": "Resolved"
+      },
+      "actions": {
+        "raise": "Raise Downtime",
+        "resolve": "Mark Resolved",
+        "cancel": "Cancel"
+      }
+    },
+    "planning": {
+      "title": "CNC Planning",
+      "pageTitle": "CNC Planning — iFactory",
+      "machine": "Machine",
+      "noSchedule": "No schedule exists for this date.",
+      "createSchedule": "Create Schedule",
+      "creatingSchedule": "Creating…",
+      "dragToPlace": "Click or drag on a row to place a new entry",
+      "form": {
+        "title": "New Schedule Entry",
+        "workOrderId": "Work Order ID",
+        "productionOrderId": "Production Order ID",
+        "partName": "Part Name",
+        "plannedStart": "Planned Start",
+        "plannedEnd": "Planned End",
+        "plannedQty": "Planned Qty",
+        "plannedCycleSeconds": "Cycle Time (sec)",
+        "plannedSetupMinutes": "Setup Time (min)",
+        "notes": "Notes",
+        "submit": "Create Entry",
+        "submitting": "Creating…",
+        "cancel": "Cancel",
+        "conflictError": "Time conflict with an existing entry on this machine"
+      },
+      "entryDetail": {
+        "start": "Start",
+        "end": "End",
+        "progress": "Progress",
+        "overrun": "Overrun — qty exceeded",
+        "advanceStatus": "Advance Status",
+        "logs": "Production Logs",
+        "noLogs": "No production logs yet.",
+        "addLog": "Add Log",
+        "logQty": "Completed Qty",
+        "logScrap": "Scrap Qty",
+        "submitLog": "Save Log",
+        "submitting": "Saving…",
+        "cancel": "Cancel"
+      }
     },
     "monitoring": {
       "title": "Live Monitoring",
-      "pageTitle": "CNC Monitoring — iFactory"
+      "pageTitle": "CNC Monitoring — iFactory",
+      "kpi": {
+        "total": "Total Machines",
+        "running": "Running",
+        "idle": "Idle",
+        "error": "Error",
+        "planned": "Planned Qty",
+        "completed": "Completed Qty"
+      },
+      "machineCard": {
+        "noEntry": "No active entry"
+      }
     }
   },
   "commandPalette": {

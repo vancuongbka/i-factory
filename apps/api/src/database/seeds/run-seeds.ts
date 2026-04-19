@@ -1363,6 +1363,440 @@ async function seed() {
 
   console.log('✓ Dashboard module seed data complete.');
 
+  // ── CNC module ─────────────────────────────────────────────────────────────
+  // Provides realistic data for: machine list, live monitoring KPIs, Gantt
+  // planning view, production logs, and downtime history.
+  console.log('Seeding CNC module...');
+
+  const CNC = {
+    machine: {
+      cnc001: 'f1000000-0000-0000-0000-000000000001',
+      cnc002: 'f1000000-0000-0000-0000-000000000002',
+      cnc003: 'f1000000-0000-0000-0000-000000000003',
+      cnc004: 'f1000000-0000-0000-0000-000000000004',
+      cnc005: 'f1000000-0000-0000-0000-000000000005',
+    },
+    schedule: {
+      today:     'f1000001-0000-0000-0000-000000000001',
+      yesterday: 'f1000001-0000-0000-0000-000000000002',
+      twoDaysAgo:'f1000001-0000-0000-0000-000000000003',
+    },
+    entry: {
+      // Today
+      e1:  'f1000002-0000-0000-0000-000000000001', // CNC-001 shaft      RUNNING
+      e2:  'f1000002-0000-0000-0000-000000000002', // CNC-001 housing     PENDING
+      e3:  'f1000002-0000-0000-0000-000000000003', // CNC-002 EDM gear    COMPLETED
+      e4:  'f1000002-0000-0000-0000-000000000004', // CNC-003 bracket     SETUP
+      e7:  'f1000002-0000-0000-0000-000000000007', // CNC-004 cover plate PAUSED
+      e8:  'f1000002-0000-0000-0000-000000000008', // CNC-005 bearing hub PENDING
+      e9:  'f1000002-0000-0000-0000-000000000009', // CNC-002 pin shaft   PENDING
+      e10: 'f1000002-0000-0000-0000-000000000010', // CNC-003 flange      PENDING
+      // Yesterday
+      e5:  'f1000002-0000-0000-0000-000000000005', // CNC-001 COMPLETED
+      e6:  'f1000002-0000-0000-0000-000000000006', // CNC-002 COMPLETED
+      e11: 'f1000002-0000-0000-0000-000000000011', // CNC-003 COMPLETED
+      e12: 'f1000002-0000-0000-0000-000000000012', // CNC-004 ERROR
+      // Two days ago
+      e13: 'f1000002-0000-0000-0000-000000000013', // CNC-001 COMPLETED
+      e14: 'f1000002-0000-0000-0000-000000000014', // CNC-002 COMPLETED
+      e15: 'f1000002-0000-0000-0000-000000000015', // CNC-003 COMPLETED
+    },
+    downtime: {
+      dt1: 'f1000003-0000-0000-0000-000000000001', // CNC-003 yesterday resolved
+      dt2: 'f1000003-0000-0000-0000-000000000002', // CNC-004 yesterday ERROR active
+    },
+  };
+
+  // 3 CNC machines — one per operational state to make the monitoring view useful
+  await qr.query(`
+    INSERT INTO cnc_machines (
+      id, "factoryId", "machineId", code, name, model,
+      "maxSpindleRpm", "numberOfAxes", "currentStatus",
+      "lastStatusChangedAt"
+    ) VALUES
+      (
+        '${CNC.machine.cnc001}', '${ID.factory.hcm}',
+        '${ID.machine.cncSaw}',
+        'CNC-001', 'Mazak QTN-350 Lathe', 'Mazak QTN-350',
+        4000, 2, 'RUNNING',
+        CURRENT_TIMESTAMP - INTERVAL '4 hours'
+      ),
+      (
+        '${CNC.machine.cnc002}', '${ID.factory.hcm}',
+        '${ID.machine.drillPress}',
+        'CNC-002', 'Fanuc RoboCut C600 Wire EDM', 'Fanuc RoboCut C600iA',
+        NULL, 4, 'IDLE',
+        CURRENT_TIMESTAMP - INTERVAL '3 hours 30 minutes'
+      ),
+      (
+        '${CNC.machine.cnc003}', '${ID.factory.hcm}',
+        NULL,
+        'CNC-003', 'Haas VF-2 Milling Center', 'Haas VF-2',
+        8100, 3, 'SETUP',
+        CURRENT_TIMESTAMP - INTERVAL '2 hours'
+      ),
+      (
+        '${CNC.machine.cnc004}', '${ID.factory.hcm}',
+        NULL,
+        'CNC-004', 'DMG MORI CTX beta 800', 'DMG MORI CTX beta 800',
+        5000, 4, 'ERROR',
+        CURRENT_TIMESTAMP - INTERVAL '5 hours'
+      ),
+      (
+        '${CNC.machine.cnc005}', '${ID.factory.hcm}',
+        NULL,
+        'CNC-005', 'Okuma LB3000 Lathe', 'Okuma LB3000 EX',
+        3500, 2, 'MAINTENANCE',
+        CURRENT_TIMESTAMP - INTERVAL '1 day'
+      )
+    ON CONFLICT (id) DO NOTHING
+  `);
+
+  // Today's schedule (IN_PROGRESS) and yesterday's (COMPLETED)
+  await qr.query(`
+    INSERT INTO daily_schedules (
+      id, "factoryId", "scheduleDate", status, "shiftCount",
+      "shift1Start", "shift2Start",
+      "publishedAt", "publishedBy", "createdBy"
+    ) VALUES
+      (
+        '${CNC.schedule.today}', '${ID.factory.hcm}',
+        CURRENT_DATE, 'IN_PROGRESS', 2,
+        '06:00', '14:00',
+        CURRENT_TIMESTAMP - INTERVAL '8 hours',
+        '${ID.user.prodManager}', '${ID.user.prodManager}'
+      ),
+      (
+        '${CNC.schedule.yesterday}', '${ID.factory.hcm}',
+        CURRENT_DATE - 1, 'COMPLETED', 2,
+        '06:00', '14:00',
+        CURRENT_TIMESTAMP - INTERVAL '32 hours',
+        '${ID.user.prodManager}', '${ID.user.prodManager}'
+      ),
+      (
+        '${CNC.schedule.twoDaysAgo}', '${ID.factory.hcm}',
+        CURRENT_DATE - 2, 'COMPLETED', 2,
+        '06:00', '14:00',
+        CURRENT_TIMESTAMP - INTERVAL '56 hours',
+        '${ID.user.prodManager}', '${ID.user.prodManager}'
+      )
+  `);
+
+  // 4 entries for today's schedule + 2 for yesterday's
+  await qr.query(`
+    INSERT INTO schedule_entries (
+      id, "dailyScheduleId", "factoryId", "cncMachineId",
+      "workOrderId", "productionOrderId", "assignedOperatorId",
+      "sortOrder", status,
+      "plannedStart", "plannedEnd",
+      "plannedQty", "plannedSetupMinutes", "plannedCycleSeconds",
+      "actualSetupStart", "actualRunStart", "actualEnd",
+      "partName", notes
+    ) VALUES
+      (
+        '${CNC.entry.e1}', '${CNC.schedule.today}', '${ID.factory.hcm}', '${CNC.machine.cnc001}',
+        '${ID.wo.wo2}', '${ID.po.po1}', '${ID.user.operator1}',
+        0, 'RUNNING',
+        CURRENT_TIMESTAMP - INTERVAL '4 hours',
+        CURRENT_TIMESTAMP + INTERVAL '2 hours',
+        25, 15, 540,
+        CURRENT_TIMESTAMP - INTERVAL '4 hours 5 minutes',
+        CURRENT_TIMESTAMP - INTERVAL '3 hours 45 minutes',
+        NULL,
+        'Motor Shaft 28mm',
+        'Turn to Ø28mm, face both ends, cut 8×4mm keyway per DWG-SHAFT-3KW-v2. Tolerance ±0.02mm on bearing seats.'
+      ),
+      (
+        '${CNC.entry.e2}', '${CNC.schedule.today}', '${ID.factory.hcm}', '${CNC.machine.cnc001}',
+        '${ID.wo.wo3}', '${ID.po.po1}', '${ID.user.operator1}',
+        1, 'PENDING',
+        CURRENT_TIMESTAMP + INTERVAL '3 hours',
+        CURRENT_TIMESTAMP + INTERVAL '7 hours 40 minutes',
+        20, 10, 720,
+        NULL, NULL, NULL,
+        'Aluminum Motor Housing',
+        'Face mill datum surface, drill 4×M8 through-holes, bore bearing seat Ø80H7. Surface finish Ra 1.6.'
+      ),
+      (
+        '${CNC.entry.e3}', '${CNC.schedule.today}', '${ID.factory.hcm}', '${CNC.machine.cnc002}',
+        '${ID.wo.wo2}', '${ID.po.po1}', '${ID.user.operator2}',
+        0, 'COMPLETED',
+        CURRENT_TIMESTAMP - INTERVAL '7 hours',
+        CURRENT_TIMESTAMP - INTERVAL '3 hours 30 minutes',
+        10, 20, 1200,
+        CURRENT_TIMESTAMP - INTERVAL '7 hours 5 minutes',
+        CURRENT_TIMESTAMP - INTERVAL '6 hours 45 minutes',
+        CURRENT_TIMESTAMP - INTERVAL '3 hours 28 minutes',
+        'Gear Profile M2 Z24',
+        'Wire EDM involute gear profile, module 2, 24 teeth, material S45C, tolerance DIN 6.'
+      ),
+      (
+        '${CNC.entry.e4}', '${CNC.schedule.today}', '${ID.factory.hcm}', '${CNC.machine.cnc003}',
+        '${ID.wo.wo3}', '${ID.po.po1}', '${ID.user.operator2}',
+        0, 'SETUP',
+        CURRENT_TIMESTAMP - INTERVAL '2 hours',
+        CURRENT_TIMESTAMP + INTERVAL '2 hours',
+        30, 20, 360,
+        CURRENT_TIMESTAMP - INTERVAL '2 hours 5 minutes',
+        NULL, NULL,
+        'Mounting Bracket 150×80mm',
+        'Face mill top and bottom, drill 6×M6 clearance holes, tap 2×M8 side ports per DWG-BKT-002.'
+      ),
+      (
+        '${CNC.entry.e5}', '${CNC.schedule.yesterday}', '${ID.factory.hcm}', '${CNC.machine.cnc001}',
+        '${ID.wo.wo1}', '${ID.po.po1}', '${ID.user.operator1}',
+        0, 'COMPLETED',
+        CURRENT_TIMESTAMP - INTERVAL '28 hours',
+        CURRENT_TIMESTAMP - INTERVAL '22 hours',
+        20, 15, 540,
+        CURRENT_TIMESTAMP - INTERVAL '28 hours 5 minutes',
+        CURRENT_TIMESTAMP - INTERVAL '27 hours 45 minutes',
+        CURRENT_TIMESTAMP - INTERVAL '22 hours 10 minutes',
+        'Motor Shaft 28mm',
+        'Batch #2 yesterday shift — 20 units completed.'
+      ),
+      (
+        '${CNC.entry.e6}', '${CNC.schedule.yesterday}', '${ID.factory.hcm}', '${CNC.machine.cnc002}',
+        '${ID.wo.wo4}', '${ID.po.po3}', '${ID.user.operator2}',
+        0, 'COMPLETED',
+        CURRENT_TIMESTAMP - INTERVAL '27 hours',
+        CURRENT_TIMESTAMP - INTERVAL '23 hours',
+        8, 20, 1200,
+        CURRENT_TIMESTAMP - INTERVAL '27 hours 5 minutes',
+        CURRENT_TIMESTAMP - INTERVAL '26 hours 45 minutes',
+        CURRENT_TIMESTAMP - INTERVAL '23 hours 5 minutes',
+        'Gear Profile M2 Z24',
+        'Yesterday EDM batch — 8 gears completed, zero scrap.'
+      ),
+      (
+        '${CNC.entry.e7}', '${CNC.schedule.today}', '${ID.factory.hcm}', '${CNC.machine.cnc004}',
+        '${ID.wo.wo2}', '${ID.po.po2}', '${ID.user.operator1}',
+        0, 'PAUSED',
+        CURRENT_TIMESTAMP - INTERVAL '5 hours',
+        CURRENT_TIMESTAMP + INTERVAL '1 hour',
+        15, 10, 480,
+        CURRENT_TIMESTAMP - INTERVAL '5 hours 10 minutes',
+        CURRENT_TIMESTAMP - INTERVAL '4 hours 50 minutes',
+        NULL,
+        'Cover Plate 200×150mm',
+        'Face mill and drill pattern. Paused — spindle alarm triggered, maintenance called.'
+      ),
+      (
+        '${CNC.entry.e8}', '${CNC.schedule.today}', '${ID.factory.hcm}', '${CNC.machine.cnc005}',
+        '${ID.wo.wo3}', '${ID.po.po2}', '${ID.user.operator2}',
+        0, 'PENDING',
+        CURRENT_TIMESTAMP + INTERVAL '6 hours',
+        CURRENT_TIMESTAMP + INTERVAL '10 hours',
+        12, 20, 600,
+        NULL, NULL, NULL,
+        'Bearing Hub Ø60mm',
+        'Held pending machine maintenance completion — rescheduled to afternoon shift.'
+      ),
+      (
+        '${CNC.entry.e9}', '${CNC.schedule.today}', '${ID.factory.hcm}', '${CNC.machine.cnc002}',
+        '${ID.wo.wo4}', '${ID.po.po3}', '${ID.user.operator2}',
+        1, 'PENDING',
+        CURRENT_TIMESTAMP + INTERVAL '1 hour',
+        CURRENT_TIMESTAMP + INTERVAL '5 hours',
+        18, 15, 900,
+        NULL, NULL, NULL,
+        'Pin Shaft Ø12×80mm',
+        'Turn OD, cut 2mm groove, chamfer both ends. Batch of 18 pcs.'
+      ),
+      (
+        '${CNC.entry.e10}', '${CNC.schedule.today}', '${ID.factory.hcm}', '${CNC.machine.cnc003}',
+        '${ID.wo.wo1}', '${ID.po.po1}', '${ID.user.operator1}',
+        1, 'PENDING',
+        CURRENT_TIMESTAMP + INTERVAL '3 hours',
+        CURRENT_TIMESTAMP + INTERVAL '7 hours',
+        24, 15, 420,
+        NULL, NULL, NULL,
+        'Output Flange Ø120mm',
+        'Bore centre hole Ø40H7, drill 6×Ø9 bolt circle, face both sides. Material FC250.'
+      ),
+      (
+        '${CNC.entry.e11}', '${CNC.schedule.yesterday}', '${ID.factory.hcm}', '${CNC.machine.cnc003}',
+        '${ID.wo.wo1}', '${ID.po.po1}', '${ID.user.operator1}',
+        0, 'COMPLETED',
+        CURRENT_TIMESTAMP - INTERVAL '26 hours',
+        CURRENT_TIMESTAMP - INTERVAL '21 hours',
+        24, 20, 420,
+        CURRENT_TIMESTAMP - INTERVAL '26 hours 5 minutes',
+        CURRENT_TIMESTAMP - INTERVAL '25 hours 45 minutes',
+        CURRENT_TIMESTAMP - INTERVAL '21 hours 5 minutes',
+        'Output Flange Ø120mm',
+        'Yesterday shift 1 — 24 flanges completed, 1 scrap (Ø bore oversize).'
+      ),
+      (
+        '${CNC.entry.e12}', '${CNC.schedule.yesterday}', '${ID.factory.hcm}', '${CNC.machine.cnc004}',
+        '${ID.wo.wo2}', '${ID.po.po2}', '${ID.user.operator2}',
+        0, 'ERROR',
+        CURRENT_TIMESTAMP - INTERVAL '25 hours',
+        CURRENT_TIMESTAMP - INTERVAL '20 hours',
+        15, 10, 480,
+        CURRENT_TIMESTAMP - INTERVAL '25 hours 10 minutes',
+        CURRENT_TIMESTAMP - INTERVAL '24 hours 50 minutes',
+        NULL,
+        'Cover Plate 200×150mm',
+        'Spindle alarm E-402 halted the run — coolant pump failure suspected.'
+      ),
+      (
+        '${CNC.entry.e13}', '${CNC.schedule.twoDaysAgo}', '${ID.factory.hcm}', '${CNC.machine.cnc001}',
+        '${ID.wo.wo1}', '${ID.po.po1}', '${ID.user.operator1}',
+        0, 'COMPLETED',
+        CURRENT_TIMESTAMP - INTERVAL '52 hours',
+        CURRENT_TIMESTAMP - INTERVAL '46 hours',
+        25, 15, 540,
+        CURRENT_TIMESTAMP - INTERVAL '52 hours 5 minutes',
+        CURRENT_TIMESTAMP - INTERVAL '51 hours 45 minutes',
+        CURRENT_TIMESTAMP - INTERVAL '46 hours 10 minutes',
+        'Motor Shaft 28mm',
+        'Full shift 1 batch — 25 units, zero scrap.'
+      ),
+      (
+        '${CNC.entry.e14}', '${CNC.schedule.twoDaysAgo}', '${ID.factory.hcm}', '${CNC.machine.cnc002}',
+        '${ID.wo.wo4}', '${ID.po.po3}', '${ID.user.operator2}',
+        0, 'COMPLETED',
+        CURRENT_TIMESTAMP - INTERVAL '51 hours',
+        CURRENT_TIMESTAMP - INTERVAL '47 hours',
+        10, 20, 1200,
+        CURRENT_TIMESTAMP - INTERVAL '51 hours 5 minutes',
+        CURRENT_TIMESTAMP - INTERVAL '50 hours 45 minutes',
+        CURRENT_TIMESTAMP - INTERVAL '47 hours 5 minutes',
+        'Gear Profile M2 Z24',
+        '10 gears, 1 scrap (profile overcut on tooth #18).'
+      ),
+      (
+        '${CNC.entry.e15}', '${CNC.schedule.twoDaysAgo}', '${ID.factory.hcm}', '${CNC.machine.cnc003}',
+        '${ID.wo.wo3}', '${ID.po.po2}', '${ID.user.operator1}',
+        0, 'COMPLETED',
+        CURRENT_TIMESTAMP - INTERVAL '50 hours',
+        CURRENT_TIMESTAMP - INTERVAL '44 hours',
+        30, 15, 360,
+        CURRENT_TIMESTAMP - INTERVAL '50 hours 5 minutes',
+        CURRENT_TIMESTAMP - INTERVAL '49 hours 50 minutes',
+        CURRENT_TIMESTAMP - INTERVAL '44 hours 10 minutes',
+        'Mounting Bracket 150×80mm',
+        'Full batch 30 brackets, zero rejects. Cycle time 5s under target.'
+      )
+  `);
+
+  // Link active entries to machines now that schedule_entries exist
+  await qr.query(`
+    UPDATE cnc_machines SET "currentScheduleEntryId" = '${CNC.entry.e1}' WHERE id = '${CNC.machine.cnc001}'
+  `);
+  await qr.query(`
+    UPDATE cnc_machines SET "currentScheduleEntryId" = '${CNC.entry.e7}' WHERE id = '${CNC.machine.cnc004}'
+  `);
+
+  // Production logs for the RUNNING entry (e1) and COMPLETED EDM entry (e3)
+  await qr.query(`
+    INSERT INTO production_logs (
+      id, "scheduleEntryId", "factoryId", "cncMachineId",
+      "operatorId", "completedQty", "scrapQty",
+      "cycleTimeActualSeconds", "operatorNotes", "loggedAt"
+    ) VALUES
+      (
+        'f1000004-0000-0000-0000-000000000001',
+        '${CNC.entry.e1}', '${ID.factory.hcm}', '${CNC.machine.cnc001}',
+        '${ID.user.operator1}', 12, 0, 535,
+        'First batch 12 pcs — surface finish OK, dimensions within tolerance.',
+        CURRENT_TIMESTAMP - INTERVAL '2 hours 30 minutes'
+      ),
+      (
+        'f1000004-0000-0000-0000-000000000002',
+        '${CNC.entry.e1}', '${ID.factory.hcm}', '${CNC.machine.cnc001}',
+        '${ID.user.operator1}', 8, 1, 548,
+        '1 shaft scrapped — bore oversize on part #18. Adjusted tool offset. Remaining 8 pcs pass.',
+        CURRENT_TIMESTAMP - INTERVAL '1 hour'
+      ),
+      (
+        'f1000004-0000-0000-0000-000000000003',
+        '${CNC.entry.e3}', '${ID.factory.hcm}', '${CNC.machine.cnc002}',
+        '${ID.user.operator2}', 10, 0, 1185,
+        '10 gear profiles completed. Wire tension nominal, all profiles within DIN 6 tolerance.',
+        CURRENT_TIMESTAMP - INTERVAL '4 hours'
+      ),
+      (
+        'f1000004-0000-0000-0000-000000000004',
+        '${CNC.entry.e5}', '${ID.factory.hcm}', '${CNC.machine.cnc001}',
+        '${ID.user.operator1}', 20, 0, 530,
+        'Yesterday batch 20 shafts — full pass, all dimensions within spec.',
+        CURRENT_TIMESTAMP - INTERVAL '24 hours'
+      ),
+      (
+        'f1000004-0000-0000-0000-000000000005',
+        '${CNC.entry.e6}', '${ID.factory.hcm}', '${CNC.machine.cnc002}',
+        '${ID.user.operator2}', 8, 0, 1190,
+        'Yesterday EDM batch 8 gears — zero rejects.',
+        CURRENT_TIMESTAMP - INTERVAL '24 hours 30 minutes'
+      ),
+      (
+        'f1000004-0000-0000-0000-000000000006',
+        '${CNC.entry.e11}', '${ID.factory.hcm}', '${CNC.machine.cnc003}',
+        '${ID.user.operator1}', 23, 1, 425,
+        'Yesterday flanges — 23 pass, 1 scrap (Ø bore 0.03mm oversize on part #7).',
+        CURRENT_TIMESTAMP - INTERVAL '22 hours'
+      ),
+      (
+        'f1000004-0000-0000-0000-000000000007',
+        '${CNC.entry.e13}', '${ID.factory.hcm}', '${CNC.machine.cnc001}',
+        '${ID.user.operator1}', 25, 0, 528,
+        '2 days ago shift 1 — full 25-pc batch, average cycle 528s, all within spec.',
+        CURRENT_TIMESTAMP - INTERVAL '48 hours'
+      ),
+      (
+        'f1000004-0000-0000-0000-000000000008',
+        '${CNC.entry.e14}', '${ID.factory.hcm}', '${CNC.machine.cnc002}',
+        '${ID.user.operator2}', 9, 1, 1210,
+        '10 gears, 1 scrap — tooth profile overcut. Wire tension adjusted for remaining 9.',
+        CURRENT_TIMESTAMP - INTERVAL '48 hours 30 minutes'
+      ),
+      (
+        'f1000004-0000-0000-0000-000000000009',
+        '${CNC.entry.e15}', '${ID.factory.hcm}', '${CNC.machine.cnc003}',
+        '${ID.user.operator1}', 30, 0, 355,
+        'Best cycle time this week — 355s avg vs 360s target. No issues.',
+        CURRENT_TIMESTAMP - INTERVAL '46 hours'
+      )
+  `);
+
+  // Downtime records: one resolved (CNC-003 yesterday), one active ERROR (CNC-004 today)
+  await qr.query(`
+    INSERT INTO machine_downtime (
+      id, "factoryId", "cncMachineId", "scheduleEntryId",
+      "raisedBy", "startedAt", "resolvedAt", "resolvedBy",
+      "faultCode", description, "rootCause", "correctiveAction", "durationMinutes"
+    ) VALUES
+      (
+        '${CNC.downtime.dt1}', '${ID.factory.hcm}', '${CNC.machine.cnc003}', NULL,
+        '${ID.user.operator2}',
+        CURRENT_TIMESTAMP - INTERVAL '26 hours',
+        CURRENT_TIMESTAMP - INTERVAL '25 hours 15 minutes',
+        '${ID.user.operator2}',
+        'TOOL-BREAK-001',
+        'End mill Ø10mm fractured during aluminium face milling — abnormal vibration detected.',
+        'Worn tool holder collet caused runout >0.05mm, leading to resonance and tool fracture.',
+        'Replaced collet and end mill. Added collet inspection to shift start checklist.',
+        45
+      ),
+      (
+        '${CNC.downtime.dt2}', '${ID.factory.hcm}', '${CNC.machine.cnc004}', '${CNC.entry.e7}',
+        '${ID.user.operator1}',
+        CURRENT_TIMESTAMP - INTERVAL '5 hours',
+        NULL,
+        NULL,
+        'ALARM-E402',
+        'Spindle alarm E-402: coolant flow sensor read 0 L/min during milling. Auto-stop triggered.',
+        NULL,
+        NULL,
+        NULL
+      )
+    ON CONFLICT (id) DO NOTHING
+  `);
+
+  console.log('✓ CNC module seed data complete.');
+
   await qr.release();
   await AppDataSource.destroy();
   console.log('✓ Seed complete.');

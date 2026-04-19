@@ -20,6 +20,7 @@ import { ScheduleEntryEntity } from '../entities/schedule-entry.entity';
 import { ProductionLogEntity } from '../entities/production-log.entity';
 import { CncMachineEntity } from '../entities/cnc-machine.entity';
 import { CncGateway } from '../cnc.gateway';
+import { NotificationsService } from '../../notifications/notifications.service';
 
 const ACTIVE_STATUSES = [
   ScheduleEntryStatus.PENDING,
@@ -53,6 +54,7 @@ export class ScheduleEntriesService {
     @InjectQueue('cnc-shift-transition')
     private readonly shiftQueue: Queue,
     private readonly gateway: CncGateway,
+    private readonly notifications: NotificationsService,
   ) {}
 
   async findBySchedule(dailyScheduleId: string, factoryId: string) {
@@ -180,6 +182,13 @@ export class ScheduleEntriesService {
           { id: entry.cncMachineId },
           { currentStatus: CncMachineStatus.ERROR, lastStatusChangedAt: now },
         );
+        void this.notifications.create({
+          factoryId,
+          type: 'cnc:entry-error',
+          title: `Schedule entry error: ${entry.partName ?? entry.id}`,
+          message: `Entry ${entry.id} transitioned to ERROR on machine ${entry.cncMachineId}.`,
+          metadata: { entryId: entry.id, cncMachineId: entry.cncMachineId },
+        });
         break;
     }
 

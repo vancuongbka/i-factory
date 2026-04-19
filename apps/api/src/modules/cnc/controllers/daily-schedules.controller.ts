@@ -9,7 +9,7 @@ import {
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
   CreateDailyScheduleDto,
   UpdateDailyScheduleDto,
@@ -29,6 +29,8 @@ const WRITE_ROLES = [UserRole.SUPER_ADMIN, UserRole.FACTORY_ADMIN, UserRole.PROD
 
 @ApiTags('CNC Daily Schedules')
 @ApiBearerAuth()
+@ApiResponse({ status: 401, description: 'Unauthorized' })
+@ApiResponse({ status: 403, description: 'Forbidden — insufficient role' })
 @Controller('factories/:factoryId/cnc/schedules')
 @UseGuards(JwtAuthGuard, RolesGuard, FactoryAccessGuard)
 export class DailySchedulesController {
@@ -42,12 +44,14 @@ export class DailySchedulesController {
 
   @Get('by-date/:date')
   @ApiOperation({ summary: 'Get the schedule for a specific date (YYYY-MM-DD)' })
+  @ApiResponse({ status: 404, description: 'No schedule found for this date' })
   findByDate(@Param('factoryId') factoryId: string, @Param('date') date: string) {
     return this.service.findByDate(factoryId, date);
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Get a daily schedule with its entries' })
+  @ApiResponse({ status: 404, description: 'Schedule not found' })
   findById(@Param('factoryId') factoryId: string, @Param('id') id: string) {
     return this.service.findById(id, factoryId);
   }
@@ -68,6 +72,8 @@ export class DailySchedulesController {
   @Roles(...WRITE_ROLES)
   @UsePipes(new ZodValidationPipe(updateDailyScheduleSchema))
   @ApiOperation({ summary: 'Update a DRAFT daily schedule' })
+  @ApiResponse({ status: 404, description: 'Schedule not found' })
+  @ApiResponse({ status: 422, description: 'Schedule is not in DRAFT status' })
   update(
     @Param('factoryId') factoryId: string,
     @Param('id') id: string,
@@ -79,6 +85,8 @@ export class DailySchedulesController {
   @Post(':id/publish')
   @Roles(...WRITE_ROLES)
   @ApiOperation({ summary: 'Publish a DRAFT schedule — transitions status to PUBLISHED' })
+  @ApiResponse({ status: 404, description: 'Schedule not found' })
+  @ApiResponse({ status: 422, description: 'Schedule is not in DRAFT status' })
   publish(
     @Param('factoryId') factoryId: string,
     @Param('id') id: string,
@@ -90,6 +98,8 @@ export class DailySchedulesController {
   @Delete(':id')
   @Roles(...WRITE_ROLES)
   @ApiOperation({ summary: 'Soft-delete a DRAFT daily schedule' })
+  @ApiResponse({ status: 404, description: 'Schedule not found' })
+  @ApiResponse({ status: 422, description: 'Schedule is not in DRAFT status' })
   remove(@Param('factoryId') factoryId: string, @Param('id') id: string) {
     return this.service.remove(id, factoryId);
   }

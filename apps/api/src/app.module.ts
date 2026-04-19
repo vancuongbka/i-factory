@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { BullModule } from '@nestjs/bullmq';
+import { ScheduleModule } from '@nestjs/schedule';
 
 import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
@@ -48,6 +49,7 @@ import { CncModule } from './modules/cnc/cnc.module';
     }),
 
     // Infrastructure
+    ScheduleModule.forRoot(),
     DatabaseModule,
     HealthModule,
 

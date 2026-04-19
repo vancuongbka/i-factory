@@ -26,6 +26,7 @@
     "cncGroup": "CNC",
     "cncMachines": "Máy CNC",
     "cncMonitoring": "Giám sát trực tiếp",
+    "cncPlanning": "Lập lịch",
     "settingsGroup": "Cài đặt"
   },
   "topbar": {
@@ -714,6 +715,11 @@
         "delete": "Xóa",
         "cancel": "Hủy",
         "confirmDelete": "Xóa máy {code}?"
+      },
+      "detail": {
+        "pageTitle": "Chi tiết máy — iFactory",
+        "downtimeHistory": "Lịch sử sự cố",
+        "notFound": "Không tìm thấy máy."
       }
     },
     "schedules": {
@@ -751,11 +757,82 @@
     "downtime": {
       "title": "Sự cố máy",
       "active": "Sự cố đang xảy ra",
-      "noActive": "Không có sự cố nào."
+      "noActive": "Không có sự cố nào.",
+      "noHistory": "Chưa có lịch sử sự cố.",
+      "raiseTitle": "Ghi nhận sự cố",
+      "resolveTitle": "Xử lý sự cố",
+      "raising": "Đang ghi nhận…",
+      "resolving": "Đang xử lý…",
+      "fields": {
+        "faultCode": "Mã lỗi",
+        "description": "Mô tả",
+        "rootCause": "Nguyên nhân gốc rễ",
+        "correctiveAction": "Hành động khắc phục"
+      },
+      "status": {
+        "active": "Đang xảy ra",
+        "resolved": "Đã xử lý"
+      },
+      "actions": {
+        "raise": "Ghi nhận sự cố",
+        "resolve": "Đánh dấu đã xử lý",
+        "cancel": "Hủy"
+      }
+    },
+    "planning": {
+      "title": "Lập lịch CNC",
+      "pageTitle": "Lập lịch CNC — iFactory",
+      "machine": "Máy",
+      "noSchedule": "Chưa có lịch sản xuất cho ngày này.",
+      "createSchedule": "Tạo lịch",
+      "creatingSchedule": "Đang tạo…",
+      "dragToPlace": "Nhấp hoặc kéo trên một hàng để đặt lệnh sản xuất",
+      "form": {
+        "title": "Lệnh sản xuất mới",
+        "workOrderId": "ID Lệnh sản xuất",
+        "productionOrderId": "ID Đơn sản xuất",
+        "partName": "Tên chi tiết",
+        "plannedStart": "Bắt đầu dự kiến",
+        "plannedEnd": "Kết thúc dự kiến",
+        "plannedQty": "SL kế hoạch",
+        "plannedCycleSeconds": "Chu kỳ (giây)",
+        "plannedSetupMinutes": "Thời gian chuẩn bị (phút)",
+        "notes": "Ghi chú",
+        "submit": "Tạo lệnh",
+        "submitting": "Đang tạo…",
+        "cancel": "Hủy",
+        "conflictError": "Trùng thời gian với lệnh sản xuất khác trên máy này"
+      },
+      "entryDetail": {
+        "start": "Bắt đầu",
+        "end": "Kết thúc",
+        "progress": "Tiến độ",
+        "overrun": "Vượt quá số lượng kế hoạch",
+        "advanceStatus": "Chuyển trạng thái",
+        "logs": "Nhật ký sản xuất",
+        "noLogs": "Chưa có nhật ký.",
+        "addLog": "Ghi nhật ký",
+        "logQty": "SL hoàn thành",
+        "logScrap": "SL phế phẩm",
+        "submitLog": "Lưu",
+        "submitting": "Đang lưu…",
+        "cancel": "Hủy"
+      }
     },
     "monitoring": {
       "title": "Giám sát trực tiếp",
-      "pageTitle": "Giám sát CNC — iFactory"
+      "pageTitle": "Giám sát CNC — iFactory",
+      "kpi": {
+        "total": "Tổng số máy",
+        "running": "Đang chạy",
+        "idle": "Chờ",
+        "error": "Lỗi",
+        "planned": "SL kế hoạch",
+        "completed": "SL hoàn thành"
+      },
+      "machineCard": {
+        "noEntry": "Không có lệnh sản xuất"
+      }
     }
   },
   "commandPalette": {

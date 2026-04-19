@@ -128,6 +128,13 @@ function IconCncMonitoring() {
     </svg>
   );
 }
+function IconCncPlanning() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-[18px] w-[18px] flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zm10 0a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1zm-10 4a1 1 0 011-1h4a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"/>
+    </svg>
+  );
+}
 function IconUsers() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-[18px] w-[18px] flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -176,6 +183,7 @@ export function Sidebar() {
       items: [
         { href: '/cnc/machines', labelKey: 'cncMachines', icon: <IconCncMachines /> },
         { href: '/cnc/monitoring', labelKey: 'cncMonitoring', icon: <IconCncMonitoring /> },
+        { href: '/cnc/planning', labelKey: 'cncPlanning', icon: <IconCncPlanning /> },
       ],
     },
     {

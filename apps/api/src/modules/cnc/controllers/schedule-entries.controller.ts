@@ -9,7 +9,7 @@ import {
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
   AdvanceEntryStatusDto,
   CreateScheduleEntryDto,
@@ -33,6 +33,8 @@ const OPERATOR_ROLES = [...WRITE_ROLES, UserRole.OPERATOR];
 
 @ApiTags('CNC Schedule Entries')
 @ApiBearerAuth()
+@ApiResponse({ status: 401, description: 'Unauthorized' })
+@ApiResponse({ status: 403, description: 'Forbidden — insufficient role' })
 @Controller('factories/:factoryId/cnc')
 @UseGuards(JwtAuthGuard, RolesGuard, FactoryAccessGuard)
 export class ScheduleEntriesController {
@@ -49,6 +51,7 @@ export class ScheduleEntriesController {
 
   @Get('entries/:id')
   @ApiOperation({ summary: 'Get a single schedule entry with computed progress' })
+  @ApiResponse({ status: 404, description: 'Entry not found' })
   findById(@Param('factoryId') factoryId: string, @Param('id') id: string) {
     return this.service.findById(id, factoryId);
   }
@@ -57,6 +60,7 @@ export class ScheduleEntriesController {
   @Roles(...WRITE_ROLES)
   @UsePipes(new ZodValidationPipe(createScheduleEntrySchema))
   @ApiOperation({ summary: 'Create a schedule entry — checks for machine time conflicts' })
+  @ApiResponse({ status: 409, description: 'Time conflict with an existing entry on this machine' })
   create(@Param('factoryId') factoryId: string, @Body() dto: CreateScheduleEntryDto) {
     return this.service.create(factoryId, dto);
   }
@@ -65,6 +69,9 @@ export class ScheduleEntriesController {
   @Roles(...WRITE_ROLES)
   @UsePipes(new ZodValidationPipe(updateScheduleEntrySchema))
   @ApiOperation({ summary: 'Update a PENDING or SETUP schedule entry' })
+  @ApiResponse({ status: 404, description: 'Entry not found' })
+  @ApiResponse({ status: 409, description: 'Time conflict with an existing entry on this machine' })
+  @ApiResponse({ status: 422, description: 'Entry is not in PENDING or SETUP status' })
   update(
     @Param('factoryId') factoryId: string,
     @Param('id') id: string,
@@ -76,6 +83,8 @@ export class ScheduleEntriesController {
   @Delete('entries/:id')
   @Roles(...WRITE_ROLES)
   @ApiOperation({ summary: 'Soft-delete a PENDING schedule entry' })
+  @ApiResponse({ status: 404, description: 'Entry not found' })
+  @ApiResponse({ status: 422, description: 'Only PENDING entries can be deleted' })
   remove(@Param('factoryId') factoryId: string, @Param('id') id: string) {
     return this.service.remove(id, factoryId);
   }
@@ -84,6 +93,8 @@ export class ScheduleEntriesController {
   @Roles(...OPERATOR_ROLES)
   @UsePipes(new ZodValidationPipe(advanceEntryStatusSchema))
   @ApiOperation({ summary: 'Advance entry status through the state machine' })
+  @ApiResponse({ status: 404, description: 'Entry not found' })
+  @ApiResponse({ status: 422, description: 'Invalid status transition' })
   advanceStatus(
     @Param('factoryId') factoryId: string,
     @Param('id') id: string,

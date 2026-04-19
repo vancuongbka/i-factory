@@ -12,6 +12,20 @@ export class NotificationsService {
     private readonly gateway: NotificationsGateway,
   ) {}
 
+  async create(data: {
+    factoryId: string;
+    userId?: string;
+    type: string;
+    title: string;
+    message: string;
+    metadata?: Record<string, unknown>;
+  }) {
+    const notification = this.repo.create(data);
+    const saved = await this.repo.save(notification);
+    this.gateway.emitToFactory(data.factoryId, 'notification:created', saved);
+    return saved;
+  }
+
   async broadcast(factoryId: string, event: string, data: unknown) {
     this.gateway.emitToFactory(factoryId, event, data);
   }

@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, UseGuards, UsePipes } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
   CreateProductionLogDto,
   UserRole,
@@ -22,6 +22,8 @@ const OPERATOR_ROLES = [
 
 @ApiTags('CNC Production Logs')
 @ApiBearerAuth()
+@ApiResponse({ status: 401, description: 'Unauthorized' })
+@ApiResponse({ status: 403, description: 'Forbidden — insufficient role' })
 @Controller('factories/:factoryId/cnc')
 @UseGuards(JwtAuthGuard, RolesGuard, FactoryAccessGuard)
 export class ProductionLogsController {
@@ -37,6 +39,8 @@ export class ProductionLogsController {
   @Roles(...OPERATOR_ROLES)
   @UsePipes(new ZodValidationPipe(createProductionLogSchema))
   @ApiOperation({ summary: 'Submit a production log (operator reports completed units)' })
+  @ApiResponse({ status: 404, description: 'Schedule entry not found' })
+  @ApiResponse({ status: 422, description: 'Entry is not in RUNNING status' })
   create(
     @Param('factoryId') factoryId: string,
     @CurrentUser() user: CurrentUserPayload,

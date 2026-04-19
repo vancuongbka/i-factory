@@ -5,6 +5,7 @@ import { CncMachineStatus, CreateCncDowntimeDto, ResolveCncDowntimeDto } from '@
 import { MachineDowntimeEntity } from '../entities/machine-downtime.entity';
 import { CncMachineEntity } from '../entities/cnc-machine.entity';
 import { CncGateway } from '../cnc.gateway';
+import { NotificationsService } from '../../notifications/notifications.service';
 
 @Injectable()
 export class MachineDowntimeService {
@@ -14,6 +15,7 @@ export class MachineDowntimeService {
     @InjectRepository(CncMachineEntity)
     private readonly machineRepo: Repository<CncMachineEntity>,
     private readonly gateway: CncGateway,
+    private readonly notifications: NotificationsService,
   ) {}
 
   findByMachine(cncMachineId: string, factoryId: string) {
@@ -55,6 +57,13 @@ export class MachineDowntimeService {
       id: saved.id,
       cncMachineId: saved.cncMachineId,
       faultCode: saved.faultCode,
+    });
+    void this.notifications.create({
+      factoryId,
+      type: 'cnc:downtime-raised',
+      title: `Machine downtime raised: ${machine.name}`,
+      message: `Fault: ${saved.faultCode ?? 'unknown'}. ${saved.description ?? ''}`.trim(),
+      metadata: { downtimeId: saved.id, cncMachineId: saved.cncMachineId },
     });
     return saved;
   }

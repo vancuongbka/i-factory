@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Patch, Post, UseGuards, UsePipes } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
   CreateCncDowntimeDto,
   ResolveCncDowntimeDto,
@@ -24,6 +24,8 @@ const OPERATOR_ROLES = [
 
 @ApiTags('CNC Machine Downtime')
 @ApiBearerAuth()
+@ApiResponse({ status: 401, description: 'Unauthorized' })
+@ApiResponse({ status: 403, description: 'Forbidden — insufficient role' })
 @Controller('factories/:factoryId/cnc')
 @UseGuards(JwtAuthGuard, RolesGuard, FactoryAccessGuard)
 export class MachineDowntimeController {
@@ -48,6 +50,7 @@ export class MachineDowntimeController {
   @Roles(...OPERATOR_ROLES)
   @UsePipes(new ZodValidationPipe(createCncDowntimeSchema))
   @ApiOperation({ summary: 'Raise a downtime event — sets machine status to ERROR' })
+  @ApiResponse({ status: 404, description: 'Machine not found' })
   raise(
     @Param('factoryId') factoryId: string,
     @CurrentUser() user: CurrentUserPayload,
@@ -60,6 +63,8 @@ export class MachineDowntimeController {
   @Roles(...OPERATOR_ROLES)
   @UsePipes(new ZodValidationPipe(resolveCncDowntimeSchema))
   @ApiOperation({ summary: 'Resolve a downtime event — sets machine status to IDLE' })
+  @ApiResponse({ status: 404, description: 'Downtime record not found' })
+  @ApiResponse({ status: 422, description: 'Downtime record is already resolved' })
   resolve(
     @Param('factoryId') factoryId: string,
     @Param('id') id: string,

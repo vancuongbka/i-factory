@@ -7,7 +7,10 @@
       "Bash(xargs grep:*)",
       "Bash(pnpm --filter @i-factory/web add next-themes)",
       "Bash(pnpm --filter @i-factory/api-types build)",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "Bash(pnpm --filter @i-factory/web add @dnd-kit/core @dnd-kit/utilities)",
+      "Bash(grep -r \"t\\(\\\\`status\\\\.\" /c/Workspace/Sources/i-factory/apps/web/src --include=\"*.tsx\")",
+      "Bash(pnpm typecheck *)"
     ]
   }
 }

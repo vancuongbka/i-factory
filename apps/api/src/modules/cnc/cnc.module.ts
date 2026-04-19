@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { NotificationsModule } from '../notifications/notifications.module';
 import { CncGateway } from './cnc.gateway';
 import { CncMachinesService } from './services/cnc-machines.service';
 import { DailySchedulesService } from './services/daily-schedules.service';
@@ -14,6 +15,7 @@ import { ProductionLogsController } from './controllers/production-logs.controll
 import { MachineDowntimeController } from './controllers/machine-downtime.controller';
 import { CncShiftTransitionProcessor } from './processors/cnc-shift-transition.processor';
 import { CncScheduleArchiveProcessor } from './processors/cnc-schedule-archive.processor';
+import { CncSchedulerService } from './cnc-scheduler.service';
 import { CncMachineEntity } from './entities/cnc-machine.entity';
 import { DailyScheduleEntity } from './entities/daily-schedule.entity';
 import { ScheduleEntryEntity } from './entities/schedule-entry.entity';
@@ -22,6 +24,7 @@ import { MachineDowntimeEntity } from './entities/machine-downtime.entity';
 
 @Module({
   imports: [
+    NotificationsModule,
     BullModule.registerQueue({ name: 'cnc-shift-transition' }),
     BullModule.registerQueue({ name: 'cnc-schedule-archive' }),
     TypeOrmModule.forFeature([
@@ -48,6 +51,7 @@ import { MachineDowntimeEntity } from './entities/machine-downtime.entity';
     MachineDowntimeService,
     CncShiftTransitionProcessor,
     CncScheduleArchiveProcessor,
+    CncSchedulerService,
   ],
   exports: [CncMachinesService, DailySchedulesService, ScheduleEntriesService],
 })

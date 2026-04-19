@@ -217,7 +217,7 @@ Added `cncGroup` nav group between `menuGroup` and `masterData`:
 
 ---
 
-## Phase 5 — Frontend Live Monitoring Dashboard 🔲 PENDING
+## Phase 5 — Frontend Live Monitoring Dashboard ✅ COMPLETE
 
 **Effort: M**
 
@@ -244,7 +244,7 @@ Added `cncGroup` nav group between `menuGroup` and `masterData`:
 
 ---
 
-## Phase 6 — Frontend Interactive Gantt Planning View 🔲 PENDING
+## Phase 6 — Frontend Interactive Gantt Planning View ✅ COMPLETE
 
 **Effort: XL**
 
@@ -261,7 +261,7 @@ Added `cncGroup` nav group between `menuGroup` and `masterData`:
 
 ---
 
-## Phase 7 — Integration & Polish 🔲 PENDING
+## Phase 7 — Integration & Polish ✅ COMPLETE
 
 **Effort: S**
 
@@ -349,26 +349,9 @@ apps/web/messages/en.json                      ← +cnc.*, nav keys
 apps/web/messages/vi.json                      ← +Vietnamese cnc.*
 ```
 
-### 🔲 Pending Files
+### ✅ All Phases Complete
 
-**Phase 5 — Frontend Monitoring (4 files)**
-```
-apps/web/src/app/(app)/cnc/monitoring/page.tsx
-apps/web/src/app/(app)/cnc/monitoring/_components/cnc-monitoring-dashboard.tsx
-apps/web/src/app/(app)/cnc/machines/[id]/page.tsx
-apps/web/src/app/(app)/cnc/machines/[id]/_components/cnc-machine-detail.tsx
-```
-
-**Phase 6 — Frontend Gantt (2+ files)**
-```
-apps/web/src/app/(app)/cnc/planning/page.tsx
-apps/web/src/app/(app)/cnc/planning/_components/cnc-gantt-chart.tsx
-```
-
-**Phase 7 — Polish (1 file)**
-```
-apps/api/src/modules/cnc/cnc-scheduler.service.ts  ← @Cron nightly archive
-```
+All files have been implemented. The CNC module is fully integrated.
 
 ---
 

@@ -10,7 +10,7 @@ import {
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
   CncMachineStatus,
   CreateCncMachineDto,
@@ -30,6 +30,8 @@ const WRITE_ROLES = [UserRole.SUPER_ADMIN, UserRole.FACTORY_ADMIN, UserRole.PROD
 
 @ApiTags('CNC Machines')
 @ApiBearerAuth()
+@ApiResponse({ status: 401, description: 'Unauthorized' })
+@ApiResponse({ status: 403, description: 'Forbidden — insufficient role' })
 @Controller('factories/:factoryId/cnc/machines')
 @UseGuards(JwtAuthGuard, RolesGuard, FactoryAccessGuard)
 export class CncMachinesController {
@@ -43,6 +45,7 @@ export class CncMachinesController {
 
   @Get(':id')
   @ApiOperation({ summary: 'Get a single CNC machine' })
+  @ApiResponse({ status: 404, description: 'Machine not found' })
   findById(@Param('factoryId') factoryId: string, @Param('id') id: string) {
     return this.service.findById(id, factoryId);
   }
@@ -59,6 +62,7 @@ export class CncMachinesController {
   @Roles(...WRITE_ROLES)
   @UsePipes(new ZodValidationPipe(updateCncMachineSchema))
   @ApiOperation({ summary: 'Update a CNC machine' })
+  @ApiResponse({ status: 404, description: 'Machine not found' })
   update(
     @Param('factoryId') factoryId: string,
     @Param('id') id: string,
@@ -70,6 +74,7 @@ export class CncMachinesController {
   @Delete(':id')
   @Roles(...WRITE_ROLES)
   @ApiOperation({ summary: 'Soft-delete a CNC machine' })
+  @ApiResponse({ status: 404, description: 'Machine not found' })
   remove(@Param('factoryId') factoryId: string, @Param('id') id: string) {
     return this.service.remove(id, factoryId);
   }
@@ -77,6 +82,7 @@ export class CncMachinesController {
   @Patch(':id/status')
   @Roles(...WRITE_ROLES)
   @ApiOperation({ summary: 'Manually update machine status (e.g. set to MAINTENANCE)' })
+  @ApiResponse({ status: 404, description: 'Machine not found' })
   updateStatus(
     @Param('factoryId') factoryId: string,
     @Param('id') id: string,
