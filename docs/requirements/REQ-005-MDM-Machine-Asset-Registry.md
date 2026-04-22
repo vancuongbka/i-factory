@@ -1,5 +1,5 @@
 ---
-id: MDM-005
+id: REQ-005-MDM-Machine-Asset-Registry
 title: Machine Asset Registry
 status: inferred
 priority: high

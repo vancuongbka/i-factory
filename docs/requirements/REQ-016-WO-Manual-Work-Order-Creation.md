@@ -1,5 +1,5 @@
 ---
-id: WO-002
+id: REQ-016-WO-Manual-Work-Order-Creation
 title: Manual Work Order Creation with Explicit Steps
 status: inferred
 priority: high

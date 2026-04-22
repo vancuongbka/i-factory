@@ -32,6 +32,12 @@ const config: Config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        status: {
+          critical: 'hsl(var(--status-critical))',
+          warning: 'hsl(var(--status-warning))',
+          running: 'hsl(var(--status-running))',
+          planned: 'hsl(var(--status-planned))',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',

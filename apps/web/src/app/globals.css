@@ -3,38 +3,47 @@
 @tailwind utilities;
 
 @layer base {
-  /* Vercel / Geist-inspired color system */
   :root {
     --background: 0 0% 100%;        /* #ffffff */
     --foreground: 0 0% 0%;          /* #000000 */
     --card: 0 0% 100%;              /* #ffffff */
     --card-foreground: 0 0% 0%;     /* #000000 */
-    --primary: 211 100% 47.6%;      /* #0070f3 — Vercel blue */
+    --primary: 211 100% 47.6%;      /* #0070f3 */
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 89.8%;        /* #e5e5e5 — active/selected item background */
+    --secondary: 0 0% 89.8%;        /* #e5e5e5 */
     --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;            /* #f5f5f5 — hover background */
+    --muted: 0 0% 96.1%;            /* #f5f5f5 */
     --muted-foreground: 0 0% 40%;   /* #666666 */
     --border: 0 0% 91.8%;           /* #eaeaea */
     --input: 0 0% 91.8%;            /* #eaeaea */
     --ring: 211 100% 47.6%;         /* #0070f3 */
-    --radius: 0.375rem;             /* 6px — Vercel's tighter radius */
+    --radius: 0.375rem;
+    /* Status colors — full saturation, no pastels */
+    --status-critical: 0 100% 60%;      /* #ff3333 */
+    --status-warning: 40 100% 50%;      /* #ffaa00 */
+    --status-running: 143 100% 43.3%;   /* #00dd55 */
+    --status-planned: 220 100% 70%;     /* #6699ff */
   }
 
   .dark {
-    --background: 0 0% 0%;          /* #000000 */
-    --foreground: 0 0% 92.9%;       /* #ededed — off-white, less harsh than pure white */
-    --card: 0 0% 7.8%;              /* #141414 — Vercel sidebar dark */
+    --background: 0 0% 10.2%;       /* #1a1a1a — charcoal, not pure black */
+    --foreground: 0 0% 92.9%;       /* #ededed */
+    --card: 0 0% 14.1%;             /* #242424 — elevated above background */
     --card-foreground: 0 0% 92.9%;
-    --primary: 211 100% 47.6%;      /* #0070f3 — same blue in dark */
+    --primary: 211 100% 47.6%;      /* #0070f3 */
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 15.7%;        /* #282828 — active/selected item background */
+    --secondary: 0 0% 17.6%;        /* #2d2d2d — active/selected */
     --secondary-foreground: 0 0% 92.9%;
-    --muted: 0 0% 10.2%;            /* #1a1a1a — hover background */
+    --muted: 0 0% 12.9%;            /* #212121 — hover background */
     --muted-foreground: 0 0% 53.3%; /* #888888 */
     --border: 0 0% 20%;             /* #333333 */
     --input: 0 0% 20%;              /* #333333 */
     --ring: 211 100% 47.6%;         /* #0070f3 */
+    /* Status colors unchanged in dark mode */
+    --status-critical: 0 100% 60%;
+    --status-warning: 40 100% 50%;
+    --status-running: 143 100% 43.3%;
+    --status-planned: 220 100% 70%;
   }
 }
 

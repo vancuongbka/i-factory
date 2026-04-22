@@ -1,5 +1,5 @@
 ---
-id: BOM-002
+id: REQ-010-BOM-Line-Item-Management
 title: BOM Line Item Management
 status: inferred
 priority: high

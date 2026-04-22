@@ -1,5 +1,5 @@
 ---
-id: WO-005
+id: REQ-019-WO-Work-Order-Step-Completion
 title: Work Order Step Completion Tracking
 status: inferred
 priority: medium

@@ -1,5 +1,5 @@
 ---
-id: PROD-001
+id: REQ-012-PROD-Production-Order-Management
 title: Production Order Management
 status: inferred
 priority: high

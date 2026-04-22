@@ -1,5 +1,5 @@
 ---
-id: MDM-001
+id: REQ-001-MDM-Product-Catalogue-Management
 title: Product Catalogue Management
 status: inferred
 priority: high

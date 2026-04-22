@@ -1,5 +1,5 @@
 ---
-id: MDM-006
+id: REQ-006-MDM-Worker-Skill-Catalogue
 title: Worker Skill Catalogue
 status: inferred
 priority: medium

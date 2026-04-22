@@ -1,5 +1,5 @@
 ---
-id: WO-004
+id: REQ-018-WO-Work-Order-Status-Lifecycle
 title: Work Order Status Lifecycle and Operator Assignment
 status: inferred
 priority: high

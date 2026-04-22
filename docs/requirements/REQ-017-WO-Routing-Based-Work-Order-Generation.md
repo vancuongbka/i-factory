@@ -1,5 +1,5 @@
 ---
-id: WO-003
+id: REQ-017-WO-Routing-Based-Work-Order-Generation
 title: Routing-Based Work Order Generation
 status: inferred
 priority: high

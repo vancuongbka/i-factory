@@ -1,5 +1,5 @@
 ---
-id: PROD-002
+id: REQ-013-PROD-Production-Order-WebSocket-Events
 title: Production Order Real-time WebSocket Events
 status: inferred
 priority: high

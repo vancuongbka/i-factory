@@ -1,5 +1,5 @@
 ---
-id: CNC-001
+id: REQ-020-CNC-Daily-Planning-Monitoring
 title: CNC Daily Planning & Real-time Monitoring
 status: draft
 priority: high

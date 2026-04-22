@@ -136,46 +136,46 @@ Key capabilities inferred from code:
 
 | ID | Title | Status | Priority | Source Module |
 |----|-------|--------|----------|---------------|
-| [MDM-001](MDM-001.md) | Product Catalogue Management | inferred | high | master-data/products |
-| [MDM-002](MDM-002.md) | Product Category Hierarchy | inferred | medium | master-data/products |
-| [MDM-003](MDM-003.md) | Unit of Measure Management | inferred | medium | master-data/products |
-| [MDM-004](MDM-004.md) | Work Center Management | inferred | high | master-data/work-centers |
-| [MDM-005](MDM-005.md) | Machine Asset Registry | inferred | high | master-data/work-centers |
-| [MDM-006](MDM-006.md) | Worker Skill Catalogue | inferred | medium | master-data/work-centers |
-| [MDM-007](MDM-007.md) | Manufacturing Routing Definition | inferred | high | master-data/routings |
-| [MDM-008](MDM-008.md) | ERP Master Data Import | inferred | medium | master-data/erp-sync |
+| [REQ-001-MDM-Product-Catalogue-Management](REQ-001-MDM-Product-Catalogue-Management.md) | Product Catalogue Management | inferred | high | master-data/products |
+| [REQ-002-MDM-Product-Category-Hierarchy](REQ-002-MDM-Product-Category-Hierarchy.md) | Product Category Hierarchy | inferred | medium | master-data/products |
+| [REQ-003-MDM-Unit-of-Measure-Management](REQ-003-MDM-Unit-of-Measure-Management.md) | Unit of Measure Management | inferred | medium | master-data/products |
+| [REQ-004-MDM-Work-Center-Management](REQ-004-MDM-Work-Center-Management.md) | Work Center Management | inferred | high | master-data/work-centers |
+| [REQ-005-MDM-Machine-Asset-Registry](REQ-005-MDM-Machine-Asset-Registry.md) | Machine Asset Registry | inferred | high | master-data/work-centers |
+| [REQ-006-MDM-Worker-Skill-Catalogue](REQ-006-MDM-Worker-Skill-Catalogue.md) | Worker Skill Catalogue | inferred | medium | master-data/work-centers |
+| [REQ-007-MDM-Manufacturing-Routing-Definition](REQ-007-MDM-Manufacturing-Routing-Definition.md) | Manufacturing Routing Definition | inferred | high | master-data/routings |
+| [REQ-008-MDM-ERP-Master-Data-Import](REQ-008-MDM-ERP-Master-Data-Import.md) | ERP Master Data Import | inferred | medium | master-data/erp-sync |
 
 ### BOM Module
 
 | ID | Title | Status | Priority | Source Module |
 |----|-------|--------|----------|---------------|
-| [BOM-001](BOM-001.md) | BOM Header Management | inferred | high | bom |
-| [BOM-002](BOM-002.md) | BOM Line Item Management | inferred | high | bom |
-| [BOM-003](BOM-003.md) | BOM Revision & Version Control | inferred | medium | bom |
+| [REQ-009-BOM-Header-Management](REQ-009-BOM-Header-Management.md) | BOM Header Management | inferred | high | bom |
+| [REQ-010-BOM-Line-Item-Management](REQ-010-BOM-Line-Item-Management.md) | BOM Line Item Management | inferred | high | bom |
+| [REQ-011-BOM-Revision-Version-Control](REQ-011-BOM-Revision-Version-Control.md) | BOM Revision & Version Control | inferred | medium | bom |
 
 ### Production Module
 
 | ID | Title | Status | Priority | Source Module |
 |----|-------|--------|----------|---------------|
-| [PROD-001](PROD-001.md) | Production Order Management | inferred | high | production |
-| [PROD-002](PROD-002.md) | Production Order Real-time WebSocket Events | inferred | high | production |
-| [PROD-003](PROD-003.md) | Production Line Registry | inferred | low | production |
+| [REQ-012-PROD-Production-Order-Management](REQ-012-PROD-Production-Order-Management.md) | Production Order Management | inferred | high | production |
+| [REQ-013-PROD-Production-Order-WebSocket-Events](REQ-013-PROD-Production-Order-WebSocket-Events.md) | Production Order Real-time WebSocket Events | inferred | high | production |
+| [REQ-014-PROD-Production-Line-Registry](REQ-014-PROD-Production-Line-Registry.md) | Production Line Registry | inferred | low | production |
 
 ### Work Orders Module
 
 | ID | Title | Status | Priority | Source Module |
 |----|-------|--------|----------|---------------|
-| [WO-001](WO-001.md) | Work Order Retrieval | inferred | high | work-orders |
-| [WO-002](WO-002.md) | Manual Work Order Creation with Explicit Steps | inferred | high | work-orders |
-| [WO-003](WO-003.md) | Routing-Based Work Order Generation | inferred | high | work-orders |
-| [WO-004](WO-004.md) | Work Order Status Lifecycle and Operator Assignment | inferred | high | work-orders |
-| [WO-005](WO-005.md) | Work Order Step Completion Tracking | inferred | medium | work-orders |
+| [REQ-015-WO-Work-Order-Retrieval](REQ-015-WO-Work-Order-Retrieval.md) | Work Order Retrieval | inferred | high | work-orders |
+| [REQ-016-WO-Manual-Work-Order-Creation](REQ-016-WO-Manual-Work-Order-Creation.md) | Manual Work Order Creation with Explicit Steps | inferred | high | work-orders |
+| [REQ-017-WO-Routing-Based-Work-Order-Generation](REQ-017-WO-Routing-Based-Work-Order-Generation.md) | Routing-Based Work Order Generation | inferred | high | work-orders |
+| [REQ-018-WO-Work-Order-Status-Lifecycle](REQ-018-WO-Work-Order-Status-Lifecycle.md) | Work Order Status Lifecycle and Operator Assignment | inferred | high | work-orders |
+| [REQ-019-WO-Work-Order-Step-Completion](REQ-019-WO-Work-Order-Step-Completion.md) | Work Order Step Completion Tracking | inferred | medium | work-orders |
 
 ### CNC Daily Planning & Real-time Monitoring Module
 
 | ID | Title | Status | Priority | Source Module |
 |----|-------|--------|----------|---------------|
-| [CNC-001](CNC-001.md) | CNC Daily Planning & Real-time Monitoring | draft | high | cnc |
+| [REQ-020-CNC-Daily-Planning-Monitoring](REQ-020-CNC-Daily-Planning-Monitoring.md) | CNC Daily Planning & Real-time Monitoring | draft | high | cnc |
 
 ---
 

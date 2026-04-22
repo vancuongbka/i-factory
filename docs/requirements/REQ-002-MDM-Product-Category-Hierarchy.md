@@ -1,5 +1,5 @@
 ---
-id: MDM-002
+id: REQ-002-MDM-Product-Category-Hierarchy
 title: Product Category Hierarchy
 status: inferred
 priority: medium

@@ -1,5 +1,5 @@
 ---
-id: MDM-004
+id: REQ-004-MDM-Work-Center-Management
 title: Work Center Management
 status: inferred
 priority: high

@@ -6,6 +6,7 @@ import { AuthProvider } from '@/providers/auth-provider';
 import { ThemeProvider } from '@/providers/theme-provider';
 import './globals.css';
 
+
 const SUPPORTED_LOCALES = ['en', 'vi', 'ja'] as const;
 type SupportedLocale = typeof SUPPORTED_LOCALES[number];
 

@@ -1,5 +1,5 @@
 ---
-id: MDM-003
+id: REQ-003-MDM-Unit-of-Measure-Management
 title: Unit of Measure Management
 status: inferred
 priority: medium

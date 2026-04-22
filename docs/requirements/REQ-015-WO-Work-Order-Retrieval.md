@@ -1,5 +1,5 @@
 ---
-id: WO-001
+id: REQ-015-WO-Work-Order-Retrieval
 title: Work Order Retrieval
 status: inferred
 priority: high

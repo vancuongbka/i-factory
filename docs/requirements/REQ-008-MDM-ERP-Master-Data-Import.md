@@ -1,5 +1,5 @@
 ---
-id: MDM-008
+id: REQ-008-MDM-ERP-Master-Data-Import
 title: ERP Master Data Import
 status: inferred
 priority: medium

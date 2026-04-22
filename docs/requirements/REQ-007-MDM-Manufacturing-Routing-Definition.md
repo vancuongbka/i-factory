@@ -1,5 +1,5 @@
 ---
-id: MDM-007
+id: REQ-007-MDM-Manufacturing-Routing-Definition
 title: Manufacturing Routing Definition
 status: inferred
 priority: high

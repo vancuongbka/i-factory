@@ -1,5 +1,5 @@
 ---
-id: BOM-003
+id: REQ-011-BOM-Revision-Version-Control
 title: BOM Revision & Version Control
 status: inferred
 priority: medium

@@ -1,5 +1,5 @@
 ---
-id: BOM-001
+id: REQ-009-BOM-Header-Management
 title: BOM Header Management
 status: inferred
 priority: high
