@@ -4,6 +4,7 @@ import { GeistSans } from 'geist/font/sans';
 import { cookies, headers } from 'next/headers';
 import { AuthProvider } from '@/providers/auth-provider';
 import { ThemeProvider } from '@/providers/theme-provider';
+import { NavigationProgress } from '@/components/layout/navigation-progress';
 import './globals.css';
 
 
@@ -48,6 +49,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <ThemeProvider>
           <NextIntlClientProvider locale={locale} messages={messages}>
             <AuthProvider>
+              <NavigationProgress />
               {children}
             </AuthProvider>
           </NextIntlClientProvider>
