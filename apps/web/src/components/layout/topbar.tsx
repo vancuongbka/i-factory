@@ -6,6 +6,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import { useAuth } from '@/providers/auth-provider';
 import { CommandPalette } from '@/components/command-palette';
 import { ThemeSwitch } from '@/components/theme-switch';
+import { useSidebar } from '@/providers/sidebar-provider';
 
 // ---------------------------------------------------------------------------
 // Role display names
@@ -95,6 +96,7 @@ export function Topbar() {
   const router = useRouter();
 
   const { logout, user } = useAuth();
+  const { toggle: toggleSidebar } = useSidebar();
   const [commandOpen, setCommandOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
@@ -120,10 +122,22 @@ export function Topbar() {
     <>
     <header className="flex h-16 flex-shrink-0 items-center justify-between border-b bg-card px-4">
       {/* ── Left ── */}
-      <div className="flex items-center gap-3">
-        {/* Menu name — fixed width so search never shifts */}
-        <div className="w-[200px] flex-shrink-0">
-          <h2 className="truncate text-[19px] font-semibold leading-none tracking-tight">
+      <div className="flex items-center gap-2">
+        {/* Sidebar toggle */}
+        <button
+          type="button"
+          onClick={toggleSidebar}
+          className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+          aria-label="Toggle sidebar"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"/>
+          </svg>
+        </button>
+
+        {/* Page title */}
+        <div className="min-w-0 flex-1 sm:w-[160px] sm:flex-none sm:flex-shrink-0">
+          <h2 className="truncate text-base font-semibold leading-none tracking-tight sm:text-[19px]">
             {pageTitle}
           </h2>
         </div>

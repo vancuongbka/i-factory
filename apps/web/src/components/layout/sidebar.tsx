@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
+import { useSidebar } from '@/providers/sidebar-provider';
 
 // ---------------------------------------------------------------------------
 // Inline SVG icons  (20×20 fill="currentColor" — consistent with codebase)
@@ -163,6 +164,7 @@ interface NavGroup {
 export function Sidebar() {
   const t = useTranslations('nav');
   const pathname = usePathname();
+  const { isOpen, toggle, close } = useSidebar();
 
   const NAV_GROUPS: NavGroup[] = [
     {
@@ -212,54 +214,104 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="flex h-full w-60 flex-shrink-0 flex-col border-r bg-card">
-      {/* Logo */}
-      <div className="flex h-16 flex-shrink-0 items-center border-b px-5">
-        <span className="text-lg font-bold tracking-tight">iFactory</span>
-      </div>
+    <>
+      {/* Mobile backdrop */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+          onClick={close}
+          aria-hidden="true"
+        />
+      )}
 
-      {/* Nav */}
-      <nav className="flex-1 overflow-y-auto px-3 py-4">
-        {NAV_GROUPS.map((group, groupIndex) => (
-          <div key={group.groupKey}>
-            {/* Separator between groups */}
-            {groupIndex > 0 && (
-              <div className="my-3 h-px bg-border" />
-            )}
+      <aside
+        className={[
+          'flex flex-shrink-0 flex-col border-r bg-card',
+          // Mobile: fixed overlay drawer, slides in/out
+          'fixed inset-y-0 left-0 z-50 w-64',
+          'transition-transform duration-300 ease-in-out',
+          isOpen ? 'translate-x-0' : '-translate-x-full',
+          // Desktop: inline (in flow), instant width switch
+          'lg:static lg:translate-x-0',
+          isOpen ? 'lg:w-64' : 'lg:w-[60px]',
+        ].join(' ')}
+      >
+        {/* ── Logo / Header ── */}
+        <div className={`flex h-16 flex-shrink-0 items-center border-b ${isOpen ? 'gap-2 px-4' : 'justify-center px-2'}`}>
+          {isOpen ? (
+            <>
+              <span className="flex-1 text-lg font-bold tracking-tight">iFactory</span>
+              {/* Collapse button — desktop only */}
+              <button
+                type="button"
+                onClick={toggle}
+                className="hidden h-7 w-7 flex-shrink-0 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground lg:flex"
+                aria-label="Collapse sidebar"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd"/>
+                </svg>
+              </button>
+            </>
+          ) : (
+            /* Collapsed: expand button as the only element */
+            <button
+              type="button"
+              onClick={toggle}
+              className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground"
+              aria-label="Expand sidebar"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"/>
+              </svg>
+            </button>
+          )}
+        </div>
 
-            {/* Group label */}
-            <p className="mb-1.5 px-2 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
-              {t(group.groupKey as Parameters<typeof t>[0])}
-            </p>
+        {/* ── Nav ── */}
+        <nav className="flex-1 overflow-y-auto py-4" style={{ padding: isOpen ? '1rem 0.5rem' : '1rem 0.375rem' }}>
+          {NAV_GROUPS.map((group, groupIndex) => (
+            <div key={group.groupKey}>
+              {groupIndex > 0 && <div className="my-3 h-px bg-border" />}
 
-            {/* Items */}
-            <ul className="space-y-0.5">
-              {group.items.map((item) => {
-                const active = isActive(item.href);
-                return (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className={`flex items-center gap-3 rounded-lg px-2.5 py-2.5 text-[13px] font-medium transition-colors ${
-                        active
-                          ? 'bg-secondary text-foreground'
-                          : 'text-foreground hover:bg-muted'
-                      }`}
-                    >
-                      <span className={active ? 'text-foreground' : 'text-muted-foreground'}>
-                        {item.icon}
-                      </span>
-                      <span className="truncate">
-                        {t(item.labelKey as Parameters<typeof t>[0])}
-                      </span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        ))}
-      </nav>
-    </aside>
+              {isOpen && (
+                <p className="mb-1.5 px-2 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+                  {t(group.groupKey as Parameters<typeof t>[0])}
+                </p>
+              )}
+
+              <ul className="space-y-0.5">
+                {group.items.map((item) => {
+                  const active = isActive(item.href);
+                  return (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        title={!isOpen ? t(item.labelKey as Parameters<typeof t>[0]) : undefined}
+                        onClick={() => { if (window.innerWidth < 1024) close(); }}
+                        className={[
+                          'flex items-center rounded-lg text-[13px] font-medium transition-colors',
+                          isOpen ? 'gap-3 px-2.5 py-2' : 'justify-center p-2',
+                          active ? 'bg-secondary text-foreground' : 'text-foreground hover:bg-muted',
+                        ].join(' ')}
+                      >
+                        <span className={`flex-shrink-0 ${active ? 'text-primary' : 'text-muted-foreground'}`}>
+                          {item.icon}
+                        </span>
+                        {isOpen && (
+                          <span className="truncate">
+                            {t(item.labelKey as Parameters<typeof t>[0])}
+                          </span>
+                        )}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
+        </nav>
+      </aside>
+    </>
   );
 }
