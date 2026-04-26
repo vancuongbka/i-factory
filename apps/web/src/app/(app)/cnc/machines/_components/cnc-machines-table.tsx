@@ -8,11 +8,11 @@ import { useCncMachines, useDeleteCncMachine } from '@/hooks/use-cnc-machines';
 import type { CncMachineResponse } from '@i-factory/api-types';
 
 const STATUS_STYLES: Record<CncMachineStatus, string> = {
-  [CncMachineStatus.RUNNING]:     'bg-green-100 text-green-700',
-  [CncMachineStatus.IDLE]:        'bg-gray-100 text-gray-600',
-  [CncMachineStatus.SETUP]:       'bg-blue-100 text-blue-700',
-  [CncMachineStatus.ERROR]:       'bg-red-100 text-red-700',
-  [CncMachineStatus.MAINTENANCE]: 'bg-orange-100 text-orange-700',
+  [CncMachineStatus.RUNNING]:     'bg-green-100 text-green-800  dark:bg-green-900/60  dark:text-green-300',
+  [CncMachineStatus.IDLE]:        'bg-gray-100 text-gray-700   dark:bg-gray-800   dark:text-gray-400',
+  [CncMachineStatus.SETUP]:       'bg-blue-100 text-blue-800   dark:bg-blue-900/60   dark:text-blue-300',
+  [CncMachineStatus.ERROR]:       'bg-red-100 text-red-800     dark:bg-red-900/60    dark:text-red-400',
+  [CncMachineStatus.MAINTENANCE]: 'bg-orange-100 text-orange-800 dark:bg-orange-900/60 dark:text-orange-300',
 };
 
 export function CncMachinesTable() {

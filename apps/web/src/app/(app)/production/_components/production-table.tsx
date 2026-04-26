@@ -9,12 +9,12 @@ import { useProductionOrders, useDeleteProductionOrder } from '@/hooks/use-produ
 import { useConfirmDialog } from '@/hooks/use-confirm-dialog';
 
 const STATUS_STYLES: Record<ProductionStatus, string> = {
-  [ProductionStatus.DRAFT]:       'bg-gray-100 text-gray-700',
-  [ProductionStatus.PLANNED]:     'bg-blue-100 text-blue-700',
-  [ProductionStatus.IN_PROGRESS]: 'bg-yellow-100 text-yellow-800',
-  [ProductionStatus.PAUSED]:      'bg-orange-100 text-orange-700',
-  [ProductionStatus.COMPLETED]:   'bg-green-100 text-green-700',
-  [ProductionStatus.CANCELLED]:   'bg-gray-100 text-gray-400',
+  [ProductionStatus.DRAFT]:       'bg-gray-100 text-gray-800   dark:bg-gray-800   dark:text-gray-300',
+  [ProductionStatus.PLANNED]:     'bg-blue-100 text-blue-800   dark:bg-blue-900/60   dark:text-blue-300',
+  [ProductionStatus.IN_PROGRESS]: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/60 dark:text-yellow-300',
+  [ProductionStatus.PAUSED]:      'bg-orange-100 text-orange-800 dark:bg-orange-900/60 dark:text-orange-300',
+  [ProductionStatus.COMPLETED]:   'bg-green-100 text-green-800  dark:bg-green-900/60  dark:text-green-300',
+  [ProductionStatus.CANCELLED]:   'bg-gray-100 text-gray-600   dark:bg-gray-800   dark:text-gray-500',
 };
 
 function formatDate(iso: string) {

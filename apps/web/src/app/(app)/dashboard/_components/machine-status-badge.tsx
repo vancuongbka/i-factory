@@ -1,8 +1,8 @@
 import type { MachineStatusType } from './dashboard-mock-data';
 
 const STATUS_STYLES: Record<MachineStatusType, string> = {
-  healthy: 'bg-green-100 text-green-700',
-  lowPerformance: 'bg-orange-100 text-orange-700',
+  healthy:        'bg-green-100 text-green-800  dark:bg-green-900/60  dark:text-green-300',
+  lowPerformance: 'bg-orange-100 text-orange-800 dark:bg-orange-900/60 dark:text-orange-300',
 };
 
 interface MachineStatusBadgeProps {

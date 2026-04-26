@@ -19,10 +19,10 @@ interface JobState extends ReportJobResponse {
 
 function StatusBadge({ status }: { status: string }) {
   const colors: Record<string, string> = {
-    queued: 'bg-amber-100 text-amber-800',
-    processing: 'bg-blue-100 text-blue-800',
-    completed: 'bg-green-100 text-green-800',
-    failed: 'bg-red-100 text-red-800',
+    queued:     'bg-amber-100 text-amber-800  dark:bg-amber-900/60  dark:text-amber-300',
+    processing: 'bg-blue-100 text-blue-800   dark:bg-blue-900/60   dark:text-blue-300',
+    completed:  'bg-green-100 text-green-800  dark:bg-green-900/60  dark:text-green-300',
+    failed:     'bg-red-100 text-red-800     dark:bg-red-900/60    dark:text-red-400',
   };
   return (
     <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${colors[status] ?? 'bg-muted text-muted-foreground'}`}>

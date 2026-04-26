@@ -8,13 +8,13 @@ import { useWorkOrders } from '@/hooks/use-work-orders';
 import type { WorkOrderWithSteps } from '@/lib/api-client';
 
 const STATUS_STYLES: Record<WorkOrderStatus, string> = {
-  [WorkOrderStatus.PENDING]:     'bg-gray-100 text-gray-700',
-  [WorkOrderStatus.ASSIGNED]:    'bg-blue-100 text-blue-700',
-  [WorkOrderStatus.IN_PROGRESS]: 'bg-yellow-100 text-yellow-800',
-  [WorkOrderStatus.ON_HOLD]:     'bg-orange-100 text-orange-700',
-  [WorkOrderStatus.COMPLETED]:   'bg-green-100 text-green-700',
-  [WorkOrderStatus.REJECTED]:    'bg-red-100 text-red-700',
-  [WorkOrderStatus.CANCELLED]:   'bg-gray-100 text-gray-400',
+  [WorkOrderStatus.PENDING]:     'bg-gray-100 text-gray-800   dark:bg-gray-800   dark:text-gray-300',
+  [WorkOrderStatus.ASSIGNED]:    'bg-blue-100 text-blue-800   dark:bg-blue-900/60   dark:text-blue-300',
+  [WorkOrderStatus.IN_PROGRESS]: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/60 dark:text-yellow-300',
+  [WorkOrderStatus.ON_HOLD]:     'bg-orange-100 text-orange-800 dark:bg-orange-900/60 dark:text-orange-300',
+  [WorkOrderStatus.COMPLETED]:   'bg-green-100 text-green-800  dark:bg-green-900/60  dark:text-green-300',
+  [WorkOrderStatus.REJECTED]:    'bg-red-100 text-red-800     dark:bg-red-900/60    dark:text-red-400',
+  [WorkOrderStatus.CANCELLED]:   'bg-gray-100 text-gray-600   dark:bg-gray-800   dark:text-gray-500',
 };
 
 function formatDate(iso: string) {
