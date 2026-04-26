@@ -23,6 +23,10 @@
     "skills": "スキル",
     "erpSync": "ERP同期",
     "menuGroup": "メニュー",
+    "cncGroup": "CNC",
+    "cncMachines": "CNC機械",
+    "cncMonitoring": "ライブ監視",
+    "cncPlanning": "計画",
     "settingsGroup": "設定"
   },
   "topbar": {
@@ -669,6 +673,165 @@
         "processing": "処理中",
         "completed": "完了",
         "failed": "失敗"
+      }
+    }
+  },
+  "cnc": {
+    "machines": {
+      "title": "CNC機械",
+      "pageTitle": "CNC機械 — iFactory",
+      "noResults": "CNC機械が見つかりません。追加して開始してください。",
+      "new": {
+        "title": "CNC機械を登録",
+        "pageTitle": "新規CNC機械 — iFactory"
+      },
+      "fields": {
+        "code": "機械コード",
+        "name": "機械名",
+        "model": "モデル",
+        "maxSpindleRpm": "最大スピンドルRPM",
+        "numberOfAxes": "軸数"
+      },
+      "columns": {
+        "code": "コード",
+        "name": "名称",
+        "model": "モデル",
+        "axes": "軸",
+        "status": "ステータス",
+        "actions": "操作"
+      },
+      "status": {
+        "RUNNING": "稼働中",
+        "IDLE": "待機中",
+        "SETUP": "段取り中",
+        "ERROR": "エラー",
+        "MAINTENANCE": "メンテナンス"
+      },
+      "actions": {
+        "create": "新規機械",
+        "createSubmit": "機械を登録",
+        "creating": "登録中…",
+        "view": "詳細",
+        "delete": "削除",
+        "cancel": "キャンセル",
+        "confirmDelete": "機械 {code} を削除しますか？"
+      },
+      "detail": {
+        "pageTitle": "機械詳細 — iFactory",
+        "downtimeHistory": "ダウンタイム履歴",
+        "notFound": "機械が見つかりません。"
+      }
+    },
+    "schedules": {
+      "title": "日次スケジュール",
+      "pageTitle": "CNCスケジュール — iFactory",
+      "noResults": "スケジュールが見つかりません。",
+      "columns": {
+        "date": "日付",
+        "status": "ステータス",
+        "shifts": "シフト",
+        "actions": "操作"
+      },
+      "status": {
+        "DRAFT": "下書き",
+        "PUBLISHED": "公開済み",
+        "IN_PROGRESS": "進行中",
+        "COMPLETED": "完了",
+        "ARCHIVED": "アーカイブ"
+      },
+      "actions": {
+        "publish": "公開",
+        "delete": "削除"
+      }
+    },
+    "entries": {
+      "status": {
+        "PENDING": "保留中",
+        "SETUP": "段取り中",
+        "RUNNING": "稼働中",
+        "PAUSED": "一時停止",
+        "COMPLETED": "完了",
+        "ERROR": "エラー"
+      }
+    },
+    "downtime": {
+      "title": "機械ダウンタイム",
+      "active": "進行中のインシデント",
+      "noActive": "進行中のダウンタイムはありません。",
+      "noHistory": "ダウンタイム履歴がありません。",
+      "raiseTitle": "ダウンタイムを報告",
+      "resolveTitle": "インシデントを解決",
+      "raising": "報告中…",
+      "resolving": "解決中…",
+      "fields": {
+        "faultCode": "障害コード",
+        "description": "説明",
+        "rootCause": "根本原因",
+        "correctiveAction": "是正措置"
+      },
+      "status": {
+        "active": "進行中",
+        "resolved": "解決済み"
+      },
+      "actions": {
+        "raise": "ダウンタイムを報告",
+        "resolve": "解決済みにする",
+        "cancel": "キャンセル"
+      }
+    },
+    "planning": {
+      "title": "CNC計画",
+      "pageTitle": "CNC計画 — iFactory",
+      "machine": "機械",
+      "noSchedule": "この日付のスケジュールが存在しません。",
+      "createSchedule": "スケジュールを作成",
+      "creatingSchedule": "作成中…",
+      "dragToPlace": "行をクリックまたはドラッグして新規エントリを配置",
+      "form": {
+        "title": "新規スケジュールエントリ",
+        "workOrderId": "作業指示ID",
+        "productionOrderId": "製造オーダーID",
+        "partName": "部品名",
+        "plannedStart": "計画開始",
+        "plannedEnd": "計画終了",
+        "plannedQty": "計画数量",
+        "plannedCycleSeconds": "サイクルタイム（秒）",
+        "plannedSetupMinutes": "段取り時間（分）",
+        "notes": "備考",
+        "submit": "エントリを作成",
+        "submitting": "作成中…",
+        "cancel": "キャンセル",
+        "conflictError": "この機械の既存エントリと時間が重複しています"
+      },
+      "entryDetail": {
+        "start": "開始",
+        "end": "終了",
+        "progress": "進捗",
+        "overrun": "オーバーラン — 数量超過",
+        "advanceStatus": "ステータスを進める",
+        "logs": "生産ログ",
+        "noLogs": "まだ生産ログがありません。",
+        "addLog": "ログを追加",
+        "logQty": "完了数量",
+        "logScrap": "スクラップ数量",
+        "submitLog": "ログを保存",
+        "submitting": "保存中…",
+        "cancel": "キャンセル"
+      }
+    },
+    "monitoring": {
+      "title": "ライブ監視",
+      "pageTitle": "CNC監視 — iFactory",
+      "kpi": {
+        "total": "機械総数",
+        "running": "稼働中",
+        "idle": "待機中",
+        "error": "エラー",
+        "planned": "計画数量",
+        "completed": "完了数量"
+      },
+      "machineCard": {
+        "noEntry": "稼働中のエントリなし"
       }
     }
   },
