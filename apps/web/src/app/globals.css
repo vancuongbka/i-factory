@@ -49,13 +49,13 @@
 
   .dark {
     /* ─── Surfaces ─── */
-    --background: 231 30% 7%;         /* #0a0d18 — deep blue-black, not gray */
+    --background: 231 30% 7%;         /* #0a0d18 — deep blue-black base */
     --foreground: 220 20% 94%;        /* #eceef5 — crisp near-white */
 
-    --card: 231 25% 11%;              /* #141929 — elevated above background */
+    --card: 231 26% 16%;              /* #1c2540 — +9% vs bg, clearly elevated */
     --card-foreground: 220 20% 94%;
 
-    --popover: 231 25% 13%;           /* #181e32 */
+    --popover: 231 26% 18%;           /* #202940 — above card */
     --popover-foreground: 220 20% 94%;
 
     /* ─── Brand ─── */
@@ -63,23 +63,23 @@
     --primary-foreground: 0 0% 100%;
 
     /* ─── Secondary / Muted ─── */
-    --secondary: 231 22% 18%;         /* #1e2440 — hover / selected surface */
+    --secondary: 231 22% 23%;         /* #283050 — hover / selected on card */
     --secondary-foreground: 220 20% 94%;
 
-    --muted: 231 22% 14%;             /* #171d34 — very subtle tinted surface */
-    --muted-foreground: 220 15% 60%;  /* #8892b5 — 4.5:1 on dark bg, readable */
+    --muted: 231 24% 11%;             /* #121828 — just above background */
+    --muted-foreground: 220 15% 62%;  /* #8d97bc — readable on dark surfaces */
 
     /* ─── Accent (nav hover) ─── */
-    --accent: 244 30% 20%;            /* #222550 — dark indigo hover surface */
-    --accent-foreground: 244 76% 78%; /* #a5a8f8 — soft indigo label */
+    --accent: 244 28% 26%;            /* #2a2e5e — indigo-tinted hover */
+    --accent-foreground: 244 76% 80%; /* #ababf9 — soft indigo label */
 
     /* ─── Danger ─── */
     --destructive: 0 86% 62%;         /* #f03c3c — vivid on dark */
     --destructive-foreground: 0 0% 100%;
 
     /* ─── Chrome ─── */
-    --border: 231 22% 22%;            /* #252d4d */
-    --input: 231 22% 22%;
+    --border: 231 22% 28%;            /* #30396a — clearly visible border */
+    --input: 231 22% 28%;
     --ring: 244 76% 65%;
 
     /* ─── Status colors ─── */
