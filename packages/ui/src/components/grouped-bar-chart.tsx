@@ -41,17 +41,17 @@ export function GroupedBarChart({
     <div className={className ?? ''} style={{ width: '100%', height }}>
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data} margin={{ top: 5, right: 16, left: 0, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
           <XAxis
             dataKey={xAxisKey}
-            tick={{ fontSize: 12, fill: 'var(--muted-foreground)' }}
+            tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
             axisLine={false}
             tickLine={false}
           />
           <YAxis
             unit={yAxisUnit}
             domain={yAxisDomain}
-            tick={{ fontSize: 12, fill: 'var(--muted-foreground)' }}
+            tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
             axisLine={false}
             tickLine={false}
           />

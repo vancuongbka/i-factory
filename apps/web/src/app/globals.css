@@ -4,42 +4,85 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;        /* #ffffff */
-    --foreground: 0 0% 0%;          /* #000000 */
-    --card: 0 0% 100%;              /* #ffffff */
-    --card-foreground: 0 0% 0%;     /* #000000 */
-    --primary: 211 100% 47.6%;      /* #0070f3 */
+    /* ─── Surfaces ─── */
+    --background: 220 23% 97%;        /* #f3f5fb — off-white, cool blue tint */
+    --foreground: 224 65% 8%;         /* #0b1027 — near-black with blue undertone */
+
+    --card: 0 0% 100%;                /* #ffffff */
+    --card-foreground: 224 65% 8%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 65% 8%;
+
+    /* ─── Brand ─── */
+    --primary: 244 76% 60%;           /* #4f46e5 — deep indigo */
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 89.8%;        /* #e5e5e5 */
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;            /* #f5f5f5 */
-    --muted-foreground: 0 0% 40%;   /* #666666 */
-    --border: 0 0% 91.8%;           /* #eaeaea */
-    --input: 0 0% 91.8%;            /* #eaeaea */
-    --ring: 211 100% 47.6%;         /* #0070f3 */
+
+    /* ─── Secondary / Muted ─── */
+    --secondary: 220 13% 89%;         /* #dde1ef — blue-tinted light gray */
+    --secondary-foreground: 224 65% 8%;
+
+    --muted: 220 14% 93%;             /* #e8ebf5 — subtle tinted surface */
+    --muted-foreground: 220 9% 42%;   /* #60697e — 4.6:1 contrast, always readable */
+
+    /* ─── Accent (nav hover, list item hover) ─── */
+    --accent: 244 76% 95%;            /* #f0effe — lightest indigo wash */
+    --accent-foreground: 244 76% 38%; /* #1e1aa0 — deep indigo on accent */
+
+    /* ─── Danger ─── */
+    --destructive: 0 86% 54%;         /* #e51c1c — vivid red */
+    --destructive-foreground: 0 0% 100%;
+
+    /* ─── Chrome ─── */
+    --border: 220 14% 86%;            /* #d1d6e8 */
+    --input: 220 14% 86%;
+    --ring: 244 76% 60%;
+
     --radius: 0.375rem;
-    /* Status colors — full saturation, no pastels */
-    --status-critical: 0 100% 60%;      /* #ff3333 */
-    --status-warning: 40 100% 50%;      /* #ffaa00 */
-    --status-running: 143 100% 43.3%;   /* #00dd55 */
-    --status-planned: 220 100% 70%;     /* #6699ff */
+
+    /* ─── Status colors ─── */
+    --status-critical: 0 100% 60%;
+    --status-warning: 40 100% 50%;
+    --status-running: 143 100% 43.3%;
+    --status-planned: 220 100% 70%;
   }
 
   .dark {
-    --background: 0 0% 10.2%;       /* #1a1a1a — charcoal, not pure black */
-    --foreground: 0 0% 92.9%;       /* #ededed */
-    --card: 0 0% 14.1%;             /* #242424 — elevated above background */
-    --card-foreground: 0 0% 92.9%;
-    --primary: 211 100% 47.6%;      /* #0070f3 */
+    /* ─── Surfaces ─── */
+    --background: 231 30% 7%;         /* #0a0d18 — deep blue-black, not gray */
+    --foreground: 220 20% 94%;        /* #eceef5 — crisp near-white */
+
+    --card: 231 25% 11%;              /* #141929 — elevated above background */
+    --card-foreground: 220 20% 94%;
+
+    --popover: 231 25% 13%;           /* #181e32 */
+    --popover-foreground: 220 20% 94%;
+
+    /* ─── Brand ─── */
+    --primary: 244 76% 65%;           /* #6366f1 — brightened for dark bg contrast */
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 17.6%;        /* #2d2d2d — active/selected */
-    --secondary-foreground: 0 0% 92.9%;
-    --muted: 0 0% 12.9%;            /* #212121 — hover background */
-    --muted-foreground: 0 0% 53.3%; /* #888888 */
-    --border: 0 0% 20%;             /* #333333 */
-    --input: 0 0% 20%;              /* #333333 */
-    --ring: 211 100% 47.6%;         /* #0070f3 */
-    /* Status colors unchanged in dark mode */
+
+    /* ─── Secondary / Muted ─── */
+    --secondary: 231 22% 18%;         /* #1e2440 — hover / selected surface */
+    --secondary-foreground: 220 20% 94%;
+
+    --muted: 231 22% 14%;             /* #171d34 — very subtle tinted surface */
+    --muted-foreground: 220 15% 60%;  /* #8892b5 — 4.5:1 on dark bg, readable */
+
+    /* ─── Accent (nav hover) ─── */
+    --accent: 244 30% 20%;            /* #222550 — dark indigo hover surface */
+    --accent-foreground: 244 76% 78%; /* #a5a8f8 — soft indigo label */
+
+    /* ─── Danger ─── */
+    --destructive: 0 86% 62%;         /* #f03c3c — vivid on dark */
+    --destructive-foreground: 0 0% 100%;
+
+    /* ─── Chrome ─── */
+    --border: 231 22% 22%;            /* #252d4d */
+    --input: 231 22% 22%;
+    --ring: 244 76% 65%;
+
+    /* ─── Status colors ─── */
     --status-critical: 0 100% 60%;
     --status-warning: 40 100% 50%;
     --status-running: 143 100% 43.3%;
