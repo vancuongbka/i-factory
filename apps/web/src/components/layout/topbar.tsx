@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
+import { LiveIndicator } from '@i-factory/ui';
 import { useAuth } from '@/providers/auth-provider';
 import { CommandPalette } from '@/components/command-palette';
 import { ThemeSwitch } from '@/components/theme-switch';
@@ -120,7 +121,7 @@ export function Topbar() {
 
   return (
     <>
-    <header className="flex h-16 flex-shrink-0 items-center justify-between border-b bg-card px-4">
+    <header className="flex h-16 flex-shrink-0 items-center justify-between border-b border-border bg-card/80 px-4 shadow-[0_4px_20px_rgba(0,0,0,0.03)] backdrop-blur-md dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)] supports-[backdrop-filter]:bg-card/70">
       {/* ── Left ── */}
       <div className="flex items-center gap-2">
         {/* Sidebar toggle */}
@@ -161,6 +162,13 @@ export function Topbar() {
 
       {/* ── Right ── */}
       <div className="flex items-center gap-2">
+        {/* Live system status */}
+        <LiveIndicator
+          online
+          label={tTopbar('online')}
+          className="hidden rounded-full border border-border bg-background/60 px-3 py-1.5 sm:inline-flex"
+        />
+
         {/* Language switcher */}
         <div className="relative">
           <button

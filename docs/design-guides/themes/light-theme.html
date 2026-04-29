@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>iFactory MES Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-high": "#eae6f4",
+                      "tertiary-fixed": "#ffdbcc",
+                      "primary-fixed-dim": "#c3c0ff",
+                      "surface-container-low": "#f5f2ff",
+                      "surface-container": "#f0ecf9",
+                      "surface": "#fcf8ff",
+                      "on-surface-variant": "#464555",
+                      "surface-bright": "#fcf8ff",
+                      "surface-tint": "#4d44e3",
+                      "outline-variant": "#c7c4d8",
+                      "surface-dim": "#dcd8e5",
+                      "background": "#fcf8ff",
+                      "secondary-fixed": "#d3e4fe",
+                      "on-error": "#ffffff",
+                      "tertiary": "#7e3000",
+                      "on-tertiary": "#ffffff",
+                      "inverse-surface": "#302f39",
+                      "primary-fixed": "#e2dfff",
+                      "on-primary-fixed-variant": "#3323cc",
+                      "error": "#ba1a1a",
+                      "surface-container-highest": "#e4e1ee",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed-dim": "#ffb695",
+                      "primary-container": "#4f46e5",
+                      "on-secondary-container": "#54647a",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary-fixed-variant": "#7b2f00",
+                      "outline": "#777587",
+                      "on-secondary-fixed": "#0b1c30",
+                      "on-background": "#1b1b24",
+                      "on-secondary-fixed-variant": "#38485d",
+                      "on-primary-container": "#dad7ff",
+                      "secondary-container": "#d0e1fb",
+                      "on-primary": "#ffffff",
+                      "inverse-on-surface": "#f3effc",
+                      "on-primary-fixed": "#0f0069",
+                      "inverse-primary": "#c3c0ff",
+                      "primary": "#3525cd",
+                      "on-tertiary-container": "#ffd2be",
+                      "secondary": "#505f76",
+                      "on-secondary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "surface-variant": "#e4e1ee",
+                      "on-tertiary-fixed": "#351000",
+                      "tertiary-container": "#a44100",
+                      "on-surface": "#1b1b24",
+                      "secondary-fixed-dim": "#b7c8e1"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "component-padding-x": "12px",
+                      "margin": "24px",
+                      "component-padding-y": "8px",
+                      "gutter": "16px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "body-base": ["Inter"],
+                      "data-tabular": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "label-caps": ["Inter"]
+              },
+              "fontSize": {
+                      "body-base": ["14px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+                      "data-tabular": ["13px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "500"}],
+                      "headline-md": ["20px", {"lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "display-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-caps": ["11px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-surface font-body-base text-on-background selection:bg-primary-fixed selection:text-primary overflow-x-hidden">
+<!-- Top Navigation Shell -->
+<header class="bg-white/80 dark:bg-slate-950/80 backdrop-blur-md text-slate-700 dark:text-slate-200 docked full-width top-0 z-50 border-b border-slate-200 dark:border-slate-800 shadow-[0_4px_20px_rgba(0,0,0,0.03)] fixed top-0 w-full">
+<div class="flex justify-between items-center w-full px-6 h-16">
+<div class="flex items-center gap-8">
+<span class="text-xl font-black tracking-tighter text-slate-900 dark:text-white uppercase">iFactory</span>
+<nav class="hidden md:flex items-center gap-6 h-16">
+<a class="text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 h-full flex items-center px-1 font-medium text-sm" href="#">Dashboard</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors duration-200 h-full flex items-center px-1 font-medium text-sm" href="#">Production</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors duration-200 h-full flex items-center px-1 font-medium text-sm" href="#">Quality Control</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3 px-4 py-1.5 bg-slate-100 rounded-full border border-slate-200">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+</span>
+<span class="text-xs font-semibold text-slate-600">System Online</span>
+<div class="h-3 w-px bg-slate-300"></div>
+<span class="text-xs font-semibold text-slate-900">Workshop A-1</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="material-symbols-outlined p-2 text-slate-500 hover:bg-slate-50 rounded-full transition-colors">notifications</button>
+<button class="material-symbols-outlined p-2 text-slate-500 hover:bg-slate-50 rounded-full transition-colors">settings</button>
+<div class="h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center overflow-hidden border border-indigo-200">
+<img alt="User Profile" class="h-full w-full object-cover" data-alt="minimalist user avatar of a professional factory manager in a clean technical setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7HLgen3CL6Sqr4Cc228GQtDCxn-hfXXLax6qs5aTBVfG3UQVuh9RDQMHVOyGf6LRqOr9KZbFvrI4nTzk-F020JXg5-3XmvNPQ76Ehh7vIAfGsuB1siWysO5j-aMoOwj2_CYIJDXYmSCjhZZ8G4Q_Fz4uWGbidsvbu7fbcod_xCNttef-r1oG56NxDzvKWfcI5umUpqBvCKzqIdVg065hfHOwEtvcDkMLd298jpVcS9-0oPL0QjMi8Dl5QncRpcOVxTYTr0SooXL8"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Side Navigation Shell -->
+<aside class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-lg border-r border-slate-200 dark:border-slate-800 fixed left-0 top-16 flex flex-col h-[calc(100vh-64px)] w-64 hidden lg:flex">
+<div class="p-6">
+<div class="flex items-center gap-3 mb-8">
+<div class="h-10 w-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-weight="fill">factory</span>
+</div>
+<div>
+<h2 class="text-lg font-bold text-slate-900 dark:text-white">Main Plant</h2>
+<p class="text-[10px] uppercase tracking-wider font-bold text-slate-400">Unit 04 - Sector B</p>
+</div>
+</div>
+<nav class="space-y-1">
+<div class="bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300 border-r-4 border-indigo-600 cursor-pointer flex items-center gap-3 px-4 py-3 transition-all">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-['Inter'] text-xs font-semibold uppercase tracking-wider">Dashboard</span>
+</div>
+<div class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-900/50 cursor-pointer flex items-center gap-3 px-4 py-3 transition-all">
+<span class="material-symbols-outlined">factory</span>
+<span class="font-['Inter'] text-xs font-semibold uppercase tracking-wider">Production</span>
+</div>
+<div class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-900/50 cursor-pointer flex items-center gap-3 px-4 py-3 transition-all">
+<span class="material-symbols-outlined">verified</span>
+<span class="font-['Inter'] text-xs font-semibold uppercase tracking-wider">Quality Control</span>
+</div>
+<div class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-900/50 cursor-pointer flex items-center gap-3 px-4 py-3 transition-all">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-['Inter'] text-xs font-semibold uppercase tracking-wider">Inventory</span>
+</div>
+<div class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-900/50 cursor-pointer flex items-center gap-3 px-4 py-3 transition-all">
+<span class="material-symbols-outlined">build</span>
+<span class="font-['Inter'] text-xs font-semibold uppercase tracking-wider">Maintenance</span>
+</div>
+</nav>
+</div>
+<div class="mt-auto p-4 border-t border-slate-100">
+<div class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-900/50 cursor-pointer flex items-center gap-3 px-4 py-2 transition-all rounded-md">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="text-xs font-semibold">Support</span>
+</div>
+<div class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-900/50 cursor-pointer flex items-center gap-3 px-4 py-2 transition-all rounded-md">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="text-xs font-semibold">Logs</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:pl-64 pt-16 min-h-screen">
+<div class="p-margin max-w-[1600px] mx-auto space-y-gutter">
+<!-- Page Title & Time -->
+<div class="flex justify-between items-end mb-4">
+<div>
+<p class="text-label-caps text-secondary uppercase font-bold tracking-widest mb-1">Operational Overview</p>
+<h1 class="text-display-lg font-display-lg text-on-background">Factory Dashboard</h1>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-tighter">System Time</p>
+<p class="text-headline-md font-headline-md text-primary tracking-tight">14:45:22 <span class="text-xs font-medium text-slate-500">UTC-5</span></p>
+</div>
+</div>
+<!-- Top Row: KPI Scorecards (12-col layout) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- OEE Card -->
+<div class="glass-card p-component-padding-x rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border-l-4 border-l-primary">
+<div class="flex justify-between items-start mb-4">
+<span class="text-label-caps text-secondary">Overall Efficiency (OEE)</span>
+<span class="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-bold">+2.4%</span>
+</div>
+<div class="flex items-baseline gap-2 mb-4">
+<span class="text-display-lg font-display-lg text-primary">88.5%</span>
+<span class="text-xs font-medium text-slate-400">Target 85%</span>
+</div>
+<div class="grid grid-cols-3 gap-2">
+<div class="text-center p-2 bg-slate-50 rounded">
+<p class="text-[10px] text-slate-500 font-bold uppercase">AVAIL</p>
+<p class="text-xs font-bold text-on-background">92%</p>
+</div>
+<div class="text-center p-2 bg-slate-50 rounded">
+<p class="text-[10px] text-slate-500 font-bold uppercase">PERF</p>
+<p class="text-xs font-bold text-on-background">96%</p>
+</div>
+<div class="text-center p-2 bg-slate-50 rounded">
+<p class="text-[10px] text-slate-500 font-bold uppercase">QUAL</p>
+<p class="text-xs font-bold text-on-background">99%</p>
+</div>
+</div>
+</div>
+<!-- Output Card -->
+<div class="glass-card p-component-padding-x rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+<div class="flex justify-between items-start mb-4">
+<span class="text-label-caps text-secondary">Total Output (Units)</span>
+<span class="material-symbols-outlined text-primary text-lg">trending_up</span>
+</div>
+<div class="flex items-baseline gap-2 mb-2">
+<span class="text-display-lg font-display-lg text-on-background">12,450</span>
+<span class="text-xs font-medium text-slate-400">/ 15k</span>
+</div>
+<div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden mb-2">
+<div class="bg-primary h-full w-[83%] rounded-full"></div>
+</div>
+<p class="text-[10px] text-slate-500 font-medium">83% of daily shift target completed</p>
+</div>
+<!-- Defect Rate Card -->
+<div class="glass-card p-component-padding-x rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+<div class="flex justify-between items-start mb-2">
+<span class="text-label-caps text-secondary text-error">Quality Defect Rate</span>
+<span class="text-[10px] bg-rose-100 text-rose-700 px-2 py-0.5 rounded-full font-bold">-0.8%</span>
+</div>
+<div class="flex items-baseline gap-2 mb-2">
+<span class="text-display-lg font-display-lg text-on-background">0.42%</span>
+<span class="text-xs font-medium text-slate-400">Target &lt; 0.5%</span>
+</div>
+<div class="h-10 flex items-end gap-1 px-1">
+<div class="bg-indigo-200 w-full h-[40%] rounded-t-sm"></div>
+<div class="bg-indigo-200 w-full h-[60%] rounded-t-sm"></div>
+<div class="bg-indigo-200 w-full h-[30%] rounded-t-sm"></div>
+<div class="bg-indigo-600 w-full h-[20%] rounded-t-sm"></div>
+<div class="bg-indigo-200 w-full h-[50%] rounded-t-sm"></div>
+<div class="bg-indigo-200 w-full h-[40%] rounded-t-sm"></div>
+</div>
+</div>
+<!-- Downtime Card -->
+<div class="glass-card p-component-padding-x rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+<div class="flex justify-between items-start mb-4">
+<span class="text-label-caps text-secondary">Today's Downtime</span>
+<span class="material-symbols-outlined text-amber-500 text-lg">schedule</span>
+</div>
+<div class="flex items-baseline gap-2 mb-2">
+<span class="text-display-lg font-display-lg text-on-background">18<span class="text-xl">m</span></span>
+<span class="text-xs font-medium text-slate-400">Across 3 Events</span>
+</div>
+<div class="flex items-center gap-2 text-rose-500 font-bold text-[10px] uppercase">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                        Elevated Risk: Line B-4
+                    </div>
+</div>
+</div>
+<!-- Middle Section: 7:5 Split -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Machine Status Grid (7 Columns) -->
+<div class="col-span-12 lg:col-span-7 space-y-4">
+<div class="flex justify-between items-center">
+<h3 class="text-headline-md font-headline-md text-on-background">Machine Status Grid</h3>
+<div class="flex gap-2">
+<span class="flex items-center gap-1 text-[10px] font-bold text-slate-400 uppercase"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Running</span>
+<span class="flex items-center gap-1 text-[10px] font-bold text-slate-400 uppercase"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Idle</span>
+<span class="flex items-center gap-1 text-[10px] font-bold text-slate-400 uppercase"><span class="w-2 h-2 rounded-full bg-rose-500"></span> Offline</span>
+</div>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+<!-- Machine Cards (Loop-style generation) -->
+<div class="glass-card p-3 rounded-lg border-t-4 border-t-emerald-500 hover:shadow-lg transition-shadow cursor-pointer group">
+<div class="flex justify-between mb-2">
+<span class="text-[10px] font-bold text-slate-400">CNC-01</span>
+<span class="material-symbols-outlined text-slate-300 group-hover:text-primary">info</span>
+</div>
+<p class="text-xs font-bold text-on-background mb-3 truncate">CHASSIS_BRKT_V3</p>
+<div class="flex items-center justify-center py-2 relative">
+<svg class="w-16 h-16 transform -rotate-90">
+<circle class="text-slate-100" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-emerald-500" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175" stroke-dashoffset="35" stroke-width="4"></circle>
+</svg>
+<span class="absolute text-[11px] font-black">94%</span>
+</div>
+<p class="text-center text-[10px] font-bold text-slate-500 mt-2">124 pcs/hr</p>
+</div>
+<div class="glass-card p-3 rounded-lg border-t-4 border-t-emerald-500 hover:shadow-lg transition-shadow cursor-pointer">
+<div class="flex justify-between mb-2">
+<span class="text-[10px] font-bold text-slate-400">CNC-02</span>
+<span class="material-symbols-outlined text-slate-300">info</span>
+</div>
+<p class="text-xs font-bold text-on-background mb-3 truncate">CHASSIS_BRKT_V3</p>
+<div class="flex items-center justify-center py-2 relative">
+<svg class="w-16 h-16 transform -rotate-90">
+<circle class="text-slate-100" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-emerald-500" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175" stroke-dashoffset="60" stroke-width="4"></circle>
+</svg>
+<span class="absolute text-[11px] font-black">82%</span>
+</div>
+<p class="text-center text-[10px] font-bold text-slate-500 mt-2">108 pcs/hr</p>
+</div>
+<div class="glass-card p-3 rounded-lg border-t-4 border-t-amber-500 hover:shadow-lg transition-shadow cursor-pointer">
+<div class="flex justify-between mb-2">
+<span class="text-[10px] font-bold text-slate-400">PR-44</span>
+<span class="material-symbols-outlined text-slate-300">info</span>
+</div>
+<p class="text-xs font-bold text-on-background mb-3 truncate">VALVE_CAP_EXT</p>
+<div class="flex items-center justify-center py-2 relative opacity-50">
+<svg class="w-16 h-16 transform -rotate-90">
+<circle class="text-slate-100" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-amber-500" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175" stroke-dashoffset="175" stroke-width="4"></circle>
+</svg>
+<span class="absolute text-[11px] font-black">IDLE</span>
+</div>
+<p class="text-center text-[10px] font-bold text-slate-500 mt-2">Material Req.</p>
+</div>
+<div class="glass-card p-3 rounded-lg border-t-4 border-t-rose-500 hover:shadow-lg transition-shadow cursor-pointer">
+<div class="flex justify-between mb-2">
+<span class="text-[10px] font-bold text-slate-400">LT-09</span>
+<span class="material-symbols-outlined text-slate-300">info</span>
+</div>
+<p class="text-xs font-bold text-on-background mb-3 truncate">GEAR_PINION_9</p>
+<div class="flex items-center justify-center py-2 relative">
+<svg class="w-16 h-16 transform -rotate-90">
+<circle class="text-slate-100" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-rose-500" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175" stroke-dashoffset="175" stroke-width="4"></circle>
+</svg>
+<span class="absolute text-[11px] font-black text-rose-600">OFF</span>
+</div>
+<p class="text-center text-[10px] font-bold text-rose-500 mt-2 italic">Maintenance</p>
+</div>
+<!-- Row 2 -->
+<div class="glass-card p-3 rounded-lg border-t-4 border-t-emerald-500">
+<div class="flex justify-between mb-2">
+<span class="text-[10px] font-bold text-slate-400">CNC-03</span>
+</div>
+<p class="text-xs font-bold text-on-background mb-3 truncate">CHASSIS_BRKT_V3</p>
+<div class="flex items-center justify-center py-2 relative">
+<span class="absolute text-[11px] font-black">98%</span>
+<svg class="w-16 h-16 transform -rotate-90"><circle class="text-slate-100" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="4"></circle><circle class="text-emerald-500" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175" stroke-dashoffset="10" stroke-width="4"></circle></svg>
+</div>
+</div>
+<div class="glass-card p-3 rounded-lg border-t-4 border-t-emerald-500">
+<p class="text-[10px] font-bold text-slate-400">CNC-04</p>
+<p class="text-xs font-bold text-on-background mb-3 truncate">CHASSIS_BRKT_V3</p>
+<div class="flex items-center justify-center py-2 relative"><span class="absolute text-[11px] font-black">91%</span><svg class="w-16 h-16 transform -rotate-90"><circle class="text-slate-100" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="4"></circle><circle class="text-emerald-500" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175" stroke-dashoffset="20" stroke-width="4"></circle></svg></div>
+</div>
+<div class="glass-card p-3 rounded-lg border-t-4 border-t-emerald-500">
+<p class="text-[10px] font-bold text-slate-400">CNC-05</p>
+<p class="text-xs font-bold text-on-background mb-3 truncate">HUB_WHL_42</p>
+<div class="flex items-center justify-center py-2 relative"><span class="absolute text-[11px] font-black">88%</span><svg class="w-16 h-16 transform -rotate-90"><circle class="text-slate-100" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="4"></circle><circle class="text-emerald-500" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175" stroke-dashoffset="30" stroke-width="4"></circle></svg></div>
+</div>
+<div class="glass-card p-3 rounded-lg border-t-4 border-t-amber-500">
+<p class="text-[10px] font-bold text-slate-400">LT-10</p>
+<p class="text-xs font-bold text-on-background mb-3 truncate">N/A</p>
+<div class="flex items-center justify-center py-2 relative opacity-50"><span class="absolute text-[11px] font-black">IDLE</span><svg class="w-16 h-16 transform -rotate-90"><circle class="text-slate-100" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="4"></circle><circle class="text-amber-500" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175" stroke-dashoffset="175" stroke-width="4"></circle></svg></div>
+</div>
+<!-- Row 3 -->
+<div class="glass-card p-3 rounded-lg border-t-4 border-t-emerald-500">
+<p class="text-[10px] font-bold text-slate-400">CNC-06</p>
+<p class="text-xs font-bold text-on-background mb-3 truncate">HUB_WHL_42</p>
+<div class="flex items-center justify-center py-2 relative"><span class="absolute text-[11px] font-black">95%</span><svg class="w-16 h-16 transform -rotate-90"><circle class="text-slate-100" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="4"></circle><circle class="text-emerald-500" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175" stroke-dashoffset="15" stroke-width="4"></circle></svg></div>
+</div>
+<div class="glass-card p-3 rounded-lg border-t-4 border-t-emerald-500">
+<p class="text-[10px] font-bold text-slate-400">PR-45</p>
+<p class="text-xs font-bold text-on-background mb-3 truncate">VALVE_CAP_EXT</p>
+<div class="flex items-center justify-center py-2 relative"><span class="absolute text-[11px] font-black">78%</span><svg class="w-16 h-16 transform -rotate-90"><circle class="text-slate-100" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="4"></circle><circle class="text-emerald-500" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175" stroke-dashoffset="50" stroke-width="4"></circle></svg></div>
+</div>
+<div class="glass-card p-3 rounded-lg border-t-4 border-t-emerald-500">
+<p class="text-[10px] font-bold text-slate-400">PR-46</p>
+<p class="text-xs font-bold text-on-background mb-3 truncate">VALVE_CAP_EXT</p>
+<div class="flex items-center justify-center py-2 relative"><span class="absolute text-[11px] font-black">81%</span><svg class="w-16 h-16 transform -rotate-90"><circle class="text-slate-100" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="4"></circle><circle class="text-emerald-500" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175" stroke-dashoffset="40" stroke-width="4"></circle></svg></div>
+</div>
+<div class="glass-card p-3 rounded-lg border-t-4 border-t-emerald-500">
+<p class="text-[10px] font-bold text-slate-400">LT-11</p>
+<p class="text-xs font-bold text-on-background mb-3 truncate">GEAR_PINION_9</p>
+<div class="flex items-center justify-center py-2 relative"><span class="absolute text-[11px] font-black">84%</span><svg class="w-16 h-16 transform -rotate-90"><circle class="text-slate-100" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="4"></circle><circle class="text-emerald-500" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175" stroke-dashoffset="35" stroke-width="4"></circle></svg></div>
+</div>
+</div>
+</div>
+<!-- Real-time Alarms (5 Columns) -->
+<div class="col-span-12 lg:col-span-5 space-y-4">
+<div class="flex justify-between items-center">
+<h3 class="text-headline-md font-headline-md text-on-background">Live Alerts</h3>
+<button class="text-[10px] font-bold text-primary uppercase hover:underline">View All History</button>
+</div>
+<div class="glass-card rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] h-[520px] flex flex-col">
+<div class="p-4 border-b border-slate-100 bg-slate-50/50 flex gap-2">
+<span class="px-3 py-1 bg-white text-primary text-[10px] font-bold rounded-full border border-slate-200">All (24)</span>
+<span class="px-3 py-1 bg-rose-50 text-rose-600 text-[10px] font-bold rounded-full">Critical (2)</span>
+<span class="px-3 py-1 bg-amber-50 text-amber-600 text-[10px] font-bold rounded-full">Warning (5)</span>
+</div>
+<div class="flex-1 overflow-y-auto divide-y divide-slate-100">
+<!-- Alert Item 1 -->
+<div class="p-4 bg-rose-50/30 border-l-4 border-l-rose-500 flex items-start gap-4">
+<span class="material-symbols-outlined text-rose-500 mt-1">error</span>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h4 class="text-body-base font-bold text-on-background">Critical: Spindle Overheat</h4>
+<span class="text-[10px] text-slate-400 font-medium">2m ago</span>
+</div>
+<p class="text-xs text-slate-600 mb-3">Machine CNC-04 reported temp 98°C. Automatic safety shutdown initiated.</p>
+<div class="flex gap-2">
+<button class="bg-rose-600 text-white text-[10px] font-bold px-3 py-1.5 rounded hover:bg-rose-700 transition-colors uppercase">Acknowledge</button>
+<button class="bg-white border border-slate-200 text-slate-600 text-[10px] font-bold px-3 py-1.5 rounded hover:bg-slate-50 transition-colors uppercase">Details</button>
+</div>
+</div>
+</div>
+<!-- Alert Item 2 -->
+<div class="p-4 border-l-4 border-l-amber-500 flex items-start gap-4">
+<span class="material-symbols-outlined text-amber-500 mt-1">warning</span>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h4 class="text-body-base font-bold text-on-background">Warning: Low Coolant</h4>
+<span class="text-[10px] text-slate-400 font-medium">12m ago</span>
+</div>
+<p class="text-xs text-slate-600 mb-3">Line B Reservoir #3 is below 15%. Refill required within 60 mins.</p>
+<div class="flex gap-2">
+<button class="bg-white border border-slate-200 text-slate-600 text-[10px] font-bold px-3 py-1.5 rounded hover:bg-slate-50 transition-colors uppercase">Acknowledge</button>
+</div>
+</div>
+</div>
+<!-- Alert Item 3 -->
+<div class="p-4 border-l-4 border-l-indigo-400 flex items-start gap-4">
+<span class="material-symbols-outlined text-indigo-400 mt-1">info</span>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h4 class="text-body-base font-bold text-on-background">Maintenance Reminder</h4>
+<span class="text-[10px] text-slate-400 font-medium">1h ago</span>
+</div>
+<p class="text-xs text-slate-600 mb-3">PR-45 scheduled for filter replacement in next 8 operating hours.</p>
+<div class="flex gap-2">
+<button class="bg-white border border-slate-200 text-slate-600 text-[10px] font-bold px-3 py-1.5 rounded hover:bg-slate-50 transition-colors uppercase">Acknowledge</button>
+</div>
+</div>
+</div>
+<!-- Alert Item 4 -->
+<div class="p-4 border-l-4 border-l-amber-500 flex items-start gap-4 opacity-70">
+<span class="material-symbols-outlined text-amber-500 mt-1">sensors_off</span>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h4 class="text-body-base font-bold text-on-background">Sensor Timeout</h4>
+<span class="text-[10px] text-slate-400 font-medium">2h ago</span>
+</div>
+<p class="text-xs text-slate-600 mb-2">IO Link Module 04-A lost connectivity temporarily. Auto-restored.</p>
+<span class="text-[10px] font-bold text-emerald-600 uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">check_circle</span> Resolved
+                                    </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Row: Multi-axis Chart Visualization -->
+<div class="glass-card p-6 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h3 class="text-headline-md font-headline-md text-on-background">Hourly Performance Trend</h3>
+<p class="text-xs text-slate-500">Output volume vs. OEE percentage per hour</p>
+</div>
+<div class="flex gap-6">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-indigo-600 rounded-sm"></span>
+<span class="text-xs font-bold text-slate-600">Output</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 border-2 border-primary rounded-full"></span>
+<span class="text-xs font-bold text-slate-600">OEE %</span>
+</div>
+</div>
+</div>
+<div class="relative h-64 w-full flex items-end justify-between px-4 pb-8 border-b border-l border-slate-100">
+<!-- Grid Lines -->
+<div class="absolute inset-x-0 top-0 h-px bg-slate-50"></div>
+<div class="absolute inset-x-0 top-1/4 h-px bg-slate-50"></div>
+<div class="absolute inset-x-0 top-1/2 h-px bg-slate-50"></div>
+<div class="absolute inset-x-0 top-3/4 h-px bg-slate-50"></div>
+<!-- Chart Bars and Lines simulation -->
+<div class="relative flex flex-col items-center gap-2 w-12 group">
+<div class="bg-indigo-100 w-8 h-32 rounded-t-sm group-hover:bg-indigo-200 transition-colors"></div>
+<span class="text-[10px] font-bold text-slate-400 absolute -bottom-6">08:00</span>
+</div>
+<div class="relative flex flex-col items-center gap-2 w-12 group">
+<div class="bg-indigo-100 w-8 h-40 rounded-t-sm group-hover:bg-indigo-200 transition-colors"></div>
+<span class="text-[10px] font-bold text-slate-400 absolute -bottom-6">09:00</span>
+</div>
+<div class="relative flex flex-col items-center gap-2 w-12 group">
+<div class="bg-indigo-600 w-8 h-48 rounded-t-sm"></div>
+<span class="text-[10px] font-bold text-slate-400 absolute -bottom-6">10:00</span>
+</div>
+<div class="relative flex flex-col items-center gap-2 w-12 group">
+<div class="bg-indigo-100 w-8 h-44 rounded-t-sm group-hover:bg-indigo-200 transition-colors"></div>
+<span class="text-[10px] font-bold text-slate-400 absolute -bottom-6">11:00</span>
+</div>
+<div class="relative flex flex-col items-center gap-2 w-12 group">
+<div class="bg-rose-300 w-8 h-20 rounded-t-sm"></div>
+<span class="text-[10px] font-bold text-slate-400 absolute -bottom-6">12:00</span>
+</div>
+<div class="relative flex flex-col items-center gap-2 w-12 group">
+<div class="bg-indigo-600 w-8 h-52 rounded-t-sm"></div>
+<span class="text-[10px] font-bold text-slate-400 absolute -bottom-6">13:00</span>
+</div>
+<div class="relative flex flex-col items-center gap-2 w-12 group">
+<div class="bg-indigo-100 w-8 h-48 rounded-t-sm group-hover:bg-indigo-200 transition-colors"></div>
+<span class="text-[10px] font-bold text-slate-400 absolute -bottom-6">14:00</span>
+</div>
+<!-- Line Overlay Simulation -->
+<svg class="absolute inset-0 h-full w-full pointer-events-none" preserveaspectratio="none">
+<path d="M 60 120 L 150 100 L 240 80 L 330 110 L 420 180 L 510 60 L 600 70" fill="none" stroke="#4f46e5" stroke-width="2"></path>
+<circle cx="60" cy="120" fill="white" r="4" stroke="#4f46e5" stroke-width="2"></circle>
+<circle cx="150" cy="100" fill="white" r="4" stroke="#4f46e5" stroke-width="2"></circle>
+<circle cx="240" cy="80" fill="white" r="4" stroke="#4f46e5" stroke-width="2"></circle>
+<circle cx="330" cy="110" fill="white" r="4" stroke="#4f46e5" stroke-width="2"></circle>
+<circle cx="420" cy="180" fill="white" r="4" stroke="#4f46e5" stroke-width="2"></circle>
+<circle cx="510" cy="60" fill="white" r="4" stroke="#4f46e5" stroke-width="2"></circle>
+<circle cx="600" cy="70" fill="white" r="4" stroke="#4f46e5" stroke-width="2"></circle>
+</svg>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button (FAB) - Suppressed on Dashboard based on context rules -->
+<footer class="lg:pl-64 py-8 border-t border-slate-200">
+<div class="px-margin flex justify-between items-center text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+<span>© 2024 iFactory Industrial Systems</span>
+<div class="flex gap-4">
+<a class="hover:text-primary" href="#">System Integrity</a>
+<a class="hover:text-primary" href="#">Operational Policy</a>
+</div>
+</div>
+</footer>
+</body></html>

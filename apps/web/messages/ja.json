@@ -32,7 +32,15 @@
   "topbar": {
     "searchPlaceholder": "ここで検索...",
     "settings": "設定",
-    "signOut": "サインアウト"
+    "signOut": "サインアウト",
+    "online": "オンライン",
+    "offline": "オフライン",
+    "theme": {
+      "label": "テーマ",
+      "system": "システム",
+      "light": "ライト",
+      "dark": "ダーク"
+    }
   },
   "auth": {
     "signIn": "サインイン",

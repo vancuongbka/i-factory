@@ -32,7 +32,15 @@
   "topbar": {
     "searchPlaceholder": "Search anything here...",
     "settings": "Settings",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "online": "Online",
+    "offline": "Offline",
+    "theme": {
+      "label": "Theme",
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark"
+    }
   },
   "auth": {
     "signIn": "Sign In",

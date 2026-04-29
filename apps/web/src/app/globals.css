@@ -5,7 +5,7 @@
 @layer base {
   :root {
     /* ─── Surfaces ─── */
-    --background: 220 23% 97%;        /* #f3f5fb — off-white, cool blue tint */
+    --background: 270 100% 99%;       /* #fcf8ff — warm off-white, faint violet tint */
     --foreground: 224 65% 8%;         /* #0b1027 — near-black with blue undertone */
 
     --card: 0 0% 100%;                /* #ffffff */
@@ -38,7 +38,11 @@
     --input: 220 14% 86%;
     --ring: 244 76% 60%;
 
-    --radius: 0.375rem;
+    --radius: 0.5rem;
+
+    /* ─── Glass surfaces (KPI cards, dashboard panels) ─── */
+    --card-glass: 0 0% 100%;          /* #ffffff — used at 80% alpha by .glass-card utility */
+    --card-glass-border: 220 14% 90%; /* #e2e8f0 — slate-200 */
 
     /* ─── Status colors ─── */
     --status-critical: 0 100% 60%;
@@ -49,24 +53,24 @@
 
   .dark {
     /* ─── Surfaces ─── */
-    --background: 231 30% 7%;         /* #0a0d18 — deep blue-black base */
+    --background: 222 47% 11%;        /* #0f172a — slate-900, matches dark mockup */
     --foreground: 220 20% 94%;        /* #eceef5 — crisp near-white */
 
-    --card: 231 26% 16%;              /* #1c2540 — +9% vs bg, clearly elevated */
+    --card: 217 33% 17%;              /* #1e293b — slate-800, elevated surface */
     --card-foreground: 220 20% 94%;
 
-    --popover: 231 26% 18%;           /* #202940 — above card */
+    --popover: 217 33% 20%;           /* #25324a — above card */
     --popover-foreground: 220 20% 94%;
 
     /* ─── Brand ─── */
-    --primary: 244 76% 65%;           /* #6366f1 — brightened for dark bg contrast */
+    --primary: 244 76% 65%;           /* #6366f1 — brightened indigo for dark bg contrast */
     --primary-foreground: 0 0% 100%;
 
     /* ─── Secondary / Muted ─── */
-    --secondary: 231 22% 23%;         /* #283050 — hover / selected on card */
+    --secondary: 215 19% 27%;         /* #334155 — slate-700, hover / selected on card */
     --secondary-foreground: 220 20% 94%;
 
-    --muted: 231 24% 11%;             /* #121828 — just above background */
+    --muted: 222 40% 14%;             /* #141c2e — just above background */
     --muted-foreground: 220 15% 62%;  /* #8d97bc — readable on dark surfaces */
 
     /* ─── Accent (nav hover) ─── */
@@ -78,9 +82,13 @@
     --destructive-foreground: 0 0% 100%;
 
     /* ─── Chrome ─── */
-    --border: 231 22% 28%;            /* #30396a — clearly visible border */
-    --input: 231 22% 28%;
+    --border: 215 19% 27%;            /* #334155 — slate-700, clearly visible border */
+    --input: 215 19% 27%;
     --ring: 244 76% 65%;
+
+    /* ─── Glass surfaces (KPI cards, dashboard panels) ─── */
+    --card-glass: 217 33% 17%;        /* #1e293b — slate-800, used at 80% alpha by .glass-card */
+    --card-glass-border: 215 19% 27%; /* #334155 — slate-700 */
 
     /* ─── Status colors ─── */
     --status-critical: 0 100% 60%;
@@ -96,5 +104,21 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .glass-card {
+    background-color: hsl(var(--card-glass) / 0.8);
+    border: 1px solid hsl(var(--card-glass-border));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  }
+
+  .dark .glass-card {
+    box-shadow:
+      inset 1px 1px 0 rgba(255, 255, 255, 0.05),
+      0 4px 20px rgba(0, 0, 0, 0.4);
   }
 }

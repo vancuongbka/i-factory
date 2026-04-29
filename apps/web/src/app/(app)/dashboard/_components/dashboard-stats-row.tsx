@@ -16,9 +16,9 @@ function GaugeIcon({ value, color }: { value: number; color: string }) {
   const circ = 2 * Math.PI * r;
   const dash = (value / 100) * circ;
   return (
-    <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+    <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-muted">
       <svg width="28" height="28" viewBox="0 0 40 40" aria-hidden="true">
-        <circle cx="20" cy="20" r={r} fill="none" stroke="var(--border)" strokeWidth="4" />
+        <circle cx="20" cy="20" r={r} fill="none" stroke="hsl(var(--border))" strokeWidth="4" />
         <circle
           cx="20" cy="20" r={r}
           fill="none"
@@ -50,6 +50,8 @@ export function DashboardStatsRow({ data, isLoading }: DashboardStatsRowProps) {
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
       {/* OEE */}
       <KpiCard
+        variant="glass"
+        accent="primary"
         title={t('oee.title')}
         value={isLoading ? '—' : `${oee}%`}
         description={isLoading ? undefined : t('oee.description')}
@@ -62,7 +64,7 @@ export function DashboardStatsRow({ data, isLoading }: DashboardStatsRowProps) {
                 label: oee >= 75 ? t('oee.good') : oee >= 50 ? t('oee.average') : t('oee.poor'),
               }
         }
-        icon={<GaugeIcon value={oee} color={oee >= 75 ? '#16a34a' : oee >= 50 ? '#d97706' : '#dc2626'} />}
+        icon={<GaugeIcon value={oee} color={oee >= 75 ? '#10b981' : oee >= 50 ? '#f59e0b' : '#f43f5e'} />}
         viewReportHref="/reports"
         viewReportLabel={t('viewReport')}
         className={isLoading ? skeleton : ''}
@@ -70,6 +72,7 @@ export function DashboardStatsRow({ data, isLoading }: DashboardStatsRowProps) {
 
       {/* Actual vs Planned Output */}
       <KpiCard
+        variant="glass"
         title={t('output.title')}
         value={isLoading ? '—' : `${outputPct}%`}
         description={isLoading ? undefined : `${outputActual} / ${outputPlanned} ${t('output.units')}`}
@@ -83,8 +86,8 @@ export function DashboardStatsRow({ data, isLoading }: DashboardStatsRowProps) {
               }
         }
         icon={
-          <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900/30">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600 dark:text-blue-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-100 dark:bg-indigo-900/30">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-indigo-600 dark:text-indigo-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
               <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
             </svg>
           </span>
@@ -95,6 +98,7 @@ export function DashboardStatsRow({ data, isLoading }: DashboardStatsRowProps) {
 
       {/* Yield Rate */}
       <KpiCard
+        variant="glass"
         title={t('yieldRate.title')}
         value={isLoading ? '—' : `${yieldRate}%`}
         description={isLoading ? undefined : t('yieldRate.description')}
@@ -108,8 +112,8 @@ export function DashboardStatsRow({ data, isLoading }: DashboardStatsRowProps) {
               }
         }
         icon={
-          <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-green-100 dark:bg-green-900/30">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-600 dark:text-green-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-100 dark:bg-emerald-900/30">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-emerald-600 dark:text-emerald-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
               <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
           </span>
@@ -120,6 +124,7 @@ export function DashboardStatsRow({ data, isLoading }: DashboardStatsRowProps) {
 
       {/* Active Machines */}
       <KpiCard
+        variant="glass"
         title={t('machines.title')}
         value={isLoading ? '—' : `${activeMachines}/${totalMachines}`}
         description={isLoading ? undefined : t('machines.description')}
@@ -133,8 +138,8 @@ export function DashboardStatsRow({ data, isLoading }: DashboardStatsRowProps) {
               }
         }
         icon={
-          <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-orange-100 dark:bg-orange-900/30">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-orange-500 dark:text-orange-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-amber-100 dark:bg-amber-900/30">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-amber-500 dark:text-amber-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
               <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
             </svg>
           </span>

@@ -226,7 +226,7 @@ export function Sidebar() {
 
       <aside
         className={[
-          'flex flex-shrink-0 flex-col border-r bg-card',
+          'flex flex-shrink-0 flex-col border-r border-border bg-card/95 backdrop-blur-md supports-[backdrop-filter]:bg-card/85',
           // Mobile: fixed overlay drawer, slides in/out
           'fixed inset-y-0 left-0 z-50 w-64',
           'transition-transform duration-300 ease-in-out',
@@ -290,9 +290,11 @@ export function Sidebar() {
                         title={!isOpen ? t(item.labelKey as Parameters<typeof t>[0]) : undefined}
                         onClick={() => { if (window.innerWidth < 1024) close(); }}
                         className={[
-                          'flex items-center rounded-lg text-[13px] font-medium transition-colors',
+                          'relative flex items-center rounded-lg text-[13px] font-medium transition-colors',
                           isOpen ? 'gap-3 px-2.5 py-2' : 'justify-center p-2',
-                          active ? 'bg-secondary text-foreground' : 'text-foreground hover:bg-muted',
+                          active
+                            ? 'bg-accent text-accent-foreground before:absolute before:left-0 before:top-1.5 before:bottom-1.5 before:w-[3px] before:rounded-r before:bg-primary'
+                            : 'text-foreground hover:bg-muted',
                         ].join(' ')}
                       >
                         <span className={`flex-shrink-0 ${active ? 'text-primary' : 'text-muted-foreground'}`}>

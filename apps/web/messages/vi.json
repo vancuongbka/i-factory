@@ -32,7 +32,15 @@
   "topbar": {
     "searchPlaceholder": "Tìm kiếm...",
     "settings": "Cài đặt",
-    "signOut": "Đăng xuất"
+    "signOut": "Đăng xuất",
+    "online": "Đang kết nối",
+    "offline": "Mất kết nối",
+    "theme": {
+      "label": "Giao diện",
+      "system": "Theo hệ thống",
+      "light": "Sáng",
+      "dark": "Tối"
+    }
   },
   "auth": {
     "signIn": "Đăng nhập",

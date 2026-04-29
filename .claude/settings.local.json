@@ -10,7 +10,8 @@
       "Bash(npx tsc *)",
       "Bash(pnpm --filter @i-factory/web add @dnd-kit/core @dnd-kit/utilities)",
       "Bash(grep -r \"t\\(\\\\`status\\\\.\" /c/Workspace/Sources/i-factory/apps/web/src --include=\"*.tsx\")",
-      "Bash(pnpm typecheck *)"
+      "Bash(pnpm typecheck *)",
+      "Bash(pnpm exec *)"
     ]
   }
 }
