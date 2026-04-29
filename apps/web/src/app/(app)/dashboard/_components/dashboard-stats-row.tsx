@@ -44,8 +44,6 @@ export function DashboardStatsRow({ data, isLoading }: DashboardStatsRowProps) {
   const activeMachines = data?.machines.active ?? 0;
   const totalMachines = data?.machines.total ?? 0;
 
-  const skeleton = 'animate-pulse rounded bg-muted h-8 w-16';
-
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
       {/* OEE */}
@@ -65,7 +63,6 @@ export function DashboardStatsRow({ data, isLoading }: DashboardStatsRowProps) {
         icon={<GaugeIcon value={oee} color={oee >= 75 ? '#16a34a' : oee >= 50 ? '#d97706' : '#dc2626'} />}
         viewReportHref="/reports"
         viewReportLabel={t('viewReport')}
-        className={isLoading ? skeleton : ''}
       />
 
       {/* Actual vs Planned Output */}

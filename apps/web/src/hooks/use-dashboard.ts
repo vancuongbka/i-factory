@@ -10,6 +10,7 @@ export function useDashboard() {
     queryKey: ['dashboard', factoryId],
     queryFn: () => apiClient.dashboard.get(factoryId!),
     enabled: !!factoryId,
-    refetchInterval: 30_000, // auto-refresh every 30 s
+    staleTime: 30_000,
+    refetchInterval: 30_000,
   });
 }
